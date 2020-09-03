@@ -23,7 +23,7 @@
             android:layout_marginVertical="10dp"
             android:layout_marginHorizontal="25dp"
             app:layout_constraintBottom_toTopOf="@+id/list_history_linear"
-            app:layout_constraintEnd_star="parent"
+            app:layout_constraintEnd_toStartOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
