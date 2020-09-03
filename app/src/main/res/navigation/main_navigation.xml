@@ -1,5 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/main_navigation">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation"
+    app:startDestination="@id/loginFragment">
 
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.androidfinalproject.screens.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_chooseUserFragment"
+            app:destination="@id/chooseUserFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/chooseUserFragment"
+        android:name="com.example.androidfinalproject.screens.ChooseUserFragment"
+        android:label="fragment_choose_user"
+        tools:layout="@layout/fragment_choose_user" >
+        <action
+            android:id="@+id/action_chooseUserFragment_to_providerRegisterFragment"
+            app:destination="@id/providerRegisterFragment" />
+        <action
+            android:id="@+id/action_chooseUserFragment_to_userRegisterFragment"
+            app:destination="@id/userRegisterFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/providerRegisterFragment"
+        android:name="com.example.androidfinalproject.screens.provider.ProviderRegisterFragment"
+        android:label="fragment_provider_register"
+        tools:layout="@layout/fragment_provider_register" />
+    <fragment
+        android:id="@+id/userRegisterFragment"
+        android:name="com.example.androidfinalproject.screens.user.UserRegisterFragment"
+        android:label="fragment_user_register"
+        tools:layout="@layout/fragment_user_register" />
+    <action android:id="@+id/action_global_loginFragment" app:destination="@id/loginFragment"/>
 </navigation>
