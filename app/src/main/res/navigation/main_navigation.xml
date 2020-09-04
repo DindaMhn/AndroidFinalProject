@@ -14,8 +14,8 @@
             android:id="@+id/action_loginFragment_to_chooseUserFragment"
             app:destination="@id/chooseUserFragment" />
         <action
-            android:id="@+id/action_loginFragment_to_menuActivity"
-            app:destination="@id/menuActivity" />
+            android:id="@+id/action_loginFragment_to_menuUserActivity"
+            app:destination="@id/menuUserActivity" />
         <action
             android:id="@+id/action_loginFragment_to_menuProviderActivity"
             app:destination="@id/menuProviderActivity" />
@@ -44,7 +44,7 @@
         tools:layout="@layout/fragment_user_register" />
     <action android:id="@+id/action_global_loginFragment" app:destination="@id/loginFragment" />
     <activity
-        android:id="@+id/menuActivity"
+        android:id="@+id/menuUserActivity"
         android:name="com.example.androidfinalproject.activity.user.MenuUserActivity"
         android:label="activity_menu"
         tools:layout="@layout/activity_menu_user" />

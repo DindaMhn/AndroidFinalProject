@@ -40,7 +40,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="20dp"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
@@ -87,6 +87,16 @@
                             android:textStyle="bold" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/tambahAssetButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="30dp"
+                    android:backgroundTint="@color/colorBlue"
+                    android:text="Tambah Asset"
+                    app:cornerRadius="38dp"
+                    app:iconGravity="textEnd"></com.google.android.material.button.MaterialButton>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
