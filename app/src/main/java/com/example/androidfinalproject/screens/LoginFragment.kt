@@ -1,6 +1,8 @@
 package com.example.androidfinalproject.screens
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -25,11 +27,17 @@ import javax.inject.Inject
 class LoginFragment : Fragment(), View.OnClickListener {
     @Inject
     lateinit var providerViewModel: ProviderViewModel
+
     @Inject
     lateinit var userViewModel: UserViewModel
+    var sharedPreferences: SharedPreferences? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         (activity?.applicationContext as MyApplication).applicationComponent.inject(this)
+        activity?.getSharedPreferences(
+            getString(R.string.shared_preference_name),
+            Context.MODE_PRIVATE
+        )
     }
 
     override fun onCreateView(
@@ -44,29 +52,46 @@ class LoginFragment : Fragment(), View.OnClickListener {
         super.onViewCreated(view, savedInstanceState)
         providerViewModel.providerResponse.observe(
             viewLifecycleOwner, Observer {
-                if (it.status == 400.toString() && it.message=="Login Provider Failed") {
+                if (it.status == 400.toString() && it.message == "Login Provider Failed") {
                     Toast.makeText(
                         this.context,
                         "Invalid Login",
                         Toast.LENGTH_SHORT
                     ).show()
-                } else if (it.status == 200.toString()){
+                } else if (it.status == 200.toString()) {
                     Toast.makeText(this.context, "Login Success", Toast.LENGTH_SHORT)
                         .show()
-                    view?.findNavController().navigate(R.id.action_loginFragment_to_menuProviderActivity)
+                    view?.findNavController()
+                        .navigate(R.id.action_loginFragment_to_menuProviderActivity)
                 }
             })
         userViewModel.userResponse.observe(
             viewLifecycleOwner, Observer {
-                if (it.status == 400.toString() && it.message=="Login User Failed") {
+                if (it.status == 400.toString() && it.message == "Login User Failed") {
                     Toast.makeText(
                         this.context,
                         "Invalid Login",
                         Toast.LENGTH_SHORT
                     ).show()
-                } else if (it.status == 200.toString()){
+                } else if (it.status == 200.toString()) {
                     Toast.makeText(this.context, "Login Success", Toast.LENGTH_SHORT)
                         .show()
+                    userViewModel.userData.observe(
+                        viewLifecycleOwner, Observer {
+                            println("ID USER LOGIN" + it.id)
+//                            if (it != null) {
+                                with(sharedPreferences?.edit()) {
+                                    this?.putString(
+                                        getString(R.string.id_key),
+                                        it.id
+                                    )
+                                    this?.commit()
+                                }
+                            val bundle = bundleOf(Pair("id_user",it.id))
+                                view?.findNavController()
+                                    ?.navigate(R.id.action_loginFragment_to_menuUserActivity,bundle)
+//                            }
+                        })
 //                    view?.findNavController().navigate(R.id.action_loginFragment_to_menuUserActivity)
                 }
             })
@@ -103,18 +128,9 @@ class LoginFragment : Fragment(), View.OnClickListener {
                     Toast.makeText(this.context, "Must be Field", Toast.LENGTH_SHORT).show()
                 } else {
                     userViewModel.loginUser(userLogin)
-//                    userViewModel.userData.observe(
-//                        viewLifecycleOwner, Observer {
-//                            val bundle = bundleOf(Pair("id_user",it.id))
-//                            println("ID USER LOGIN"+it.id)
-//                            val intent = Intent(activity, MenuUserActivity::class.java)
-//                            intent?.putExtra("id_user",it.id)
-//                            activity?.startActivity(intent)
-//                            println("INTENT"+intent)
-                            view?.findNavController()?.navigate(R.id.action_loginFragment_to_menuUserActivity)
-                        }
 
                 }
             }
         }
     }
+}

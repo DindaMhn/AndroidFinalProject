@@ -12,6 +12,6 @@ interface UserAPI {
     fun loginUser(@Body user: User): Call<ResponseDataUser>
     @POST("authUser/register")
     fun registerUser(@Body user: User): Call<ResponseDataUser>
-    @GET
+    @GET("user/saldo/{id}")
     fun getSaldoUser(@Path("id") id: String):Call<ResponseDataUser>
 }

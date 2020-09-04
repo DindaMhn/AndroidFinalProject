@@ -1,5 +1,7 @@
 package com.example.androidfinalproject.screens.user
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -16,9 +18,14 @@ import javax.inject.Inject
 class HomeUserFragment : Fragment(), View.OnClickListener {
     @Inject
     lateinit var userViewModel: UserViewModel
+    var sharedPreferences: SharedPreferences? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         (activity?.applicationContext as MyApplication).applicationComponent.inject(this)
+        sharedPreferences = activity?.getSharedPreferences(
+            getString(R.string.shared_preference_name),
+            Context.MODE_PRIVATE
+        )
     }
 
     override fun onCreateView(
@@ -33,14 +40,16 @@ class HomeUserFragment : Fragment(), View.OnClickListener {
         super.onViewCreated(view, savedInstanceState)
         topUpButton.setOnClickListener(this)
         println("MASUK")
-//        println("ID USER"+arguments?.getString("user_id").toString())
-//        userViewModel.getUserSaldo(arguments?.getString("id_user").toString())
-        userViewModel.userData.observe(viewLifecycleOwner, Observer {
-            println("ID USER"+it.id)
-        })
+        println("ID USER"+arguments?.getString("user_id").toString())
+//        val id = sharedPreferences?.getString(
+//            getString(R.string.id_key),
+//            getString(R.string.default_value)
+//        )
+        userViewModel.getUserSaldo(arguments?.getString("user_id").toString())
+//println("ID USER HOME"+id)
+//        println("ID HOME USER WITH BUNDLE"+arguments?.getString("user_id").toString())
         userViewModel.userSaldoData.observe(viewLifecycleOwner, Observer {
-            saldoUserText.text = "Rp. "+it.saldo
-            println("MASUK SINI")
+            saldoUserText.text = "Rp. ${it.saldo}"
         })
     }
 
