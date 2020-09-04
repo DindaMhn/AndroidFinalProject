@@ -25,6 +25,10 @@ class MenuUserActivity : AppCompatActivity() {
                     navController.navigate(R.id.action_global_scanUserFragment)
                     true
                 }
+                R.id.historyUser -> {
+                    navController.navigate(R.id.action_global_historyUserFragment)
+                    true
+                }
                 else ->{
                     true
                 }
