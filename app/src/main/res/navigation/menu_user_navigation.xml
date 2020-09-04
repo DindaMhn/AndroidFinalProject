@@ -15,9 +15,15 @@
             app:destination="@id/topUpSaldoFragment" />
     </fragment>
     <action android:id="@+id/action_global_homeUserFragment" app:destination="@id/homeUserFragment" />
+    <action android:id="@+id/action_global_scanUserFragment" app:destination="@id/scanAssetQrCodeFragment" />
     <fragment
         android:id="@+id/topUpSaldoFragment"
         android:name="com.example.androidfinalproject.screens.user.TopUpSaldoFragment"
         android:label="fragment_top_up_saldo"
         tools:layout="@layout/fragment_top_up_saldo" />
+    <fragment
+        android:id="@+id/scanAssetQrCodeFragment"
+        android:name="com.example.androidfinalproject.screens.user.ScanAssetQrCodeFragment"
+        android:label="fragment_scan_asset_qr_code"
+        tools:layout="@layout/fragment_scan_asset_qr_code" />
 </navigation>
