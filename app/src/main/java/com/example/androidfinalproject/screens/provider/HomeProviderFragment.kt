@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import com.example.androidfinalproject.MyApplication
@@ -44,7 +45,8 @@ class HomeProviderFragment : Fragment(), View.OnClickListener {
         when (v) {
             addAssetButton -> {
                 v?.findNavController()
-                    ?.navigate(R.id.action_homeProviderFragment_to_addAssetFragment)
+                    ?.navigate(R.id.action_homeProviderFragment_to_addAssetFragment,
+                        bundleOf("id" to arguments?.getString("provider_id").toString() ))
             }
         }
     }

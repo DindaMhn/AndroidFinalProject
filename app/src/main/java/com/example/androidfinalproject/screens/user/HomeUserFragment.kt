@@ -7,8 +7,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.example.androidfinalproject.MyApplication
 import com.example.androidfinalproject.R
 import com.example.androidfinalproject.user.account.UserViewModel
@@ -41,24 +43,32 @@ class HomeUserFragment : Fragment(), View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         topUpButton.setOnClickListener(this)
-        println("MASUK")
-        println("ID USER"+arguments?.getString("user_id").toString())
 //        val id = sharedPreferences?.getString(
 //            getString(R.string.id_key),
 //            getString(R.string.default_value)
 //        )
-        userHomeViewModel.getUserSaldo(arguments?.getString("user_id").toString())
+//        userHomeViewModel.getUserSaldo(arguments?.getString("user_id").toString())
 //println("ID USER HOME"+id)
 //        println("ID HOME USER WITH BUNDLE"+arguments?.getString("user_id").toString())
         userHomeViewModel.userSaldoData.observe(viewLifecycleOwner, Observer {
             saldoUserText.text = "Rp. ${it.saldo}"
         })
+
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        userHomeViewModel.getUserSaldo(arguments?.getString("user_id").toString())
     }
 
     override fun onClick(v: View?) {
         when (v) {
             topUpButton -> {
-                v?.findNavController()?.navigate(R.id.action_homeUserFragment_to_topUpSaldoFragment)
+                v?.findNavController()?.navigate(
+                    R.id.action_homeUserFragment_to_topUpSaldoFragment,
+                    bundleOf("wallet" to arguments?.getString("wallet_id"))
+                )
             }
         }
     }

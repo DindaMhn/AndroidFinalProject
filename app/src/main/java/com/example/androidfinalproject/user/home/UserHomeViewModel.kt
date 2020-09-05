@@ -9,4 +9,7 @@ class UserHomeViewModel @Inject constructor(var userHomeRepository: UserHomeRepo
     fun getUserSaldo(id: String) {
         userHomeRepository.getSaldoUser(id)
     }
+    fun updateSaldoUser(id:String, userWallet: UserWallet){
+        userHomeRepository.updateSaldoUser(id,userWallet)
+    }
 }

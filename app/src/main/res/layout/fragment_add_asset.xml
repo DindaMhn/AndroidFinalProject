@@ -88,7 +88,7 @@
                             app:boxCornerRadiusTopStart="10dp">
 
                             <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/asserAreaInput"
+                                android:id="@+id/assetAreaInput"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:backgroundTint="@android:color/transparent"
@@ -193,10 +193,10 @@
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
 
-                            <ImageView
-                                android:id="@+id/imageAsset"
+                            <EditText
+                                android:id="@+id/imageUrlAsset"
                                 android:layout_width="match_parent"
-                                android:layout_height="150dp"
+                                android:layout_height="wrap_content"
                                 android:layout_margin="5dp"
                                 android:layout_weight="1" />
 

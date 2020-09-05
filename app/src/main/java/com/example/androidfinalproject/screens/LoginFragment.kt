@@ -57,10 +57,10 @@ class LoginFragment : Fragment(), View.OnClickListener {
                 } else if (it.status == 200.toString()) {
                     Toast.makeText(this.context, "Login Success", Toast.LENGTH_SHORT)
                         .show()
-                        println("ID PROVIDER login"+it.result)
-                        val bundle = bundleOf(Pair("id_provider",it.result))
-                        view?.findNavController()
-                            .navigate(R.id.action_loginFragment_to_menuProviderActivity,bundle)
+                    println("ID PROVIDER login" + it.result)
+                    val bundle = bundleOf(Pair("id_provider", it.result))
+                    view?.findNavController()
+                        .navigate(R.id.action_loginFragment_to_menuProviderActivity, bundle)
 
                 }
             })
@@ -86,9 +86,18 @@ class LoginFragment : Fragment(), View.OnClickListener {
 //                                    )
 //                                    this?.commit()
 //                                }
-                            val bundle = bundleOf(Pair("id_user",it.id))
-                                view?.findNavController()
-                                    ?.navigate(R.id.action_loginFragment_to_menuUserActivity,bundle)
+                            val bundle = bundleOf(
+                                Pair("id_user", it.id),
+                                Pair("id_wallet", it.id_wallet),
+                                Pair("fullname", it.fullname),
+                                Pair("phone", it.phone_number),
+                                Pair("photo", it.photo),
+                                Pair("address", it.address),
+                                Pair("borndate", it.borndate)
+                            )
+                            println("Phone nummber USER LOGIN" + it.phone_number)
+                            view?.findNavController()
+                                ?.navigate(R.id.action_loginFragment_to_menuUserActivity, bundle)
                         })
                 }
             })

@@ -60,7 +60,7 @@ class UserRegisterFragment : Fragment(), View.OnClickListener {
                     email = inputEmailRegisUser.text.toString(),
                     username = inputUnameRegisUser.text.toString(),
                     password = InputPwRegisUser.text.toString(),
-                    phoneNumber = inputPhoneRegisUser.text.toString(),
+                    phone_number = inputPhoneRegisUser.text.toString(),
                     fullname = inputFNameRegisUser.text.toString()
                 )
                 userViewModel.registerUser(userData)

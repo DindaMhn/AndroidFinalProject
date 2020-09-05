@@ -5,6 +5,7 @@ import com.example.androidfinalproject.provider.account.ProviderAPI
 import com.example.androidfinalproject.provider.home.ProviderHomeAPI
 import com.example.androidfinalproject.user.account.UserAPI
 import com.example.androidfinalproject.user.home.UserHomeAPI
+import com.example.androidfinalproject.user.profile.UserProfileAPI
 import dagger.Module
 import dagger.Provides
 
@@ -25,5 +26,9 @@ class NetworkModule {
     @Provides
     fun provideProviderHomeAPI():ProviderHomeAPI{
         return RetrofitBuilder.createRetrofit().create(ProviderHomeAPI::class.java)
+    }
+    @Provides
+    fun provideUserProfileAPI():UserProfileAPI{
+        return RetrofitBuilder.createRetrofit().create(UserProfileAPI::class.java)
     }
 }
