@@ -20,4 +20,10 @@
         android:name="com.example.androidfinalproject.screens.user.TopUpSaldoFragment"
         android:label="fragment_top_up_saldo"
         tools:layout="@layout/fragment_top_up_saldo" />
+    <fragment
+        android:id="@+id/profileUserFagment"
+        android:name="com.example.androidfinalproject.screens.user.ProfileUserFagment"
+        android:label="fragment_profile_user_fagment"
+        tools:layout="@layout/fragment_profile_user_fagment" />
+    <action android:id="@+id/action_global_profileUserFagment" app:destination="@id/profileUserFagment" />
 </navigation>

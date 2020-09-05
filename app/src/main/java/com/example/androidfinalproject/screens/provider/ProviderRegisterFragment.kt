@@ -10,9 +10,8 @@ import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import com.example.androidfinalproject.MyApplication
 import com.example.androidfinalproject.R
-import com.example.androidfinalproject.provider.Provider
-import com.example.androidfinalproject.provider.ProviderViewModel
-import kotlinx.android.synthetic.main.fragment_login.*
+import com.example.androidfinalproject.provider.account.Provider
+import com.example.androidfinalproject.provider.account.ProviderViewModel
 import kotlinx.android.synthetic.main.fragment_provider_register.*
 import javax.inject.Inject
 
@@ -57,13 +56,14 @@ class ProviderRegisterFragment : Fragment(), View.OnClickListener {
                     ?.navigate(R.id.action_global_loginFragment)
             }
             regisButtonProvider->{
-                val providerData = Provider(
-                    email = inputEmailRegisProvider.text.toString(),
-                    username = inputUnameRegisProvider.text.toString(),
-                    password = InputPwRegisProvider.text.toString(),
-                    phoneNumber = inputPhoneRegisProvider.text.toString(),
-                    fullname = inputFNameRegisProvider.text.toString()
-                )
+                val providerData =
+                    Provider(
+                        email = inputEmailRegisProvider.text.toString(),
+                        username = inputUnameRegisProvider.text.toString(),
+                        password = InputPwRegisProvider.text.toString(),
+                        phoneNumber = inputPhoneRegisProvider.text.toString(),
+                        fullname = inputFNameRegisProvider.text.toString()
+                    )
                 providerViewModel.registerProvider(providerData)
             }
         }

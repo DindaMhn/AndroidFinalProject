@@ -89,12 +89,12 @@
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/tambahAssetButton"
+                    android:id="@+id/addAssetButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="30dp"
                     android:backgroundTint="@color/colorBlue"
-                    android:text="Tambah Asset"
+                    android:text="Add Asset"
                     app:cornerRadius="38dp"
                     app:iconGravity="textEnd"></com.google.android.material.button.MaterialButton>
             </LinearLayout>

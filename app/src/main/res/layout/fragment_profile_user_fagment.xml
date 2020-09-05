@@ -28,23 +28,41 @@
                 android:layout_weight="1"
                 android:orientation="vertical">
 
-                <ImageView
+                <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/photoProfileUser"
                     android:layout_width="120dp"
                     android:layout_height="120dp"
-                    android:layout_gravity="center" />
+                    android:layout_gravity="center"
+                    android:src="@color/colorBlue"/>
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/ChangePhotoProfileUser"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:clickable="true"
-                android:text="Ganti Foto Profil"
-                android:textColor="@color/colorBlue"
-                android:textSize="20dp" />
+                android:orientation="horizontal"
+                android:layout_gravity="center">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/ChangePhotoUser"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="5dp"
+                    android:clickable="true"
+                    android:text="Edit Photo"
+                    app:cornerRadius="38dp"
+                    android:backgroundTint="@color/colorBlue" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/deleteUserPhoto"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Delete Photo"
+                    app:cornerRadius="38dp"
+                    android:backgroundTint="@color/colorRed"/>
+            </LinearLayout>
 
             <EditText
                 android:id="@+id/fNameUserEditTextUser"

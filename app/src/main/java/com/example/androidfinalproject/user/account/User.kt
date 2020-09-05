@@ -1,6 +1,6 @@
-package com.example.androidfinalproject.provider
+package com.example.androidfinalproject.user.account
 
-class Provider (
+class User(
     var id: String = "",
     var username: String = "",
     var password: String = "",
@@ -14,11 +14,4 @@ class Provider (
     var editedAt: String = "",
     var deletedAt: String = "",
     var status: String = ""
-)
-
-class ResponseData (
-    var message: String = "",
-    var status: String = "",
-    var token: String = "",
-    var result: Any
 )

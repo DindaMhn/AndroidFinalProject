@@ -1,7 +1,6 @@
 package com.example.androidfinalproject.screens
 
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -11,16 +10,13 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
-import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.example.androidfinalproject.MyApplication
 import com.example.androidfinalproject.R
-import com.example.androidfinalproject.activity.user.MenuUserActivity
-import com.example.androidfinalproject.provider.Provider
-import com.example.androidfinalproject.provider.ProviderViewModel
-import com.example.androidfinalproject.user.User
-import com.example.androidfinalproject.user.UserViewModel
+import com.example.androidfinalproject.provider.account.Provider
+import com.example.androidfinalproject.provider.account.ProviderViewModel
+import com.example.androidfinalproject.user.account.User
+import com.example.androidfinalproject.user.account.UserViewModel
 import kotlinx.android.synthetic.main.fragment_login.*
 import javax.inject.Inject
 
@@ -61,8 +57,11 @@ class LoginFragment : Fragment(), View.OnClickListener {
                 } else if (it.status == 200.toString()) {
                     Toast.makeText(this.context, "Login Success", Toast.LENGTH_SHORT)
                         .show()
-                    view?.findNavController()
-                        .navigate(R.id.action_loginFragment_to_menuProviderActivity)
+                        println("ID PROVIDER login"+it.result)
+                        val bundle = bundleOf(Pair("id_provider",it.result))
+                        view?.findNavController()
+                            .navigate(R.id.action_loginFragment_to_menuProviderActivity,bundle)
+
                 }
             })
         userViewModel.userResponse.observe(
@@ -80,19 +79,17 @@ class LoginFragment : Fragment(), View.OnClickListener {
                         viewLifecycleOwner, Observer {
                             println("ID USER LOGIN" + it.id)
 //                            if (it != null) {
-                                with(sharedPreferences?.edit()) {
-                                    this?.putString(
-                                        getString(R.string.id_key),
-                                        it.id
-                                    )
-                                    this?.commit()
-                                }
+//                                with(sharedPreferences?.edit()) {
+//                                    this?.putString(
+//                                        getString(R.string.id_key),
+//                                        it.id
+//                                    )
+//                                    this?.commit()
+//                                }
                             val bundle = bundleOf(Pair("id_user",it.id))
                                 view?.findNavController()
                                     ?.navigate(R.id.action_loginFragment_to_menuUserActivity,bundle)
-//                            }
                         })
-//                    view?.findNavController().navigate(R.id.action_loginFragment_to_menuUserActivity)
                 }
             })
 
@@ -106,11 +103,12 @@ class LoginFragment : Fragment(), View.OnClickListener {
                 v?.findNavController()?.navigate(R.id.action_loginFragment_to_chooseUserFragment)
             }
             loginButton -> {
-                val providerLogin = Provider(
-                    username = userNameInputLogin.text.toString(),
-                    email = userNameInputLogin.text.toString(),
-                    password = passwordInputLogin.text.toString()
-                )
+                val providerLogin =
+                    Provider(
+                        username = userNameInputLogin.text.toString(),
+                        email = userNameInputLogin.text.toString(),
+                        password = passwordInputLogin.text.toString()
+                    )
                 if (userNameInputLogin.text.toString() == "" ||
                     passwordInputLogin.text.toString() == ""
                 ) {
@@ -118,10 +116,11 @@ class LoginFragment : Fragment(), View.OnClickListener {
                 } else {
                     providerViewModel.loginProvider(providerLogin)
                 }
-                val userLogin = User(
-                    username = userNameInputLogin.text.toString(),
-                    password = passwordInputLogin.text.toString()
-                )
+                val userLogin =
+                    User(
+                        username = userNameInputLogin.text.toString(),
+                        password = passwordInputLogin.text.toString()
+                    )
                 if (userNameInputLogin.text.toString() == "" ||
                     passwordInputLogin.text.toString() == ""
                 ) {

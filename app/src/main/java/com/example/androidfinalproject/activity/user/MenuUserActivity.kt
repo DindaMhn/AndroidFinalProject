@@ -1,20 +1,17 @@
 package com.example.androidfinalproject.activity.user
 
-import android.app.Dialog
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
-import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.navArgs
 import androidx.navigation.ui.NavigationUI
 import com.example.androidfinalproject.MyApplication
 import com.example.androidfinalproject.R
-import com.example.androidfinalproject.user.UserViewModel
+import com.example.androidfinalproject.user.account.UserViewModel
 import kotlinx.android.synthetic.main.activity_menu_user.*
 import javax.inject.Inject
 
@@ -49,6 +46,10 @@ class MenuUserActivity : AppCompatActivity() {
                 R.id.homeUser -> {
                     val bundle = bundleOf(Pair("user_id",id))
                     navController.navigate(R.id.action_global_homeUserFragment)
+                    true
+                }
+                R.id.profileUser->{
+                    navController.navigate(R.id.action_global_profileUserFagment)
                     true
                 }
                 else ->{

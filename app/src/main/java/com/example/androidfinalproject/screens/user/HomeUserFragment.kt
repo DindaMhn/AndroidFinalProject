@@ -11,13 +11,15 @@ import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import com.example.androidfinalproject.MyApplication
 import com.example.androidfinalproject.R
-import com.example.androidfinalproject.user.UserViewModel
+import com.example.androidfinalproject.user.account.UserViewModel
+import com.example.androidfinalproject.user.home.UserHomeRepository
+import com.example.androidfinalproject.user.home.UserHomeViewModel
 import kotlinx.android.synthetic.main.fragment_home_user.*
 import javax.inject.Inject
 
 class HomeUserFragment : Fragment(), View.OnClickListener {
     @Inject
-    lateinit var userViewModel: UserViewModel
+    lateinit var userHomeViewModel: UserHomeViewModel
     var sharedPreferences: SharedPreferences? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,10 +47,10 @@ class HomeUserFragment : Fragment(), View.OnClickListener {
 //            getString(R.string.id_key),
 //            getString(R.string.default_value)
 //        )
-        userViewModel.getUserSaldo(arguments?.getString("user_id").toString())
+        userHomeViewModel.getUserSaldo(arguments?.getString("user_id").toString())
 //println("ID USER HOME"+id)
 //        println("ID HOME USER WITH BUNDLE"+arguments?.getString("user_id").toString())
-        userViewModel.userSaldoData.observe(viewLifecycleOwner, Observer {
+        userHomeViewModel.userSaldoData.observe(viewLifecycleOwner, Observer {
             saldoUserText.text = "Rp. ${it.saldo}"
         })
     }

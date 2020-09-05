@@ -10,10 +10,8 @@ import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import com.example.androidfinalproject.MyApplication
 import com.example.androidfinalproject.R
-import com.example.androidfinalproject.provider.Provider
-import com.example.androidfinalproject.user.User
-import com.example.androidfinalproject.user.UserViewModel
-import kotlinx.android.synthetic.main.fragment_provider_register.*
+import com.example.androidfinalproject.user.account.User
+import com.example.androidfinalproject.user.account.UserViewModel
 import kotlinx.android.synthetic.main.fragment_user_register.*
 import javax.inject.Inject
 
