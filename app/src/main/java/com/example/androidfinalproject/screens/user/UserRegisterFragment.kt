@@ -41,7 +41,7 @@ class UserRegisterFragment : Fragment(), View.OnClickListener {
                     Toast.makeText(this.context, "Register Success", Toast.LENGTH_SHORT)
                         .show()
                     view?.findNavController()
-                        ?.navigate(R.id.action_global_loginFragment)
+                        ?.navigate(R.id.action_global_loginUserFragment)
                 }
             })
 
@@ -53,7 +53,7 @@ class UserRegisterFragment : Fragment(), View.OnClickListener {
         when (v) {
             LoginUserText -> {
                 v?.findNavController()
-                    ?.navigate(R.id.action_global_loginFragment)
+                    ?.navigate(R.id.action_global_chooseLoginFragment)
             }
             regisButtonUser->{
                 val userData = User(

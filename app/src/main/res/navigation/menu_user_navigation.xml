@@ -13,9 +13,6 @@
         <action
             android:id="@+id/action_homeUserFragment_to_topUpSaldoFragment"
             app:destination="@id/topUpSaldoFragment" />
-        <action
-            android:id="@+id/action_homeUserFragment_to_topUpSuccessFragment"
-            app:destination="@id/topUpSuccessFragment" />
     </fragment>
     <action android:id="@+id/action_global_homeUserFragment" app:destination="@id/homeUserFragment" />
     <fragment
@@ -29,9 +26,4 @@
         android:label="fragment_profile_user_fagment"
         tools:layout="@layout/fragment_profile_user_fagment" />
     <action android:id="@+id/action_global_profileUserFagment" app:destination="@id/profileUserFagment" />
-    <fragment
-        android:id="@+id/topUpSuccessFragment"
-        android:name="com.example.androidfinalproject.screens.user.TopUpSuccessFragment"
-        android:label="fragment_top_up_success"
-        tools:layout="@layout/fragment_top_up_success" />
 </navigation>

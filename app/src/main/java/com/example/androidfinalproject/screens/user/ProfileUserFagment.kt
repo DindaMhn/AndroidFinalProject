@@ -62,11 +62,15 @@ class ProfileUserFagment : Fragment(), View.OnClickListener {
             Editable.Factory.getInstance().newEditable(arguments?.getString("fname").toString())
         phoneNumberEditTextUser.text =
             Editable.Factory.getInstance().newEditable(arguments?.getString("pnumber").toString())
-        addressEditTextUser.text =
-            Editable.Factory.getInstance()
-                .newEditable(arguments?.getString("address_user").toString())
-        bornDateEditTextUser.text =
-            Editable.Factory.getInstance().newEditable(arguments?.getString("born").toString())
+        userProfileViewModel.userData.observe(viewLifecycleOwner, Observer {
+            addressEditTextUser.text =
+                Editable.Factory.getInstance()
+                    .newEditable(it.address)
+            println("ADDRESS"+it.address)
+            bornDateEditTextUser.text =
+                Editable.Factory.getInstance().newEditable(it.borndate)
+        })
+
 
         deleteUserPhoto.setOnClickListener(this)
         ChangePhotoUser.setOnClickListener(this)

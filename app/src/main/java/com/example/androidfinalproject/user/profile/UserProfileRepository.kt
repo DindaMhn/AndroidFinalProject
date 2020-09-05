@@ -1,4 +1,5 @@
 package com.example.androidfinalproject.user.profile
+
 import androidx.lifecycle.MutableLiveData
 import com.example.androidfinalproject.user.account.User
 import com.example.androidfinalproject.utils.ResponseData
@@ -8,12 +9,12 @@ import retrofit2.Callback
 import retrofit2.Response
 import javax.inject.Inject
 
-class UserProfileRepository @Inject constructor(val userProfileAPI: UserProfileAPI){
+class UserProfileRepository @Inject constructor(val userProfileAPI: UserProfileAPI) {
     var userResponse: MutableLiveData<ResponseData> = MutableLiveData<ResponseData>()
     var userData: MutableLiveData<User> = MutableLiveData<User>()
 
-    fun updateUserProfile(id:String, user:User){
-        userProfileAPI.updateUserProfile(id,user).enqueue(object: Callback<ResponseData>{
+    fun updateUserProfile(id: String, user: User) {
+        userProfileAPI.updateUserProfile(id, user).enqueue(object : Callback<ResponseData> {
             override fun onFailure(call: Call<ResponseData>, t: Throwable) {
                 t.printStackTrace()
             }
@@ -31,8 +32,9 @@ class UserProfileRepository @Inject constructor(val userProfileAPI: UserProfileA
             }
         })
     }
-    fun deleteUserPhoto(id:String){
-        userProfileAPI.deleteUserPhoto(id).enqueue(object: Callback<ResponseData>{
+
+    fun deleteUserPhoto(id: String) {
+        userProfileAPI.deleteUserPhoto(id).enqueue(object : Callback<ResponseData> {
             override fun onFailure(call: Call<ResponseData>, t: Throwable) {
                 t.printStackTrace()
             }

@@ -1,7 +1,5 @@
-package com.example.androidfinalproject.screens
+package com.example.androidfinalproject.screens.user
 
-import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -13,27 +11,18 @@ import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import com.example.androidfinalproject.MyApplication
 import com.example.androidfinalproject.R
-import com.example.androidfinalproject.provider.account.Provider
-import com.example.androidfinalproject.provider.account.ProviderViewModel
 import com.example.androidfinalproject.user.account.User
 import com.example.androidfinalproject.user.account.UserViewModel
-import kotlinx.android.synthetic.main.fragment_login.*
+import kotlinx.android.synthetic.main.fragment_login_user.*
 import javax.inject.Inject
 
-class LoginFragment : Fragment(), View.OnClickListener {
-    @Inject
-    lateinit var providerViewModel: ProviderViewModel
 
+class LoginUserFragment : Fragment(), View.OnClickListener {
     @Inject
     lateinit var userViewModel: UserViewModel
-    var sharedPreferences: SharedPreferences? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         (activity?.applicationContext as MyApplication).applicationComponent.inject(this)
-        activity?.getSharedPreferences(
-            getString(R.string.shared_preference_name),
-            Context.MODE_PRIVATE
-        )
     }
 
     override fun onCreateView(
@@ -41,29 +30,11 @@ class LoginFragment : Fragment(), View.OnClickListener {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_login, container, false)
+        return inflater.inflate(R.layout.fragment_login_user, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        providerViewModel.providerResponse.observe(
-            viewLifecycleOwner, Observer {
-                if (it.status == 400.toString() && it.message == "Login Provider Failed") {
-                    Toast.makeText(
-                        this.context,
-                        "Invalid Login",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                } else if (it.status == 200.toString()) {
-                    Toast.makeText(this.context, "Login Success", Toast.LENGTH_SHORT)
-                        .show()
-                    println("ID PROVIDER login" + it.result)
-                    val bundle = bundleOf(Pair("id_provider", it.result))
-                    view?.findNavController()
-                        .navigate(R.id.action_loginFragment_to_menuProviderActivity, bundle)
-
-                }
-            })
         userViewModel.userResponse.observe(
             viewLifecycleOwner, Observer {
                 if (it.status == 400.toString() && it.message == "Login User Failed") {
@@ -97,41 +68,32 @@ class LoginFragment : Fragment(), View.OnClickListener {
                             )
                             println("Phone nummber USER LOGIN" + it.phone_number)
                             view?.findNavController()
-                                ?.navigate(R.id.action_loginFragment_to_menuUserActivity, bundle)
+                                ?.navigate(
+                                    R.id.action_loginUserFragment_to_menuUserActivity,
+                                    bundle
+                                )
                         })
                 }
             })
-
-        registerText.setOnClickListener(this)
-        loginButton.setOnClickListener(this)
+        registerUserText.setOnClickListener(this)
+        loginUserButton.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
         when (v) {
-            registerText -> {
-                v?.findNavController()?.navigate(R.id.action_loginFragment_to_chooseUserFragment)
+            registerUserText -> {
+                view?.findNavController()
+                    ?.navigate(R.id.action_loginUserFragment_to_chooseUserFragment)
             }
-            loginButton -> {
-                val providerLogin =
-                    Provider(
-                        username = userNameInputLogin.text.toString(),
-                        email = userNameInputLogin.text.toString(),
-                        password = passwordInputLogin.text.toString()
-                    )
-                if (userNameInputLogin.text.toString() == "" ||
-                    passwordInputLogin.text.toString() == ""
-                ) {
-                    Toast.makeText(this.context, "Must be Field", Toast.LENGTH_SHORT).show()
-                } else {
-                    providerViewModel.loginProvider(providerLogin)
-                }
+            loginUserButton -> {
                 val userLogin =
                     User(
-                        username = userNameInputLogin.text.toString(),
-                        password = passwordInputLogin.text.toString()
+                        email = userNameInputUserLogin.text.toString(),
+                        username = userNameInputUserLogin.text.toString(),
+                        password = passwordInputUserLogin.text.toString()
                     )
-                if (userNameInputLogin.text.toString() == "" ||
-                    passwordInputLogin.text.toString() == ""
+                if (userNameInputUserLogin.text.toString() == "" ||
+                    passwordInputUserLogin.text.toString() == ""
                 ) {
                     Toast.makeText(this.context, "Must be Field", Toast.LENGTH_SHORT).show()
                 } else {
