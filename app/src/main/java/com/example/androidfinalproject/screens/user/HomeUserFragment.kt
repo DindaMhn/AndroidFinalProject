@@ -53,8 +53,6 @@ class HomeUserFragment : Fragment(), View.OnClickListener {
         userHomeViewModel.userSaldoData.observe(viewLifecycleOwner, Observer {
             saldoUserText.text = "Rp. ${it.saldo}"
         })
-
-
     }
 
     override fun onResume() {

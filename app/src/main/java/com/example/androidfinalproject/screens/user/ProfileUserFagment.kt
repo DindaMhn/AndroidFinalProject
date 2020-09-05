@@ -1,7 +1,6 @@
 package com.example.androidfinalproject.screens.user
 
 import android.app.DatePickerDialog
-import android.icu.util.Calendar
 import android.os.Bundle
 import android.text.Editable
 import androidx.fragment.app.Fragment
@@ -16,6 +15,7 @@ import com.example.androidfinalproject.R
 import com.example.androidfinalproject.user.account.User
 import com.example.androidfinalproject.user.profile.UserProfileViewModel
 import kotlinx.android.synthetic.main.fragment_profile_user_fagment.*
+import java.util.*
 import javax.inject.Inject
 
 class ProfileUserFagment : Fragment(), View.OnClickListener {
@@ -43,18 +43,14 @@ class ProfileUserFagment : Fragment(), View.OnClickListener {
         val year = c.get(Calendar.YEAR)
         val month = c.get(Calendar.MONTH)
         val day = c.get(Calendar.DAY_OF_MONTH)
-
         mPickTimeBtn?.setOnClickListener {
-
+val monthView = month + 1
             val dpd = DatePickerDialog(
                 requireContext(),
-                DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+                DatePickerDialog.OnDateSetListener { view, year, month, day ->
                     // Display Selected date in TextView
-                    textView?.setText("$year-$month-$dayOfMonth")
-                },
-                year,
-                month,
-                day
+                    textView?.setText("$year-$monthView-$day")
+                }, year, month, day
             )
             dpd.show()
         }
@@ -62,14 +58,6 @@ class ProfileUserFagment : Fragment(), View.OnClickListener {
             Editable.Factory.getInstance().newEditable(arguments?.getString("fname").toString())
         phoneNumberEditTextUser.text =
             Editable.Factory.getInstance().newEditable(arguments?.getString("pnumber").toString())
-        userProfileViewModel.userData.observe(viewLifecycleOwner, Observer {
-            addressEditTextUser.text =
-                Editable.Factory.getInstance()
-                    .newEditable(it.address)
-            println("ADDRESS"+it.address)
-            bornDateEditTextUser.text =
-                Editable.Factory.getInstance().newEditable(it.borndate)
-        })
 
 
         deleteUserPhoto.setOnClickListener(this)
@@ -106,6 +94,14 @@ class ProfileUserFagment : Fragment(), View.OnClickListener {
                 val layoutParams = btnPositive.layoutParams as LinearLayout.LayoutParams
                 layoutParams.weight = 10f
                 btnPositive.layoutParams = layoutParams
+                userProfileViewModel.userData.observe(viewLifecycleOwner, Observer {
+                    addressEditTextUser.text =
+                        Editable.Factory.getInstance()
+                            .newEditable(it.address)
+                    println("ADDRESS" + it.address)
+                    bornDateEditTextUser.text =
+                        Editable.Factory.getInstance().newEditable(it.borndate)
+                })
             }
             deleteUserPhoto -> {
                 userProfileViewModel.deleteUserPhoto(arguments?.getString("id").toString())
@@ -124,6 +120,5 @@ class ProfileUserFagment : Fragment(), View.OnClickListener {
                 btnPositive.layoutParams = layoutParams
             }
         }
-
     }
 }
