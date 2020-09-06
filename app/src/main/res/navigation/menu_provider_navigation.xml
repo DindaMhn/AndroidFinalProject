@@ -9,5 +9,19 @@
         android:id="@+id/homeProviderFragment"
         android:name="com.example.androidfinalproject.screens.provider.HomeProviderFragment"
         android:label="fragment_home_provider"
-        tools:layout="@layout/fragment_home_provider" /><action android:id="@+id/action_global_homeProviderFragment" app:destination="@id/homeProviderFragment"/>
+        tools:layout="@layout/fragment_home_provider" >
+        <action
+            android:id="@+id/action_homeProviderFragment_to_addAssetFragment"
+            app:destination="@id/addAssetFragment" />
+    </fragment><action android:id="@+id/action_global_homeProviderFragment" app:destination="@id/homeProviderFragment"/>
+    <fragment
+        android:id="@+id/addAssetFragment"
+        android:name="com.example.androidfinalproject.screens.provider.AddAssetFragment"
+        android:label="fragment_add_asset"
+        tools:layout="@layout/fragment_add_asset" />
+    <fragment
+        android:id="@+id/profileProviderFragment"
+        android:name="com.example.androidfinalproject.screens.provider.ProfileProviderFragment"
+        android:label="fragment_profile_provider"
+        tools:layout="@layout/fragment_profile_provider" /><action android:id="@+id/action_global_profileProviderFragment" app:destination="@id/profileProviderFragment"/>
 </navigation>

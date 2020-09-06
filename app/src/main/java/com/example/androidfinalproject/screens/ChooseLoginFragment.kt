@@ -7,9 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import com.example.androidfinalproject.R
-import kotlinx.android.synthetic.main.fragment_login.*
+import kotlinx.android.synthetic.main.fragment_choose_login.*
 
-class LoginFragment : Fragment(), View.OnClickListener {
+class ChooseLoginFragment : Fragment(),View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,23 +20,26 @@ class LoginFragment : Fragment(), View.OnClickListener {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_login, container, false)
+        return inflater.inflate(R.layout.fragment_choose_login, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        chooseProviderLoginButton.setOnClickListener(this)
+        chooseUserLoginButton.setOnClickListener(this)
         registerText.setOnClickListener(this)
-        loginButton.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
-        when (v) {
-            registerText -> {
-                v?.findNavController()?.navigate(R.id.action_loginFragment_to_chooseUserFragment)
+        when(v){
+            registerText->{
+                v?.findNavController()?.navigate(R.id.action_chooseLoginFragment_to_chooseUserFragment)
             }
-            loginButton->{
-//                v?.findNavController()?.navigate(R.id.action_loginFragment_to_menuActivity)
-                v?.findNavController()?.navigate(R.id.action_loginFragment_to_menuActivity)
+            chooseProviderLoginButton->{
+                v?.findNavController()?.navigate(R.id.action_chooseLoginFragment_to_loginProviderFragment)
+            }
+            chooseUserLoginButton->{
+                v?.findNavController()?.navigate(R.id.action_chooseLoginFragment_to_loginUserFragment)
             }
         }
     }

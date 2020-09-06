@@ -2,7 +2,9 @@ package com.example.androidfinalproject.activity.provider
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.core.os.bundleOf
 import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.example.androidfinalproject.R
@@ -20,6 +22,10 @@ class MenuProviderActivity : AppCompatActivity() {
             when (item.itemId) {
                 R.id.homeProvider -> {
                     navController.navigate(R.id.action_global_homeProviderFragment)
+                    true
+                }
+                R.id.profileProvider -> {
+                    navController.navigate(R.id.action_global_profileProviderFragment)
                     true
                 }
                 else -> {

@@ -43,7 +43,7 @@ class ChooseUserFragment : Fragment(), View.OnClickListener {
             }
             LoginText->{
                 v?.findNavController()
-                    ?.navigate(R.id.action_global_loginFragment)
+                    ?.navigate(R.id.action_global_chooseLoginFragment)
             }
         }
     }
