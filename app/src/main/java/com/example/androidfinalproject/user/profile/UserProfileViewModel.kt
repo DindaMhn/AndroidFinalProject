@@ -1,14 +1,15 @@
 package com.example.androidfinalproject.user.profile
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.androidfinalproject.user.account.User
 import javax.inject.Inject
 
 class UserProfileViewModel @Inject constructor(var userProfileRepository: UserProfileRepository) :
     ViewModel() {
-    val userData = userProfileRepository.userData
-    fun updateSaldoUser(id: String, user: User) {
-        userProfileRepository.updateUserProfile(id, user)
+    val userData: MutableLiveData<UserProfile> = userProfileRepository.userData
+    fun updateSaldoUser(id: String, userUpdate: UserUpdate) {
+        userProfileRepository.updateUserProfile(id, userUpdate)
     }
     fun deleteUserPhoto(id:String){
         userProfileRepository.deleteUserPhoto(id)

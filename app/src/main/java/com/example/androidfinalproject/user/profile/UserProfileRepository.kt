@@ -11,10 +11,10 @@ import javax.inject.Inject
 
 class UserProfileRepository @Inject constructor(val userProfileAPI: UserProfileAPI) {
     var userResponse: MutableLiveData<ResponseData> = MutableLiveData<ResponseData>()
-    var userData: MutableLiveData<User> = MutableLiveData<User>()
+    var userData: MutableLiveData<UserProfile> = MutableLiveData<UserProfile>()
 
-    fun updateUserProfile(id: String, user: User) {
-        userProfileAPI.updateUserProfile(id, user).enqueue(object : Callback<ResponseData> {
+    fun updateUserProfile(id: String, userUpdate: UserUpdate) {
+        userProfileAPI.updateUserProfile(id, userUpdate).enqueue(object : Callback<ResponseData> {
             override fun onFailure(call: Call<ResponseData>, t: Throwable) {
                 t.printStackTrace()
             }
@@ -26,7 +26,7 @@ class UserProfileRepository @Inject constructor(val userProfileAPI: UserProfileA
                 val userResponseObject =
                     Gson().fromJson<ResponseData>(stringResponse, ResponseData::class.java)
                 val userResponseDataObject =
-                    Gson().fromJson<User>(stringResponseData, User::class.java)
+                    Gson().fromJson<UserProfile>(stringResponseData, UserProfile::class.java)
                 userResponse.value = userResponseObject
                 userData.value = userResponseDataObject
             }
@@ -46,7 +46,7 @@ class UserProfileRepository @Inject constructor(val userProfileAPI: UserProfileA
                 val userResponseObject =
                     Gson().fromJson<ResponseData>(stringResponse, ResponseData::class.java)
                 val userResponseDataObject =
-                    Gson().fromJson<User>(stringResponseData, User::class.java)
+                    Gson().fromJson<UserProfile>(stringResponseData, UserProfile::class.java)
                 userResponse.value = userResponseObject
                 userData.value = userResponseDataObject
             }

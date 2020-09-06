@@ -10,7 +10,7 @@ import retrofit2.http.Path
 
 interface UserProfileAPI {
     @PUT("user/{id}")
-    fun updateUserProfile(@Path("id") id: String, @Body user: User): Call<ResponseData>
+    fun updateUserProfile(@Path("id") id: String, @Body userUpdate: UserUpdate): Call<ResponseData>
     @DELETE("user/photo/{id}")
     fun deleteUserPhoto(@Path("id") id: String): Call<ResponseData>
 }

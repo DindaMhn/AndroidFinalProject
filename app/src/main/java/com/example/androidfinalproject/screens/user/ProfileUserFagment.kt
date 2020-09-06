@@ -13,7 +13,10 @@ import androidx.lifecycle.Observer
 import com.example.androidfinalproject.MyApplication
 import com.example.androidfinalproject.R
 import com.example.androidfinalproject.user.account.User
+import com.example.androidfinalproject.user.account.UserViewModel
+import com.example.androidfinalproject.user.profile.UserProfile
 import com.example.androidfinalproject.user.profile.UserProfileViewModel
+import com.example.androidfinalproject.user.profile.UserUpdate
 import kotlinx.android.synthetic.main.fragment_profile_user_fagment.*
 import java.util.*
 import javax.inject.Inject
@@ -21,6 +24,8 @@ import javax.inject.Inject
 class ProfileUserFagment : Fragment(), View.OnClickListener {
     @Inject
     lateinit var userProfileViewModel: UserProfileViewModel
+//    @Inject
+//    lateinit var userViewModel: UserViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         (activity?.applicationContext as MyApplication).applicationComponent.inject(this)
@@ -44,7 +49,7 @@ class ProfileUserFagment : Fragment(), View.OnClickListener {
         val month = c.get(Calendar.MONTH)
         val day = c.get(Calendar.DAY_OF_MONTH)
         mPickTimeBtn?.setOnClickListener {
-val monthView = month + 1
+            val monthView = month + 1
             val dpd = DatePickerDialog(
                 requireContext(),
                 DatePickerDialog.OnDateSetListener { view, year, month, day ->
@@ -54,11 +59,25 @@ val monthView = month + 1
             )
             dpd.show()
         }
-        fNameUserEditTextUser.text =
-            Editable.Factory.getInstance().newEditable(arguments?.getString("fname").toString())
-        phoneNumberEditTextUser.text =
-            Editable.Factory.getInstance().newEditable(arguments?.getString("pnumber").toString())
+//        fNameUserEditTextUser.text =
+//            Editable.Factory.getInstance().newEditable(arguments?.getString("fname").toString())
+//        phoneNumberEditTextUser.text =
+//            Editable.Factory.getInstance().newEditable(arguments?.getString("pnumber").toString())
 
+//        var userViewModel: UserViewModel = UserViewModel()
+        userProfileViewModel.userData.observe(viewLifecycleOwner, Observer {
+            fNameUserEditTextUser.text =
+                Editable.Factory.getInstance().newEditable(it.fullname)
+            println("FULLNAME")
+            phoneNumberEditTextUser.text =
+                Editable.Factory.getInstance().newEditable(it.phone_number)
+            addressEditTextUser.text =
+                Editable.Factory.getInstance()
+                    .newEditable(it.address)
+            println("ADDRESS" + it.address)
+            bornDateEditTextUser.text =
+                Editable.Factory.getInstance().newEditable(it.borndate)
+        })
 
         deleteUserPhoto.setOnClickListener(this)
         ChangePhotoUser.setOnClickListener(this)
@@ -76,7 +95,7 @@ val monthView = month + 1
             simpanEditUserButton -> {
                 userProfileViewModel.updateSaldoUser(
                     arguments?.getString("id").toString(),
-                    User(
+                    UserUpdate(
                         borndate = bornDateEditTextUser.text.toString(),
                         address = addressEditTextUser.text.toString()
                     )
@@ -94,14 +113,6 @@ val monthView = month + 1
                 val layoutParams = btnPositive.layoutParams as LinearLayout.LayoutParams
                 layoutParams.weight = 10f
                 btnPositive.layoutParams = layoutParams
-                userProfileViewModel.userData.observe(viewLifecycleOwner, Observer {
-                    addressEditTextUser.text =
-                        Editable.Factory.getInstance()
-                            .newEditable(it.address)
-                    println("ADDRESS" + it.address)
-                    bornDateEditTextUser.text =
-                        Editable.Factory.getInstance().newEditable(it.borndate)
-                })
             }
             deleteUserPhoto -> {
                 userProfileViewModel.deleteUserPhoto(arguments?.getString("id").toString())

@@ -1,6 +1,6 @@
-package com.example.androidfinalproject.user.account
+package com.example.androidfinalproject.user.profile
 
-class User(
+class UserProfile (
     var id: String = "",
     var id_wallet:String="",
     var username: String = "",
@@ -15,4 +15,8 @@ class User(
     var edited_at: String = "",
     var deleted_at: String = "",
     var status: String = ""
+)
+class UserUpdate(
+    var borndate: String = "",
+    var address: String = ""
 )

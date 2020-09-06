@@ -20,8 +20,10 @@ import kotlinx.android.synthetic.main.fragment_home_user.*
 import javax.inject.Inject
 
 class HomeUserFragment : Fragment(), View.OnClickListener {
+//    @Inject
+//    lateinit var userHomeViewModel: UserHomeViewModel
     @Inject
-    lateinit var userHomeViewModel: UserHomeViewModel
+    lateinit var userViewModel: UserViewModel
     var sharedPreferences: SharedPreferences? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +32,7 @@ class HomeUserFragment : Fragment(), View.OnClickListener {
             getString(R.string.shared_preference_name),
             Context.MODE_PRIVATE
         )
+
     }
 
     override fun onCreateView(
@@ -43,6 +46,9 @@ class HomeUserFragment : Fragment(), View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         topUpButton.setOnClickListener(this)
+        userViewModel.userData.observe(viewLifecycleOwner, Observer {
+            println("ID FROM HOME"+it.id)
+        })
 //        val id = sharedPreferences?.getString(
 //            getString(R.string.id_key),
 //            getString(R.string.default_value)
@@ -50,14 +56,14 @@ class HomeUserFragment : Fragment(), View.OnClickListener {
 //        userHomeViewModel.getUserSaldo(arguments?.getString("user_id").toString())
 //println("ID USER HOME"+id)
 //        println("ID HOME USER WITH BUNDLE"+arguments?.getString("user_id").toString())
-        userHomeViewModel.userSaldoData.observe(viewLifecycleOwner, Observer {
-            saldoUserText.text = "Rp. ${it.saldo}"
-        })
+//        userHomeViewModel.userSaldoData.observe(viewLifecycleOwner, Observer {
+//            saldoUserText.text = "Rp. ${it.saldo}"
+//        })
     }
 
     override fun onResume() {
         super.onResume()
-        userHomeViewModel.getUserSaldo(arguments?.getString("user_id").toString())
+//        userHomeViewModel.getUserSaldo(arguments?.getString("user_id").toString())
     }
 
     override fun onClick(v: View?) {
