@@ -31,39 +31,15 @@ class MenuUserActivity : AppCompatActivity() {
         (applicationContext as MyApplication).applicationComponent.inject(this)
         navController = (nav_host_fragment_menu_user_container as NavHostFragment).navController
         NavigationUI.setupWithNavController(bottom_navigation_user, navController)
-        val id = intent.getStringExtra("id_user")
-        val id_wallet = intent.getStringExtra("id_wallet")
-        val fullname = intent.getStringExtra("fullname")
-        val phone = intent.getStringExtra("phone")
-        val photo = intent.getStringExtra("photo")
-        val address = intent.getStringExtra("address")
-        val borndate = intent.getStringExtra("borndate")
-        println("phone from intent" + phone)
-//        val id = sharedPreferences?.getString(
-//            getString(R.string.id_key),
-//            getString(R.string.default_value)
-//        )
-//        userViewModel.getUserSaldo(id.toString())
-        println("ID wallet USER MENU" + id_wallet)
-        this.findNavController(R.id.nav_host_fragment_menu_user_container).navigate(
-            R.id.action_global_homeUserFragment,
-            bundleOf("user_id" to id, "wallet_id" to id_wallet)
-        )
         bottom_navigation_user.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.homeUser -> {
-                    navController.navigate(R.id.action_global_homeUserFragment,
-                        bundleOf("user_id" to id, "wallet_id" to id_wallet))
+                    navController.navigate(R.id.action_global_homeUserFragment)
                     true
                 }
                 R.id.profileUser -> {
                     navController.navigate(
-                        R.id.action_global_profileUserFagment,
-                        bundleOf(
-                            "id" to id, "fname" to fullname, "pnumber" to phone,
-                            "photo_user" to photo, "address_user" to address, "born" to borndate
-                        )
-                    )
+                        R.id.action_global_profileUserFagment)
                     true
                 }
                 else -> {

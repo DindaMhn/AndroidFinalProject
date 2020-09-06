@@ -4,5 +4,10 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="shared_preference_name">com.androidfinalproject.shared.preference</string>
     <string name="id_key">ID</string>
+    <string name="fullname_key">FULLNAME</string>
+    <string name="address_key">ADDRESS</string>
+    <string name="borndate_key">BORNDATE</string>
+    <string name="phone_key">PHONE</string>
+    <string name="wallet_id_key">WALLET_ID</string>
     <string name="default_value">default</string>
 </resources>

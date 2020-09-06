@@ -1,5 +1,7 @@
 package com.example.androidfinalproject.screens.user
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -21,9 +23,15 @@ import javax.inject.Inject
 class TopUpSaldoFragment : Fragment(), View.OnClickListener {
     @Inject
     lateinit var userHomeViewModel: UserHomeViewModel
+    var sharedPreferences: SharedPreferences? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         (activity?.applicationContext as MyApplication).applicationComponent.inject(this)
+        sharedPreferences = activity?.getSharedPreferences(
+            getString(R.string.shared_preference_name),
+            Context.MODE_PRIVATE
+        )
     }
 
     override fun onCreateView(
@@ -45,11 +53,15 @@ class TopUpSaldoFragment : Fragment(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         val alertDialog = AlertDialog.Builder(requireContext()).create()
-
+        val id_wallet = sharedPreferences?.getString(
+            getString(R.string.wallet_id_key),
+            getString(R.string.default_value)
+        )
         when (v) {
+
             prosesButton -> {
                 userHomeViewModel.updateSaldoUser(
-                    arguments?.getString("wallet").toString(),
+                    id_wallet.toString(),
                     UserWallet(debit = debitInput.text.toString())
                 )
                 println(arguments?.getString("wallet").toString())

@@ -1,5 +1,7 @@
 package com.example.androidfinalproject.screens.user
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -20,9 +22,14 @@ import javax.inject.Inject
 class LoginUserFragment : Fragment(), View.OnClickListener {
     @Inject
     lateinit var userViewModel: UserViewModel
+    var sharedPreferences: SharedPreferences? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         (activity?.applicationContext as MyApplication).applicationComponent.inject(this)
+        sharedPreferences = activity?.getSharedPreferences(
+            getString(R.string.shared_preference_name),
+            Context.MODE_PRIVATE
+        )
     }
 
     override fun onCreateView(
@@ -49,29 +56,21 @@ class LoginUserFragment : Fragment(), View.OnClickListener {
                     userViewModel.userData.observe(
                         viewLifecycleOwner, Observer {
                             println("ID USER LOGIN" + it.id)
-//                            if (it != null) {
-//                                with(sharedPreferences?.edit()) {
-//                                    this?.putString(
-//                                        getString(R.string.id_key),
-//                                        it.id
-//                                    )
-//                                    this?.commit()
-//                                }
-                            val bundle = bundleOf(
-                                Pair("id_user", it.id),
-                                Pair("id_wallet", it.id_wallet),
-                                Pair("fullname", it.fullname),
-                                Pair("phone", it.phone_number),
-                                Pair("photo", it.photo),
-                                Pair("address", it.address),
-                                Pair("borndate", it.borndate)
-                            )
-                            println("Phone nummber USER LOGIN" + it.phone_number)
+                            if (it != null) {
+                                with(sharedPreferences?.edit()) {
+                                    this?.putString(
+                                        getString(R.string.id_key),
+                                        it.id
+                                    )
+                                    this?.putString(
+                                        getString(R.string.wallet_id_key),
+                                        it.id_wallet
+                                    )
+                                    this?.commit()
+                                }
+                            }
                             view?.findNavController()
-                                ?.navigate(
-                                    R.id.action_loginUserFragment_to_menuUserActivity,
-                                    bundle
-                                )
+                                ?.navigate(R.id.action_loginUserFragment_to_menuUserActivity)
                         })
                 }
             })
@@ -98,7 +97,6 @@ class LoginUserFragment : Fragment(), View.OnClickListener {
                     Toast.makeText(this.context, "Must be Field", Toast.LENGTH_SHORT).show()
                 } else {
                     userViewModel.loginUser(userLogin)
-
                 }
             }
         }

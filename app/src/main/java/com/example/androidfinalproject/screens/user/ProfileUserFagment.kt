@@ -1,6 +1,8 @@
 package com.example.androidfinalproject.screens.user
 
 import android.app.DatePickerDialog
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
 import androidx.fragment.app.Fragment
@@ -24,11 +26,15 @@ import javax.inject.Inject
 class ProfileUserFagment : Fragment(), View.OnClickListener {
     @Inject
     lateinit var userProfileViewModel: UserProfileViewModel
-//    @Inject
-//    lateinit var userViewModel: UserViewModel
+    var sharedPreferences: SharedPreferences? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         (activity?.applicationContext as MyApplication).applicationComponent.inject(this)
+        sharedPreferences = activity?.getSharedPreferences(
+            getString(R.string.shared_preference_name),
+            Context.MODE_PRIVATE
+        )
     }
 
     override fun onCreateView(
@@ -59,33 +65,58 @@ class ProfileUserFagment : Fragment(), View.OnClickListener {
             )
             dpd.show()
         }
-//        fNameUserEditTextUser.text =
-//            Editable.Factory.getInstance().newEditable(arguments?.getString("fname").toString())
-//        phoneNumberEditTextUser.text =
-//            Editable.Factory.getInstance().newEditable(arguments?.getString("pnumber").toString())
-
-//        var userViewModel: UserViewModel = UserViewModel()
         userProfileViewModel.userData.observe(viewLifecycleOwner, Observer {
-            fNameUserEditTextUser.text =
-                Editable.Factory.getInstance().newEditable(it.fullname)
-            println("FULLNAME")
-            phoneNumberEditTextUser.text =
-                Editable.Factory.getInstance().newEditable(it.phone_number)
-            addressEditTextUser.text =
-                Editable.Factory.getInstance()
-                    .newEditable(it.address)
-            println("ADDRESS" + it.address)
-            bornDateEditTextUser.text =
-                Editable.Factory.getInstance().newEditable(it.borndate)
+            if (it != null) {
+                with(sharedPreferences?.edit()) {
+                    this?.putString(
+                        getString(R.string.fullname_key),
+                        it.fullname
+                    )
+                    this?.putString(
+                        getString(R.string.borndate_key),
+                        it.borndate
+                    )
+                    this?.putString(
+                        getString(R.string.phone_key),
+                        it.phone_number
+                    )
+                    this?.putString(
+                        getString(R.string.address_key),
+                        it.address
+                    )
+                    this?.commit()
+                }
+            }
         })
+        val fullname = sharedPreferences?.getString(
+            getString(R.string.fullname_key),
+            getString(R.string.default_value)
+        )
+        val address = sharedPreferences?.getString(
+            getString(R.string.address_key),
+            getString(R.string.default_value)
+        )
+        val borndate = sharedPreferences?.getString(
+            getString(R.string.borndate_key),
+            getString(R.string.default_value)
+        )
+        val phone = sharedPreferences?.getString(
+            getString(R.string.phone_key),
+            getString(R.string.default_value)
+        )
+        fNameUserEditTextUser.text =
+            Editable.Factory.getInstance().newEditable(fullname.toString())
+        phoneNumberEditTextUser.text =
+            Editable.Factory.getInstance().newEditable(phone.toString())
+        addressEditTextUser.text =
+            Editable.Factory.getInstance()
+                .newEditable(address.toString())
+        bornDateEditTextUser.text =
+            Editable.Factory.getInstance().newEditable(borndate.toString())
 
         deleteUserPhoto.setOnClickListener(this)
         ChangePhotoUser.setOnClickListener(this)
         simpanEditUserButton.setOnClickListener(this)
-    }
-
-    override fun onResume() {
-        super.onResume()
     }
 
     override fun onClick(v: View?) {
@@ -93,8 +124,12 @@ class ProfileUserFagment : Fragment(), View.OnClickListener {
 
         when (v) {
             simpanEditUserButton -> {
+                val id = sharedPreferences?.getString(
+                    getString(R.string.id_key),
+                    getString(R.string.default_value)
+                )
                 userProfileViewModel.updateSaldoUser(
-                    arguments?.getString("id").toString(),
+                    id.toString(),
                     UserUpdate(
                         borndate = bornDateEditTextUser.text.toString(),
                         address = addressEditTextUser.text.toString()
