@@ -65,13 +65,13 @@
             </LinearLayout>
 
             <EditText
-                android:id="@+id/fNameUserEditTextProvider"
+                android:id="@+id/fNameEditTextProvider"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:text="Full Name" />
+                android:hint="Full Name" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -104,12 +104,12 @@
                 android:layout_marginTop="10dp"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:text="Phone Number" />
+                android:hint="Phone Number" />
 
             <EditText
                 android:id="@+id/addressEditTextProvider"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="100dp"
                 android:layout_marginTop="10dp"
                 android:ems="10"
                 android:inputType="textPersonName"
@@ -117,11 +117,21 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/simpanEditProviderButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_gravity="center"
+                android:backgroundTint="@color/colorBlue"
+                android:text="Simpan"
+                app:cornerRadius="38dp"
+                app:iconGravity="textEnd"></com.google.android.material.button.MaterialButton>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/logoutProviderButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:backgroundTint="@color/colorBlue"
-                android:text="Simpan"
+                android:backgroundTint="@color/colorRed"
+                android:text="Logout"
                 app:cornerRadius="38dp"
                 app:iconGravity="textEnd"></com.google.android.material.button.MaterialButton>
         </LinearLayout>

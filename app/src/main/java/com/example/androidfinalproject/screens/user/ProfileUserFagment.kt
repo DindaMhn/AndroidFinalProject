@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
 import com.example.androidfinalproject.MyApplication
 import com.example.androidfinalproject.R
 import com.example.androidfinalproject.user.account.User
@@ -65,70 +66,47 @@ class ProfileUserFagment : Fragment(), View.OnClickListener {
             )
             dpd.show()
         }
+        userProfileViewModel.getById(sharedPreferences?.getString("ID_USER", "").toString())
+        println("ID USER" + sharedPreferences?.getString("ID_USER", "").toString())
         userProfileViewModel.userData.observe(viewLifecycleOwner, Observer {
-            if (it != null) {
-                with(sharedPreferences?.edit()) {
-                    this?.putString(
-                        getString(R.string.fullname_key),
-                        it.fullname
-                    )
-                    this?.putString(
-                        getString(R.string.borndate_key),
-                        it.borndate
-                    )
-                    this?.putString(
-                        getString(R.string.phone_key),
-                        it.phone_number
-                    )
-                    this?.putString(
-                        getString(R.string.address_key),
-                        it.address
-                    )
-                    this?.commit()
-                }
-            }
+            fNameUserEditTextUser.text =
+                Editable.Factory.getInstance().newEditable(it.fullname.toString())
+            phoneNumberEditTextUser.text =
+                Editable.Factory.getInstance().newEditable(it.phone_number.toString())
+            addressEditTextUser.text =
+                Editable.Factory.getInstance()
+                    .newEditable(it.address.toString())
+            bornDateEditTextUser.text =
+                Editable.Factory.getInstance().newEditable(it.borndate.toString())
         })
-        val fullname = sharedPreferences?.getString(
-            getString(R.string.fullname_key),
-            getString(R.string.default_value)
-        )
-        val address = sharedPreferences?.getString(
-            getString(R.string.address_key),
-            getString(R.string.default_value)
-        )
-        val borndate = sharedPreferences?.getString(
-            getString(R.string.borndate_key),
-            getString(R.string.default_value)
-        )
-        val phone = sharedPreferences?.getString(
-            getString(R.string.phone_key),
-            getString(R.string.default_value)
-        )
-        fNameUserEditTextUser.text =
-            Editable.Factory.getInstance().newEditable(fullname.toString())
-        phoneNumberEditTextUser.text =
-            Editable.Factory.getInstance().newEditable(phone.toString())
-        addressEditTextUser.text =
-            Editable.Factory.getInstance()
-                .newEditable(address.toString())
-        bornDateEditTextUser.text =
-            Editable.Factory.getInstance().newEditable(borndate.toString())
 
         deleteUserPhoto.setOnClickListener(this)
         ChangePhotoUser.setOnClickListener(this)
         simpanEditUserButton.setOnClickListener(this)
+        logoutUserButton.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
         val alertDialog = AlertDialog.Builder(requireContext()).create()
 
         when (v) {
+            logoutUserButton -> {
+                with(sharedPreferences?.edit()) {
+                    this?.putBoolean(
+                        "ISLOGGEDIN_USER",
+                        false
+                    )
+                    this?.commit()
+                }
+                view?.findNavController()
+                    ?.navigate(R.id.action_global_loginUserFragment)
+            }
             simpanEditUserButton -> {
                 val id = sharedPreferences?.getString(
                     getString(R.string.id_user_key),
                     getString(R.string.default_value)
                 )
-                userProfileViewModel.updateSaldoUser(
+                userProfileViewModel.updateUserProfile(
                     id.toString(),
                     UserUpdate(
                         borndate = bornDateEditTextUser.text.toString(),

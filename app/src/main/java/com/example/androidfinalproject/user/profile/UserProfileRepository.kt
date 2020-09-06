@@ -1,7 +1,6 @@
 package com.example.androidfinalproject.user.profile
 
 import androidx.lifecycle.MutableLiveData
-import com.example.androidfinalproject.user.account.User
 import com.example.androidfinalproject.utils.ResponseData
 import com.google.gson.Gson
 import retrofit2.Call
@@ -21,14 +20,11 @@ class UserProfileRepository @Inject constructor(val userProfileAPI: UserProfileA
 
             override fun onResponse(call: Call<ResponseData>, response: Response<ResponseData>) {
                 val response = response.body()
-                val stringResponse = Gson().toJson(response)
-                val stringResponseData = Gson().toJson(response?.result)
-                val userResponseObject =
-                    Gson().fromJson<ResponseData>(stringResponse, ResponseData::class.java)
-                val userResponseDataObject =
-                    Gson().fromJson<UserProfile>(stringResponseData, UserProfile::class.java)
-                userResponse.value = userResponseObject
-                userData.value = userResponseDataObject
+                val gson = Gson()
+                val res = gson.toJson(response)
+                val resData = gson.toJson(response?.result)
+                userData.value = gson.fromJson<UserProfile>(resData, UserProfile::class.java)
+                userResponse.value = gson.fromJson<ResponseData>(res, ResponseData::class.java)
             }
         })
     }
@@ -47,6 +43,22 @@ class UserProfileRepository @Inject constructor(val userProfileAPI: UserProfileA
                 userData.value = gson.fromJson<UserProfile>(resData, UserProfile::class.java)
                 userResponse.value = gson.fromJson<ResponseData>(res, ResponseData::class.java)
             }
+        })
+    }
+
+    fun getUser(id: String) {
+        userProfileAPI.getUser(id).enqueue(object : Callback<ResponseData> {
+            override fun onFailure(call: Call<ResponseData>, t: Throwable) {
+                t.printStackTrace()
+            }
+
+            override fun onResponse(call: Call<ResponseData>, response: Response<ResponseData>) {
+                val response = response.body()
+                val gson = Gson()
+                val resData = gson.toJson(response?.result)
+                userData.value = gson.fromJson<UserProfile>(resData, UserProfile::class.java)
+            }
+
         })
     }
 }

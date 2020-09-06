@@ -5,10 +5,14 @@
     <string name="shared_preference_name">com.androidfinalproject.shared.preference</string>
     <string name="id_user_key">ID_USER</string>
     <string name="id_provider_key">ID_PROVIDER</string>
-    <string name="fullname_key">FULLNAME</string>
-    <string name="address_key">ADDRESS</string>
-    <string name="borndate_key">BORNDATE</string>
-    <string name="phone_key">PHONE</string>
+    <string name="fullname_user_key">FULLNAME_USER</string>
+    <string name="address_user_key">ADDRESS_USER</string>
+    <string name="borndate_user_key">BORNDATE_USER</string>
+    <string name="phone_user_key">PHONE_USER</string>
+    <string name="fullname_provider_key">FULLNAME_PROVIDER</string>
+    <string name="address_provider_key">ADDRESS_PROVIDER</string>
+    <string name="borndate_provider_key">BORNDATE_PROVIDER</string>
+    <string name="phone_provider_key">PHONE_PROVIDER</string>
     <string name="wallet_id_key">WALLET_ID</string>
     <string name="default_value">default</string>
 </resources>

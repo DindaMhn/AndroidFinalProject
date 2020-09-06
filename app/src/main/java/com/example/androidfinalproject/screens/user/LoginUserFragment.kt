@@ -42,37 +42,60 @@ class LoginUserFragment : Fragment(), View.OnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        userViewModel.userResponse.observe(
-            viewLifecycleOwner, Observer {
-                if (it.status == 400.toString() && it.message == "Login User Failed") {
-                    Toast.makeText(
-                        this.context,
-                        "Invalid Login",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                } else if (it.status == 200.toString()) {
-                    Toast.makeText(this.context, "Login Success", Toast.LENGTH_SHORT)
-                        .show()
-                    userViewModel.userData.observe(
-                        viewLifecycleOwner, Observer {
-                            if (it != null) {
-                                with(sharedPreferences?.edit()) {
-                                    this?.putString(
-                                        getString(R.string.id_user_key),
-                                        it.id
-                                    )
-                                    this?.putString(
-                                        getString(R.string.wallet_id_key),
-                                        it.id_wallet
-                                    )
-                                    this?.commit()
+        if (sharedPreferences?.getBoolean("ISLOGGEDIN_USER", false) == true) {
+            view?.findNavController()
+                ?.navigate(R.id.action_loginUserFragment_to_menuUserActivity)
+        } else {
+            userViewModel.userResponse.observe(
+                viewLifecycleOwner, Observer {
+                    if (it.status == 400.toString() && it.message == "Login User Failed") {
+                        Toast.makeText(
+                            this.context,
+                            "Invalid Login",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    } else if (it.status == 200.toString()) {
+                        Toast.makeText(this.context, "Login Success", Toast.LENGTH_SHORT)
+                            .show()
+                        userViewModel.userData.observe(
+                            viewLifecycleOwner, Observer {
+                                if (it != null) {
+                                    with(sharedPreferences?.edit()) {
+                                        this?.putString("ID_USER",it.id)
+
+                                        this?.putString(
+                                            getString(R.string.wallet_id_key),
+                                            it.id_wallet
+                                        )
+                                        this?.putString(
+                                            getString(R.string.fullname_user_key),
+                                            it.fullname
+                                        )
+                                        this?.putString(
+                                            getString(R.string.borndate_user_key),
+                                            it.borndate
+                                        )
+                                        this?.putString(
+                                            getString(R.string.phone_user_key),
+                                            it.phone_number
+                                        )
+                                        this?.putString(
+                                            getString(R.string.address_user_key),
+                                            it.address
+                                        )
+                                        this?.putBoolean(
+                                            "ISLOGGEDIN_USER",
+                                            true
+                                        )
+                                        this?.commit()
+                                    }
                                 }
-                            }
-                            view?.findNavController()
-                                ?.navigate(R.id.action_loginUserFragment_to_menuUserActivity)
-                        })
-                }
-            })
+                                view?.findNavController()
+                                    ?.navigate(R.id.action_loginUserFragment_to_menuUserActivity)
+                            })
+                    }
+                })
+        }
         registerUserText.setOnClickListener(this)
         loginUserButton.setOnClickListener(this)
     }

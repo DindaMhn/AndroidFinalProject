@@ -10,13 +10,14 @@ import javax.inject.Inject
 
 class ProviderRepository @Inject constructor(val providerAPI: ProviderAPI) {
     var providerData: MutableLiveData<Provider> = MutableLiveData<Provider>()
-    var providerResponse : MutableLiveData<ResponseData> = MutableLiveData<ResponseData>()
+    var providerResponse: MutableLiveData<ResponseData> = MutableLiveData<ResponseData>()
 
     fun loginProvider(provider: Provider) {
         providerAPI.loginProvider(provider).enqueue(object : Callback<ResponseData> {
             override fun onFailure(call: Call<ResponseData>, t: Throwable) {
                 println(t.localizedMessage)
             }
+
             override fun onResponse(call: Call<ResponseData>, response: Response<ResponseData>) {
 
                 val response = response.body()
@@ -25,8 +26,10 @@ class ProviderRepository @Inject constructor(val providerAPI: ProviderAPI) {
                 val providerLoginResponseObject =
                     Gson().fromJson<ResponseData>(stringResponse, ResponseData::class.java)
                 val providerLoginResponseDataObject =
-                    Gson().fromJson<Provider>(stringResponseData,
-                        Provider::class.java)
+                    Gson().fromJson<Provider>(
+                        stringResponseData,
+                        Provider::class.java
+                    )
                 providerResponse.value = providerLoginResponseObject
                 providerData.value = providerLoginResponseDataObject
             }
@@ -40,7 +43,7 @@ class ProviderRepository @Inject constructor(val providerAPI: ProviderAPI) {
             }
 
             override fun onResponse(call: Call<ResponseData>, response: Response<ResponseData>) {
-               val response = response.body()
+                val response = response.body()
                 val stringResponse = Gson().toJson(response)
                 val providerRegisterResponseObject =
                     Gson().fromJson<ResponseData>(stringResponse, ResponseData::class.java)
@@ -48,22 +51,4 @@ class ProviderRepository @Inject constructor(val providerAPI: ProviderAPI) {
             }
         })
     }
-//    fun getSaldoProvider(id: String) {
-//        providerAPI.getSaldoProvider(id).enqueue(object : Callback<ResponseData> {
-//            override fun onFailure(call: Call<ResponseData>, t: Throwable) {
-//                t.printStackTrace()
-//            }
-//            override fun onResponse(
-//                call: Call<ResponseData>,
-//                response: Response<ResponseData>
-//            ) {
-//                val response = response.body()
-//                val stringResponse = Gson().toJson(response)
-//                val stringResponseData = Gson().toJson(response?.result)
-//                val providerResponseObject =
-//                    Gson().fromJson<ResponseData>(stringResponse, ResponseData::class.java)
-//              providerResponse.value = providerResponseObject
-//            }
-//        })
-//    }
 }

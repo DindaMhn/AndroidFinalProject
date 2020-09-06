@@ -77,6 +77,6 @@
             android:id="@+id/action_loginUserFragment_to_menuUserActivity"
             app:destination="@id/menuUserActivity" />
     </fragment>
-    <action android:id="@+id/action_global_loginProviderFragment" app:destination="@id/loginProviderFragment" />
     <action android:id="@+id/action_global_loginUserFragment" app:destination="@id/loginUserFragment" />
+    <action android:id="@+id/action_global_loginProviderFragment" app:destination="@id/loginProviderFragment"/>
 </navigation>

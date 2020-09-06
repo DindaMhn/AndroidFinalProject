@@ -7,12 +7,12 @@ class ProviderProfile (
     var email: String = "",
     var fullname: String = "",
     var photo: String = "",
-    var bornDate: String = "",
-    var phoneNumber: String = "",
+    var borndate: String = "",
+    var phone_number: String = "",
     var address: String = "",
-    var createdAt: String = "",
-    var editedAt: String = "",
-    var deletedAt: String = "",
+    var created_at: String = "",
+    var edited_at: String = "",
+    var deleted_at: String = "",
     var status: String = ""
 )
 class ProviderUpdate(

@@ -18,8 +18,4 @@ class ProviderViewModel @Inject constructor(var providerRepository: ProviderRepo
     fun registerProvider(provider: Provider) {
         providerRepository.registerProvider(provider)
     }
-
-//    fun getSaldoProvider(id: String) {
-//        providerRepository.getSaldoProvider(id)
-//    }
 }
