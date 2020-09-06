@@ -20,14 +20,9 @@ class MenuUserActivity : AppCompatActivity() {
     @Inject
     lateinit var userViewModel: UserViewModel
     lateinit var navController: NavController
-    var sharedPreferences: SharedPreferences? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_menu_user)
-        sharedPreferences = this?.getSharedPreferences(
-            getString(R.string.shared_preference_name),
-            Context.MODE_PRIVATE
-        )
         (applicationContext as MyApplication).applicationComponent.inject(this)
         navController = (nav_host_fragment_menu_user_container as NavHostFragment).navController
         NavigationUI.setupWithNavController(bottom_navigation_user, navController)

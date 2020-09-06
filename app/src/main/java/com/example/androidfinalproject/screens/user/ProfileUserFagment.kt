@@ -125,7 +125,7 @@ class ProfileUserFagment : Fragment(), View.OnClickListener {
         when (v) {
             simpanEditUserButton -> {
                 val id = sharedPreferences?.getString(
-                    getString(R.string.id_key),
+                    getString(R.string.id_user_key),
                     getString(R.string.default_value)
                 )
                 userProfileViewModel.updateSaldoUser(

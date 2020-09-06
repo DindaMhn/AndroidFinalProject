@@ -1,5 +1,7 @@
 package com.example.androidfinalproject.screens.provider
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -18,10 +20,15 @@ import javax.inject.Inject
 class HomeProviderFragment : Fragment(), View.OnClickListener {
     @Inject
     lateinit var providerHomeViewModel: ProviderHomeViewModel
+    var sharedPreferences: SharedPreferences? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         (activity?.applicationContext as MyApplication).applicationComponent.inject(this)
+        sharedPreferences = activity?.getSharedPreferences(
+            getString(R.string.shared_preference_name),
+            Context.MODE_PRIVATE
+        )
     }
 
     override fun onCreateView(
@@ -35,7 +42,11 @@ class HomeProviderFragment : Fragment(), View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         addAssetButton.setOnClickListener(this)
-        providerHomeViewModel.getSaldoProvider(arguments?.getString("provider_id").toString())
+        val id = sharedPreferences?.getString(
+            getString(R.string.id_provider_key),
+            getString(R.string.default_value)
+        )
+        providerHomeViewModel.getSaldoProvider(id.toString())
         providerHomeViewModel.providerResponse.observe(viewLifecycleOwner, Observer {
             saldoProviderText.text = "Rp. ${it.result}"
         })
@@ -45,8 +56,7 @@ class HomeProviderFragment : Fragment(), View.OnClickListener {
         when (v) {
             addAssetButton -> {
                 v?.findNavController()
-                    ?.navigate(R.id.action_homeProviderFragment_to_addAssetFragment,
-                        bundleOf("id" to arguments?.getString("provider_id").toString() ))
+                    ?.navigate(R.id.action_homeProviderFragment_to_addAssetFragment)
             }
         }
     }

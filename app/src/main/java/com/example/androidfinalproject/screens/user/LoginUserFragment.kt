@@ -55,11 +55,10 @@ class LoginUserFragment : Fragment(), View.OnClickListener {
                         .show()
                     userViewModel.userData.observe(
                         viewLifecycleOwner, Observer {
-                            println("ID USER LOGIN" + it.id)
                             if (it != null) {
                                 with(sharedPreferences?.edit()) {
                                     this?.putString(
-                                        getString(R.string.id_key),
+                                        getString(R.string.id_user_key),
                                         it.id
                                     )
                                     this?.putString(

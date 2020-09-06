@@ -1,6 +1,7 @@
 package com.example.androidfinalproject.user.home
 
 import androidx.lifecycle.MutableLiveData
+import com.example.androidfinalproject.user.account.User
 import com.example.androidfinalproject.utils.ResponseData
 import com.google.gson.Gson
 import retrofit2.Call
@@ -21,14 +22,11 @@ class UserHomeRepository @Inject constructor(val userHomeAPI: UserHomeAPI) {
                 response: Response<ResponseData>
             ) {
                 val response = response.body()
-                val stringResponse = Gson().toJson(response)
-                val stringResponseData = Gson().toJson(response?.result)
-                val userResponseObject =
-                    Gson().fromJson<ResponseData>(stringResponse, ResponseData::class.java)
-                val userResponseDataObject =
-                    Gson().fromJson<UserWallet>(stringResponseData, UserWallet::class.java)
-                userResponse.value = userResponseObject
-                userSaldoData.value = userResponseDataObject
+                val gson = Gson()
+                val res = gson.toJson(response)
+                val resData = gson.toJson(response?.result)
+                userSaldoData.value = gson.fromJson<UserWallet>(resData, UserWallet::class.java)
+                userResponse.value = gson.fromJson<ResponseData>(res, ResponseData::class.java)
             }
         })
     }
@@ -40,11 +38,11 @@ class UserHomeRepository @Inject constructor(val userHomeAPI: UserHomeAPI) {
 
             override fun onResponse(call: Call<ResponseData>, response: Response<ResponseData>) {
                 val response = response.body()
-                val stringResponse = Gson().toJson(response)
-                val stringResponseData = Gson().toJson(response?.result)
-                val userResponseObject =
-                    Gson().fromJson<ResponseData>(stringResponse, ResponseData::class.java)
-                userResponse.value = userResponseObject
+                val gson = Gson()
+                val res = gson.toJson(response)
+                val resData = gson.toJson(response?.result)
+                userSaldoData.value = gson.fromJson<UserWallet>(resData, UserWallet::class.java)
+                userResponse.value = gson.fromJson<ResponseData>(res, ResponseData::class.java)
             }
         })
     }

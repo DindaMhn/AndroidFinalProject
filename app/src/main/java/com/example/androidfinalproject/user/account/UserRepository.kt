@@ -11,7 +11,7 @@ import javax.inject.Inject
 class UserRepository @Inject constructor(val userAPI: UserAPI) {
     var userData: MutableLiveData<User> = MutableLiveData<User>()
     var userResponse: MutableLiveData<ResponseData> = MutableLiveData<ResponseData>()
-    var id: String = ""
+
     fun loginUser(user: User) {
         userAPI.loginUser(user).enqueue(object : Callback<ResponseData> {
             override fun onFailure(call: Call<ResponseData>, t: Throwable) {
@@ -22,28 +22,13 @@ class UserRepository @Inject constructor(val userAPI: UserAPI) {
                 call: Call<ResponseData>,
                 response: Response<ResponseData>
             ) {
-
                 val response = response.body()
-                if (response?.message == "Success") {
-                    val gson = Gson()
-//                userResponse.value = userLoginResponseObject
-                    val res = gson.toJson(response)
-                    val resData = gson.toJson(response?.result)
-                    userData.value = gson.fromJson<User>(resData, User::class.java)
-                    userResponse.value = gson.fromJson<ResponseData>(res, ResponseData::class.java)
-                    println("ID FROM REPO" + userData.value!!.id)
-                    id = userData.value!!.id
-                } else{
-                    println("DATA NOT FOUND")
-                }
+                val gson = Gson()
+                val res = gson.toJson(response)
+                val resData = gson.toJson(response?.result)
+                userData.value = gson.fromJson<User>(resData, User::class.java)
+                userResponse.value = gson.fromJson<ResponseData>(res, ResponseData::class.java)
             }
-//                val stringResponse = Gson().toJson(response)
-//                val stringResponseData = Gson().toJson(response?.result)
-//                val userLoginResponseObject =
-//                    Gson().fromJson<ResponseData>(stringResponse, ResponseData::class.java)
-//                val userLoginResponseDataObject =
-//                    Gson().fromJson<User>(stringResponseData, User::class.java)
-
         })
     }
 
@@ -52,16 +37,16 @@ class UserRepository @Inject constructor(val userAPI: UserAPI) {
             override fun onFailure(call: Call<ResponseData>, t: Throwable) {
                 t.printStackTrace()
             }
-
             override fun onResponse(
                 call: Call<ResponseData>,
                 response: Response<ResponseData>
             ) {
                 val response = response.body()
-                val stringResponse = Gson().toJson(response)
-                val userRegisterResponseObject =
-                    Gson().fromJson<ResponseData>(stringResponse, ResponseData::class.java)
-                userResponse.value = userRegisterResponseObject
+                val gson = Gson()
+                val res = gson.toJson(response)
+                val resData = gson.toJson(response?.result)
+                userData.value = gson.fromJson<User>(resData, User::class.java)
+                userResponse.value = gson.fromJson<ResponseData>(res, ResponseData::class.java)
             }
         })
     }

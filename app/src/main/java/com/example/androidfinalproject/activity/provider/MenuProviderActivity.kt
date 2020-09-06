@@ -18,18 +18,13 @@ class MenuProviderActivity : AppCompatActivity() {
         setContentView(R.layout.activity_menu_provider)
         navController = (nav_host_fragment_menu_provider_container as NavHostFragment).navController
         NavigationUI.setupWithNavController(bottom_navigation_provider, navController)
-        val id = intent.getStringExtra("id_provider")
-        println("ID PROVIDER MENU"+id)
-        this.findNavController(R.id.nav_host_fragment_menu_provider_container).navigate(R.id.action_global_homeProviderFragment,
-            bundleOf("provider_id" to id)
-        )
         bottom_navigation_provider.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.homeProvider -> {
                     navController.navigate(R.id.action_global_homeProviderFragment)
                     true
                 }
-                R.id.profileProvider->{
+                R.id.profileProvider -> {
                     navController.navigate(R.id.action_global_profileProviderFragment)
                     true
                 }

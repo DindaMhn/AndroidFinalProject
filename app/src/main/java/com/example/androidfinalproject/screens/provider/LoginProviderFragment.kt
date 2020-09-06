@@ -56,10 +56,21 @@ class LoginProviderFragment : Fragment(), View.OnClickListener {
                 } else if (it.status == 200.toString()) {
                     Toast.makeText(this.context, "Login Success", Toast.LENGTH_SHORT)
                         .show()
-                    println("ID PROVIDER login" + it.result)
                     val bundle = bundleOf(Pair("id_provider", it.result))
-                    view?.findNavController()
-                        .navigate(R.id.action_loginProviderFragment_to_menuProviderActivity, bundle)
+                    providerViewModel.providerData.observe(
+                        viewLifecycleOwner, Observer {
+                            if (it != null) {
+                                with(sharedPreferences?.edit()) {
+                                    this?.putString(
+                                        getString(R.string.id_provider_key),
+                                        it.id
+                                    )
+                                    this?.commit()
+                                }
+                            }
+                            view?.findNavController()
+                                ?.navigate(R.id.action_loginProviderFragment_to_menuProviderActivity)
+                        })
                 }
             })
 
@@ -71,7 +82,8 @@ class LoginProviderFragment : Fragment(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v) {
             registerProviderText -> {
-                v?.findNavController()?.navigate(R.id.action_loginProviderFragment_to_chooseUserFragment)
+                v?.findNavController()
+                    ?.navigate(R.id.action_loginProviderFragment_to_chooseUserFragment)
             }
             loginProviderButton -> {
                 val providerLogin =

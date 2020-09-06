@@ -22,8 +22,8 @@ import javax.inject.Inject
 class HomeUserFragment : Fragment(), View.OnClickListener {
     @Inject
     lateinit var userHomeViewModel: UserHomeViewModel
-
     var sharedPreferences: SharedPreferences? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         (activity?.applicationContext as MyApplication).applicationComponent.inject(this)
@@ -46,7 +46,7 @@ class HomeUserFragment : Fragment(), View.OnClickListener {
         super.onViewCreated(view, savedInstanceState)
         topUpButton.setOnClickListener(this)
         val id = sharedPreferences?.getString(
-            getString(R.string.id_key),
+            getString(R.string.id_user_key),
             getString(R.string.default_value)
         )
         userHomeViewModel.getUserSaldo(id.toString())

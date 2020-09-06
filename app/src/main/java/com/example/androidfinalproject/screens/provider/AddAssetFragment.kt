@@ -1,5 +1,7 @@
 package com.example.androidfinalproject.screens.provider
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -17,10 +19,15 @@ import javax.inject.Inject
 class AddAssetFragment : Fragment(), View.OnClickListener {
     @Inject
     lateinit var providerHomeViewModel: ProviderHomeViewModel
+    var sharedPreferences: SharedPreferences? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         (activity?.applicationContext as MyApplication).applicationComponent.inject(this)
-
+        sharedPreferences = activity?.getSharedPreferences(
+            getString(R.string.shared_preference_name),
+            Context.MODE_PRIVATE
+        )
     }
 
     override fun onCreateView(
@@ -38,11 +45,15 @@ class AddAssetFragment : Fragment(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         val alertDialog = AlertDialog.Builder(requireContext()).create()
+        val id = sharedPreferences?.getString(
+            getString(R.string.id_provider_key),
+            getString(R.string.default_value)
+        )
         when (v) {
             addAssetProsesButton -> {
                 providerHomeViewModel.createAsset(
                     Asset(
-                        provider_id = arguments?.getString("id").toString(),
+                        provider_id = id.toString(),
                         asset_name = assetNameInput.text.toString(),
                         asset_area = assetAreaInput.text.toString(),
                         longitude = longitudeInput.text.toString(),

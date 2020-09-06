@@ -41,14 +41,11 @@ class UserProfileRepository @Inject constructor(val userProfileAPI: UserProfileA
 
             override fun onResponse(call: Call<ResponseData>, response: Response<ResponseData>) {
                 val response = response.body()
-                val stringResponse = Gson().toJson(response)
-                val stringResponseData = Gson().toJson(response?.result)
-                val userResponseObject =
-                    Gson().fromJson<ResponseData>(stringResponse, ResponseData::class.java)
-                val userResponseDataObject =
-                    Gson().fromJson<UserProfile>(stringResponseData, UserProfile::class.java)
-                userResponse.value = userResponseObject
-                userData.value = userResponseDataObject
+                val gson = Gson()
+                val res = gson.toJson(response)
+                val resData = gson.toJson(response?.result)
+                userData.value = gson.fromJson<UserProfile>(resData, UserProfile::class.java)
+                userResponse.value = gson.fromJson<ResponseData>(res, ResponseData::class.java)
             }
         })
     }

@@ -10,10 +10,8 @@ class UserViewModel @Inject constructor(var userRepository: UserRepository) : Vi
 
     val userData: LiveData<User> = userRepository.userData
     val userResponse: LiveData<ResponseData> = userRepository.userResponse
-    val id: String = userRepository.id
     fun loginUser(user: User) {
         userRepository.loginUser(user)
-        println("ID VIEW MODEL" + id)
     }
 
     fun registerUser(user: User) {
