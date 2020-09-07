@@ -37,6 +37,12 @@ class MenuUserActivity : AppCompatActivity() {
                         R.id.action_global_profileUserFagment)
                     true
                 }
+                R.id.searchUser -> {
+                    navController.navigate(
+                        R.id.action_global_searchFragment
+                    )
+                    true
+                }
                 else -> {
                     true
                 }

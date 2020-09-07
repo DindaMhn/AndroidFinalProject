@@ -6,3 +6,8 @@ class ResponseData(
     var token: String = "",
     var result: Any
 )
+class ResponseLocation(
+    var message: String = "",
+    var status: String = "",
+    var response:String=""
+)

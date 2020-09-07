@@ -7,6 +7,7 @@ import com.example.androidfinalproject.provider.profile.ProviderProfileAPI
 import com.example.androidfinalproject.user.account.UserAPI
 import com.example.androidfinalproject.user.home.UserHomeAPI
 import com.example.androidfinalproject.user.profile.UserProfileAPI
+import com.example.androidfinalproject.user.search.LocationAPI
 import dagger.Module
 import dagger.Provides
 
@@ -35,5 +36,9 @@ class NetworkModule {
     @Provides
     fun provideProviderProfile():ProviderProfileAPI{
         return RetrofitBuilder.createRetrofit().create(ProviderProfileAPI::class.java)
+    }
+    @Provides
+    fun provideLocation():LocationAPI{
+        return RetrofitBuilder.createRetrofit().create(LocationAPI::class.java)
     }
 }

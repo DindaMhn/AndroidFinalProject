@@ -26,4 +26,9 @@
         android:label="fragment_profile_user_fagment"
         tools:layout="@layout/fragment_profile_user_fagment" />
     <action android:id="@+id/action_global_profileUserFagment" app:destination="@id/profileUserFagment" />
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.example.androidfinalproject.screens.user.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" /><action android:id="@+id/action_global_searchFragment" app:destination="@id/searchFragment"/>
 </navigation>

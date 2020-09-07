@@ -24,4 +24,6 @@ interface ApplicationComponent {
     fun inject(loginProviderFragment: LoginProviderFragment)
     fun inject(profileProviderFragment: ProfileProviderFragment)
     fun inject(loginUserActivity: LoginUserActivity)
+    fun inject(mapsFragment: MapsFragment)
+    fun inject(searchFragment: SearchFragment)
 }
