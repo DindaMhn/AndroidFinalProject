@@ -53,32 +53,30 @@ class TopUpSaldoFragment : Fragment(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         val alertDialog = AlertDialog.Builder(requireContext()).create()
-        val id_wallet = sharedPreferences?.getString(
-            getString(R.string.wallet_id_key),
-            getString(R.string.default_value)
-        )
-        when (v) {
 
+        when (v) {
             prosesButton -> {
+                val id_wallet = sharedPreferences?.getString(
+                    getString(R.string.wallet_id_key),
+                    getString(R.string.default_value)
+                )
+                println("ID WALLET"+id_wallet)
                 userHomeViewModel.updateSaldoUser(
                     id_wallet.toString(),
                     UserWallet(debit = debitInput.text.toString())
                 )
-                println(arguments?.getString("wallet").toString())
                 alertDialog.setTitle("TopUp Saldo")
                 alertDialog.setMessage("TopUp Success")
 
                 alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Yes"
-                ) { dialog, which -> activity?.onBackPressed() }
+                ) { dialog, which -> v?.findNavController()?.navigate(R.id.action_global_homeUserFragment)}
                 alertDialog.show()
 
                 val btnPositive = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
-                val btnNegative = alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE)
 
                 val layoutParams = btnPositive.layoutParams as LinearLayout.LayoutParams
                 layoutParams.weight = 10f
                 btnPositive.layoutParams = layoutParams
-                btnNegative.layoutParams = layoutParams
             }
         }
     }

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/login_provider_navigation"
+    app:startDestination="@id/loginProviderFragment">
+    <fragment
+        android:id="@+id/loginProviderFragment"
+        android:name="com.example.androidfinalproject.screens.provider.LoginProviderFragment"
+        android:label="fragment_login_provider"
+        tools:layout="@layout/fragment_login_provider" >
+        <action
+            android:id="@+id/action_loginProviderFragment_to_menuProviderActivity"
+            app:destination="@id/menuProviderActivity" />
+    </fragment>
+    <activity
+        android:id="@+id/menuProviderActivity"
+        android:name="com.example.androidfinalproject.activity.provider.MenuProviderActivity"
+        android:label="activity_menu_provider"
+        tools:layout="@layout/activity_menu_provider" />
+</navigation>

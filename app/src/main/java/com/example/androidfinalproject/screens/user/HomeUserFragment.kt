@@ -45,9 +45,7 @@ class HomeUserFragment : Fragment(), View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         topUpButton.setOnClickListener(this)
-        val id = sharedPreferences?.getString(
-            getString(R.string.id_user_key),
-            getString(R.string.default_value)
+        val id = sharedPreferences?.getString("ID_USER",""
         )
         userHomeViewModel.getUserSaldo(id.toString())
         userHomeViewModel.userSaldoData.observe(viewLifecycleOwner, Observer {

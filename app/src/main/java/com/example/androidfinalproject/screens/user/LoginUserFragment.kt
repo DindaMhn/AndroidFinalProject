@@ -1,6 +1,7 @@
 package com.example.androidfinalproject.screens.user
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -13,8 +14,10 @@ import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import com.example.androidfinalproject.MyApplication
 import com.example.androidfinalproject.R
+import com.example.androidfinalproject.activity.MainActivity
 import com.example.androidfinalproject.user.account.User
 import com.example.androidfinalproject.user.account.UserViewModel
+import kotlinx.android.synthetic.main.fragment_login_provider.*
 import kotlinx.android.synthetic.main.fragment_login_user.*
 import javax.inject.Inject
 
@@ -44,7 +47,7 @@ class LoginUserFragment : Fragment(), View.OnClickListener {
         super.onViewCreated(view, savedInstanceState)
         if (sharedPreferences?.getBoolean("ISLOGGEDIN_USER", false) == true) {
             view?.findNavController()
-                ?.navigate(R.id.action_loginUserFragment_to_homeUserFragment)
+                ?.navigate(R.id.action_loginUserFragment_to_menuUserActivity)
         } else {
             userViewModel.userResponse.observe(
                 viewLifecycleOwner, Observer {
@@ -91,21 +94,20 @@ class LoginUserFragment : Fragment(), View.OnClickListener {
                                     }
                                 }
                                 view?.findNavController()
-                                    ?.navigate(R.id.action_loginUserFragment_to_homeUserFragment)
+                                    ?.navigate(R.id.action_loginUserFragment_to_menuUserActivity)
                             })
                     }
                 })
         }
-//        registerUserText.setOnClickListener(this)
+        backtoMainUserText.setOnClickListener(this)
         loginUserButton.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
         when (v) {
-//            registerUserText -> {
-//                view?.findNavController()
-//                    ?.navigate(R.id.action_loginUserFragment_to_chooseUserFragment)
-//            }
+            backtoMainUserText -> {
+                startActivity(Intent(this.context, MainActivity::class.java))
+            }
             loginUserButton -> {
                 val userLogin =
                     User(

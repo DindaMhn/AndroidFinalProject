@@ -36,10 +36,10 @@ class ChooseLoginFragment : Fragment(),View.OnClickListener {
                 v?.findNavController()?.navigate(R.id.action_chooseLoginFragment_to_chooseUserFragment)
             }
             chooseProviderLoginButton->{
-                v?.findNavController()?.navigate(R.id.action_chooseLoginFragment_to_menuProviderActivity)
+                v?.findNavController()?.navigate(R.id.action_chooseLoginFragment_to_loginProviderActivity)
             }
             chooseUserLoginButton->{
-                v?.findNavController()?.navigate(R.id.action_chooseLoginFragment_to_menuUserActivity)
+                v?.findNavController()?.navigate(R.id.action_chooseLoginFragment_to_loginUserActivity)
             }
         }
     }

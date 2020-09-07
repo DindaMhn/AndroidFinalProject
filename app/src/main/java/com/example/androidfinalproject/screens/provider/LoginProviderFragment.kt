@@ -1,6 +1,7 @@
 package com.example.androidfinalproject.screens.provider
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -12,9 +13,11 @@ import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import com.example.androidfinalproject.MyApplication
 import com.example.androidfinalproject.R
+import com.example.androidfinalproject.activity.MainActivity
 import com.example.androidfinalproject.provider.account.Provider
 import com.example.androidfinalproject.provider.account.ProviderViewModel
 import kotlinx.android.synthetic.main.fragment_login_provider.*
+import kotlinx.android.synthetic.main.fragment_login_user.*
 import javax.inject.Inject
 
 class LoginProviderFragment : Fragment(), View.OnClickListener {
@@ -43,7 +46,7 @@ class LoginProviderFragment : Fragment(), View.OnClickListener {
         super.onViewCreated(view, savedInstanceState)
         if (sharedPreferences?.getBoolean("ISLOGGEDIN_PROVIDER", false) == true) {
             view?.findNavController()
-                ?.navigate(R.id.action_loginProviderFragment_to_homeProviderFragment)
+                ?.navigate(R.id.action_loginProviderFragment_to_menuProviderActivity)
         } else {
             providerViewModel.providerResponse.observe(
                 viewLifecycleOwner, Observer {
@@ -88,23 +91,22 @@ class LoginProviderFragment : Fragment(), View.OnClickListener {
                                         this?.commit()
                                     }
                                     view?.findNavController()
-                                        ?.navigate(R.id.action_loginProviderFragment_to_homeProviderFragment)
+                                        ?.navigate(R.id.action_loginProviderFragment_to_menuProviderActivity)
                                 }
                             })
                     }
                 })
 
         }
-//        registerProviderText.setOnClickListener(this)
+        backtoMainProviderText.setOnClickListener(this)
         loginProviderButton.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
         when (v) {
-//            registerProviderText -> {
-//                v?.findNavController()
-//                    ?.navigate(R.id.action_menuProviderActivity_to_chooseRegisterFragment)
-//            }
+            backtoMainProviderText -> {
+                startActivity(Intent(this.context, MainActivity::class.java))
+            }
             loginProviderButton -> {
                 val providerLogin =
                     Provider(

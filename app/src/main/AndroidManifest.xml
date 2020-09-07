@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -12,7 +13,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activity.provider.MenuProviderActivity"></activity>
+        <activity android:name=".activity.user.RegisterUserActivity"></activity>
+        <activity android:name=".activity.provider.LoginProviderActivity" />
+        <activity android:name=".activity.user.LoginUserActivity" />
+        <activity android:name=".activity.provider.MenuProviderActivity" />
         <activity android:name=".activity.user.MenuUserActivity" />
         <activity android:name=".activity.MainActivity">
             <intent-filter>

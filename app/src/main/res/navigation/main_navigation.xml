@@ -27,21 +27,6 @@
         android:name="com.example.androidfinalproject.screens.user.UserRegisterFragment"
         android:label="fragment_user_register"
         tools:layout="@layout/fragment_user_register" />
-    <activity
-        android:id="@+id/menuUserActivity"
-        android:name="com.example.androidfinalproject.activity.user.MenuUserActivity"
-        android:label="activity_menu"
-        tools:layout="@layout/activity_menu_user" />
-    <activity
-        android:id="@+id/menuProviderActivity"
-        android:name="com.example.androidfinalproject.activity.provider.MenuProviderActivity"
-        android:label="activity_menu_provider"
-        tools:layout="@layout/activity_menu_provider">
-
-    </activity>
-<!--    <action-->
-<!--        android:id="@+id/action_menuProviderActivity_to_chooseRegisterFragment"-->
-<!--        app:destination="@id/chooseUserFragment" />-->
     <fragment
         android:id="@+id/chooseLoginFragment"
         android:name="com.example.androidfinalproject.screens.ChooseLoginFragment"
@@ -51,13 +36,23 @@
             android:id="@+id/action_chooseLoginFragment_to_chooseUserFragment"
             app:destination="@id/chooseUserFragment" />
         <action
-            android:id="@+id/action_chooseLoginFragment_to_menuProviderActivity"
-            app:destination="@id/menuProviderActivity" />
+            android:id="@+id/action_chooseLoginFragment_to_loginUserActivity"
+            app:destination="@id/loginUserActivity" />
         <action
-            android:id="@+id/action_chooseLoginFragment_to_menuUserActivity"
-            app:destination="@id/menuUserActivity" />
+            android:id="@+id/action_chooseLoginFragment_to_loginProviderActivity"
+            app:destination="@id/loginProviderActivity" />
     </fragment>
     <action
         android:id="@+id/action_global_chooseLoginFragment"
         app:destination="@id/chooseLoginFragment" />
+    <activity
+        android:id="@+id/loginUserActivity"
+        android:name="com.example.androidfinalproject.activity.user.LoginUserActivity"
+        android:label="activity_login_user"
+        tools:layout="@layout/activity_login_user" />
+    <activity
+        android:id="@+id/loginProviderActivity"
+        android:name="com.example.androidfinalproject.activity.provider.LoginProviderActivity"
+        android:label="activity_login_provider"
+        tools:layout="@layout/activity_login_provider" />
 </navigation>

@@ -2,6 +2,7 @@ package com.example.androidfinalproject
 
 import com.example.androidfinalproject.activity.MainActivity
 import com.example.androidfinalproject.activity.provider.MenuProviderActivity
+import com.example.androidfinalproject.activity.user.LoginUserActivity
 import com.example.androidfinalproject.activity.user.MenuUserActivity
 import com.example.androidfinalproject.screens.provider.*
 import com.example.androidfinalproject.screens.user.*
@@ -22,4 +23,5 @@ interface ApplicationComponent {
     fun inject(addAssetFragment: AddAssetFragment)
     fun inject(loginProviderFragment: LoginProviderFragment)
     fun inject(profileProviderFragment: ProfileProviderFragment)
+    fun inject(loginUserActivity: LoginUserActivity)
 }
