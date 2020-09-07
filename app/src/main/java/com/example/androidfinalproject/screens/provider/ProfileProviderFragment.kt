@@ -107,7 +107,7 @@ class ProfileProviderFragment : Fragment(), View.OnClickListener {
 ////            getString(R.string.default_value)
 ////        )
         providerProfileViewModel.getById(sharedPreferences?.getString("ID_PROVIDER", "").toString())
-        println("ID_PROVIDER"+sharedPreferences?.getString("ID_PROVIDER", "").toString())
+        println("ID_PROVIDER" + sharedPreferences?.getString("ID_PROVIDER", "").toString())
         providerProfileViewModel.providerData.observe(viewLifecycleOwner, Observer {
             fNameEditTextProvider.text =
                 Editable.Factory.getInstance().newEditable(it.fullname.toString())
@@ -140,10 +140,7 @@ class ProfileProviderFragment : Fragment(), View.OnClickListener {
 
         when (v) {
             simpanEditProviderButton -> {
-                val id = sharedPreferences?.getString(
-                    getString(R.string.id_provider_key),
-                    getString(R.string.default_value)
-                )
+                val id = sharedPreferences?.getString("ID_PROVIDER", "")
                 println("ID PROFILE PROVIDER" + id.toString())
                 providerProfileViewModel.updateProviderProfile(
                     id.toString(),
@@ -192,10 +189,10 @@ class ProfileProviderFragment : Fragment(), View.OnClickListener {
                         "ISLOGGEDIN_PROVIDER",
                         false
                     )
+                    this?.clear()
                     this?.commit()
                 }
-                view?.findNavController()
-                    ?.navigate(R.id.action_global_chooseLoginFragment)
+                activity?.finish()
             }
         }
     }

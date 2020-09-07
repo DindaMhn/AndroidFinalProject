@@ -43,7 +43,7 @@ class LoginProviderFragment : Fragment(), View.OnClickListener {
         super.onViewCreated(view, savedInstanceState)
         if (sharedPreferences?.getBoolean("ISLOGGEDIN_PROVIDER", false) == true) {
             view?.findNavController()
-                ?.navigate(R.id.action_loginProviderFragment_to_menuProviderActivity)
+                ?.navigate(R.id.action_loginProviderFragment_to_homeProviderFragment)
         } else {
             providerViewModel.providerResponse.observe(
                 viewLifecycleOwner, Observer {
@@ -88,23 +88,23 @@ class LoginProviderFragment : Fragment(), View.OnClickListener {
                                         this?.commit()
                                     }
                                     view?.findNavController()
-                                        ?.navigate(R.id.action_loginProviderFragment_to_menuProviderActivity)
+                                        ?.navigate(R.id.action_loginProviderFragment_to_homeProviderFragment)
                                 }
                             })
                     }
                 })
 
         }
-        registerProviderText.setOnClickListener(this)
+//        registerProviderText.setOnClickListener(this)
         loginProviderButton.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
         when (v) {
-            registerProviderText -> {
-                v?.findNavController()
-                    ?.navigate(R.id.action_loginProviderFragment_to_chooseUserFragment)
-            }
+//            registerProviderText -> {
+//                v?.findNavController()
+//                    ?.navigate(R.id.action_menuProviderActivity_to_chooseRegisterFragment)
+//            }
             loginProviderButton -> {
                 val providerLogin =
                     Provider(

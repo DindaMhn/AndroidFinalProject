@@ -43,7 +43,7 @@ class ProviderRegisterFragment : Fragment(), View.OnClickListener {
                     Toast.makeText(this.context, "Register Success", Toast.LENGTH_SHORT)
                         .show()
                     view?.findNavController()
-                        ?.navigate(R.id.action_global_loginProviderFragment)
+                        ?.navigate(R.id.chooseLoginFragment)
                 }
             })
         LoginProviderText.setOnClickListener(this)

@@ -12,4 +12,6 @@ interface UserProfileAPI {
     fun deleteUserPhoto(@Path("id") id: String): Call<ResponseData>
     @GET("authUser/{id}")
     fun getUser(@Path("id")id:String):Call<ResponseData>
+    @GET("user/photo/{id}")
+    fun getUserPhoto(@Path("id") id: String): Call<ResponsePhoto>
 }

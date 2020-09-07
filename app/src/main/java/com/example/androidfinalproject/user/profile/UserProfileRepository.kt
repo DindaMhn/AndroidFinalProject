@@ -11,6 +11,7 @@ import javax.inject.Inject
 class UserProfileRepository @Inject constructor(val userProfileAPI: UserProfileAPI) {
     var userResponse: MutableLiveData<ResponseData> = MutableLiveData<ResponseData>()
     var userData: MutableLiveData<UserProfile> = MutableLiveData<UserProfile>()
+    var userResponsePhoto :  MutableLiveData<ResponsePhoto> = MutableLiveData<ResponsePhoto>()
 
     fun updateUserProfile(id: String, userUpdate: UserUpdate) {
         userProfileAPI.updateUserProfile(id, userUpdate).enqueue(object : Callback<ResponseData> {
@@ -51,12 +52,25 @@ class UserProfileRepository @Inject constructor(val userProfileAPI: UserProfileA
             override fun onFailure(call: Call<ResponseData>, t: Throwable) {
                 t.printStackTrace()
             }
-
             override fun onResponse(call: Call<ResponseData>, response: Response<ResponseData>) {
                 val response = response.body()
                 val gson = Gson()
                 val resData = gson.toJson(response?.result)
                 userData.value = gson.fromJson<UserProfile>(resData, UserProfile::class.java)
+            }
+
+        })
+    }
+    fun getUserPhoto(id: String) {
+        userProfileAPI.getUserPhoto(id).enqueue(object : Callback<ResponsePhoto> {
+            override fun onFailure(call: Call<ResponsePhoto>, t: Throwable) {
+                t.printStackTrace()
+            }
+            override fun onResponse(call: Call<ResponsePhoto>, response: Response<ResponsePhoto>) {
+                val response = response.body()
+                val gson = Gson()
+                val res = gson.toJson(response)
+                userResponsePhoto.value = gson.fromJson<ResponsePhoto>(res, ResponsePhoto::class.java)
             }
 
         })

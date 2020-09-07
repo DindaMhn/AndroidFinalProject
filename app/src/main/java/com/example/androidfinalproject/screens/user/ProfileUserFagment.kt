@@ -1,9 +1,15 @@
 package com.example.androidfinalproject.screens.user
 
+import android.app.Activity
 import android.app.DatePickerDialog
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
+import android.database.Cursor
+import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.text.Editable
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -15,12 +21,11 @@ import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import com.example.androidfinalproject.MyApplication
 import com.example.androidfinalproject.R
-import com.example.androidfinalproject.user.account.User
-import com.example.androidfinalproject.user.account.UserViewModel
-import com.example.androidfinalproject.user.profile.UserProfile
 import com.example.androidfinalproject.user.profile.UserProfileViewModel
 import com.example.androidfinalproject.user.profile.UserUpdate
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_profile_user_fagment.*
+import java.io.File
 import java.util.*
 import javax.inject.Inject
 
@@ -28,6 +33,8 @@ class ProfileUserFagment : Fragment(), View.OnClickListener {
     @Inject
     lateinit var userProfileViewModel: UserProfileViewModel
     var sharedPreferences: SharedPreferences? = null
+    val SELECT_FILE_FORM_STORAGE = 66
+    lateinit var photoFile: File
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,7 +74,7 @@ class ProfileUserFagment : Fragment(), View.OnClickListener {
             dpd.show()
         }
         userProfileViewModel.getById(sharedPreferences?.getString("ID_USER", "").toString())
-        println("ID USER" + sharedPreferences?.getString("ID_USER", "").toString())
+        userProfileViewModel.getUserPhoto(sharedPreferences?.getString("ID_USER", "").toString())
         userProfileViewModel.userData.observe(viewLifecycleOwner, Observer {
             fNameUserEditTextUser.text =
                 Editable.Factory.getInstance().newEditable(it.fullname.toString())
@@ -79,11 +86,36 @@ class ProfileUserFagment : Fragment(), View.OnClickListener {
             bornDateEditTextUser.text =
                 Editable.Factory.getInstance().newEditable(it.borndate.toString())
         })
-
         deleteUserPhoto.setOnClickListener(this)
         ChangePhotoUser.setOnClickListener(this)
         simpanEditUserButton.setOnClickListener(this)
         logoutUserButton.setOnClickListener(this)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == SELECT_FILE_FORM_STORAGE && resultCode == Activity.RESULT_OK) {
+            userProfileViewModel.userResponsePhoto.observe(viewLifecycleOwner, Observer {
+                val originalPath = getOriginalPathFromUri(Uri.parse(it.path))
+                val imageFile: File = File(originalPath)
+                val imageBitmap = BitmapFactory.decodeFile(imageFile.absolutePath)
+                photoProfileUser.setImageBitmap(imageBitmap)
+            })
+        }
+
+    }
+
+    fun getOriginalPathFromUri(contentUri: Uri): String? {
+        var originalPath: String? = null
+        val projection =
+            arrayOf(MediaStore.Images.Media.DATA)
+        val cursor: Cursor? =
+            activity?.contentResolver?.query(contentUri, projection, null, null, null)
+        if (cursor?.moveToFirst()!!) {
+            val columnIndex: Int = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+            originalPath = cursor.getString(columnIndex)
+        }
+        return originalPath
     }
 
     override fun onClick(v: View?) {
@@ -96,16 +128,13 @@ class ProfileUserFagment : Fragment(), View.OnClickListener {
                         "ISLOGGEDIN_USER",
                         false
                     )
+                    this?.clear()
                     this?.commit()
                 }
-                view?.findNavController()
-                    ?.navigate(R.id.action_global_loginUserFragment)
+                activity?.finish()
             }
             simpanEditUserButton -> {
-                val id = sharedPreferences?.getString(
-                    getString(R.string.id_user_key),
-                    getString(R.string.default_value)
-                )
+                val id = sharedPreferences?.getString("ID_USER","")
                 userProfileViewModel.updateUserProfile(
                     id.toString(),
                     UserUpdate(

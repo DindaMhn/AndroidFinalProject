@@ -20,3 +20,6 @@ class UserUpdate(
     var borndate: String = "",
     var address: String = ""
 )
+class ResponsePhoto(
+    var path:String=""
+)

@@ -44,7 +44,7 @@ class LoginUserFragment : Fragment(), View.OnClickListener {
         super.onViewCreated(view, savedInstanceState)
         if (sharedPreferences?.getBoolean("ISLOGGEDIN_USER", false) == true) {
             view?.findNavController()
-                ?.navigate(R.id.action_loginUserFragment_to_menuUserActivity)
+                ?.navigate(R.id.action_loginUserFragment_to_homeUserFragment)
         } else {
             userViewModel.userResponse.observe(
                 viewLifecycleOwner, Observer {
@@ -91,21 +91,21 @@ class LoginUserFragment : Fragment(), View.OnClickListener {
                                     }
                                 }
                                 view?.findNavController()
-                                    ?.navigate(R.id.action_loginUserFragment_to_menuUserActivity)
+                                    ?.navigate(R.id.action_loginUserFragment_to_homeUserFragment)
                             })
                     }
                 })
         }
-        registerUserText.setOnClickListener(this)
+//        registerUserText.setOnClickListener(this)
         loginUserButton.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
         when (v) {
-            registerUserText -> {
-                view?.findNavController()
-                    ?.navigate(R.id.action_loginUserFragment_to_chooseUserFragment)
-            }
+//            registerUserText -> {
+//                view?.findNavController()
+//                    ?.navigate(R.id.action_loginUserFragment_to_chooseUserFragment)
+//            }
             loginUserButton -> {
                 val userLogin =
                     User(

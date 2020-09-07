@@ -59,4 +59,10 @@ dependencies {
 
     //circle image view
     implementation "de.hdodenhof:circleimageview:$circle_image_view_version"
+
+    //picasso
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+//
+//    implementation 'pub.devrel:easypermissions:1.2.0'
+//    implementation 'com.github.dhaval2404:imagepicker:1.7.4'
 }
