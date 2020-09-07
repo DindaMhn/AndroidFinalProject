@@ -7,12 +7,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
+import com.example.androidfinalproject.MyApplication
 import com.example.androidfinalproject.R
+import com.example.androidfinalproject.user.ticket.Ticket
+import com.example.androidfinalproject.user.ticket.TicketViewModel
 import com.google.zxing.Result
 import kotlinx.android.synthetic.main.fragment_scan_asset_qr_code.*
 import me.dm7.barcodescanner.zxing.ZXingScannerView
+import javax.inject.Inject
 
 
 class ScanAssetQrCodeFragment : Fragment(), ZXingScannerView.ResultHandler, View.OnClickListener {
@@ -20,15 +27,17 @@ class ScanAssetQrCodeFragment : Fragment(), ZXingScannerView.ResultHandler, View
     private lateinit var mScannerView: ZXingScannerView
     private var isCaptured = false
 
-
+    @Inject lateinit var ticketViewModel: TicketViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        (activity?.applicationContext as MyApplication).applicationComponent.inject(this)
 
 
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         initScannerView()
         initDefaultView()
         button_pay_ticket.setOnClickListener(this)
@@ -54,13 +63,22 @@ class ScanAssetQrCodeFragment : Fragment(), ZXingScannerView.ResultHandler, View
 
     private fun doRequestPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (context?.let { ContextCompat.checkSelfPermission(it,Manifest.permission.CAMERA) } != PackageManager.PERMISSION_GRANTED) {
+            if (context?.let {
+                    ContextCompat.checkSelfPermission(
+                        it,
+                        Manifest.permission.CAMERA
+                    )
+                } != PackageManager.PERMISSION_GRANTED) {
                 requestPermissions(arrayOf(Manifest.permission.CAMERA), 100)
             }
         }
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
         when (requestCode) {
             100 -> {
                 initScannerView()
@@ -91,10 +109,40 @@ class ScanAssetQrCodeFragment : Fragment(), ZXingScannerView.ResultHandler, View
     }
 
     override fun onClick(view: View?) {
+
         when (view?.id) {
-            R.id.button_pay_ticket-> {
-                mScannerView.resumeCameraPreview(this)
-                initDefaultView()
+
+            R.id.button_pay_ticket -> {
+                val ticketNew = Ticket(
+                    id = "556169b9-eccc-11ea-83bf-b4a9fc958140"
+                    , user_id = "177f3d50-eb57-11ea-86a5-b4a9fc958140"
+                    , asset_id = "750d28c1-eb59-11ea-86a5-b4a9fc958140"
+                    , fee_id = "e3916ad8-eb5a-11ea-86a5-b4a9fc958140"
+                    , vehicle_id = "209f6e05-eb5a-11ea-86a5-b4a9fc958140"
+                    , license_plate = "B 3030 PTK"
+                    , book_at = "2020-09-02 10:28:13"
+                    , start_at = "2020-09-02 10:28:13"
+                    , finished_at = ""
+                    , status = "A"
+                )
+                ticketViewModel.paymentTicket(ticketNew)
+                ticketViewModel.ticketResponse.observe(
+                    viewLifecycleOwner, Observer {
+                        if (it.status == 400.toString() && it.message == "Error") {
+                            Toast.makeText(
+                                this.context,
+                                "Invalid Payment",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            mScannerView.resumeCameraPreview(this)
+                            initDefaultView()
+                        } else if (it.status == 202.toString()) {
+                            Toast.makeText(this.context, "Payment Success", Toast.LENGTH_SHORT)
+                                .show()
+                            view?.findNavController()
+                                ?.navigate(R.id.action_global_homeUserFragment)
+                        }
+                    })
             }
             else -> {
                 /* nothing to do in here */

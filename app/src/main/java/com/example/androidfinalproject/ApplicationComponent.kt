@@ -24,4 +24,6 @@ interface ApplicationComponent {
     fun inject(profileUserFagment: ProfileUserFagment)
     fun inject(addAssetFragment: AddAssetFragment)
     fun inject(loginProviderFragment: LoginProviderFragment)
+    fun inject(scanAssetQrCodeFragment: ScanAssetQrCodeFragment)
+    fun inject(historyUserFragment: HistoryUserFragment)
 }

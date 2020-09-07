@@ -27,7 +27,12 @@
         android:id="@+id/scanAssetQrCodeFragment"
         android:name="com.example.androidfinalproject.screens.user.ScanAssetQrCodeFragment"
         android:label="fragment_scan_asset_qr_code"
-        tools:layout="@layout/fragment_scan_asset_qr_code" />
+        tools:layout="@layout/fragment_scan_asset_qr_code" >
+        <action
+            android:id="@+id/action_scanAssetQrCodeFragment_pop"
+            app:popUpTo="@id/scanAssetQrCodeFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
     <fragment
         android:id="@+id/historyUserFragment"
         android:name="com.example.androidfinalproject.screens.user.HistoryUserFragment"
