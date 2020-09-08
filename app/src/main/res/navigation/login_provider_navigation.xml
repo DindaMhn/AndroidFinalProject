@@ -17,5 +17,5 @@
         android:id="@+id/menuProviderActivity"
         android:name="com.example.androidfinalproject.activity.provider.MenuProviderActivity"
         android:label="activity_menu_provider"
-        tools:layout="@layout/activity_menu_provider" />
+        tools:layout="@layout/activity_menu_provider" /><action android:id="@+id/action_global_loginProviderFragment" app:destination="@id/loginProviderFragment"/>
 </navigation>

@@ -23,8 +23,10 @@ import androidx.core.content.FileProvider
 import androidx.lifecycle.Observer
 import com.example.androidfinalproject.MyApplication
 import com.example.androidfinalproject.R
+import com.example.androidfinalproject.activity.MainActivity
 import com.example.androidfinalproject.user.profile.UserProfileViewModel
 import com.example.androidfinalproject.user.profile.UserUpdate
+import kotlinx.android.synthetic.main.fragment_profile_provider.*
 import kotlinx.android.synthetic.main.fragment_profile_user_fagment.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -71,10 +73,10 @@ class ProfileUserFagment : Fragment(), View.OnClickListener {
         val month = c.get(Calendar.MONTH)
         val day = c.get(Calendar.DAY_OF_MONTH)
         mPickTimeBtn?.setOnClickListener {
-            val monthView = month + 1
             val dpd = DatePickerDialog(
                 requireContext(),
                 DatePickerDialog.OnDateSetListener { view, year, month, day ->
+                    val monthView = month + 1
                     // Display Selected date in TextView
                     textView?.setText("$year-$monthView-$day")
                 }, year, month, day
@@ -202,30 +204,34 @@ class ProfileUserFagment : Fragment(), View.OnClickListener {
                     this?.clear()
                     this?.commit()
                 }
-                activity?.finish()
+                startActivity(Intent(this.context, MainActivity::class.java))
             }
             simpanEditUserButton -> {
                 val id = sharedPreferences?.getString("ID_USER", "")
-                userProfileViewModel.updateUserProfile(
-                    id.toString(),
-                    UserUpdate(
-                        borndate = bornDateEditTextUser.text.toString(),
-                        address = addressEditTextUser.text.toString()
+                if (bornDateEditTextUser.text.toString() == "" || addressEditTextUser.text.toString() == "") {
+                    Toast.makeText(this.context, "Must be Field", Toast.LENGTH_SHORT).show()
+                } else {
+                    userProfileViewModel.updateUserProfile(
+                        id.toString(),
+                        UserUpdate(
+                            borndate = bornDateEditTextUser.text.toString(),
+                            address = addressEditTextUser.text.toString()
+                        )
                     )
-                )
-                alertDialog.setTitle("Edit Profile")
-                alertDialog.setMessage("Edit Success")
+                    alertDialog.setTitle("Edit Profile")
+                    alertDialog.setMessage("Edit Success")
 
-                alertDialog.setButton(
-                    AlertDialog.BUTTON_POSITIVE, "OK"
-                ) { dialog, which -> dialog.dismiss() }
-                alertDialog.show()
+                    alertDialog.setButton(
+                        AlertDialog.BUTTON_POSITIVE, "OK"
+                    ) { dialog, which -> dialog.dismiss() }
+                    alertDialog.show()
 
-                val btnPositive = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
+                    val btnPositive = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
 
-                val layoutParams = btnPositive.layoutParams as LinearLayout.LayoutParams
-                layoutParams.weight = 10f
-                btnPositive.layoutParams = layoutParams
+                    val layoutParams = btnPositive.layoutParams as LinearLayout.LayoutParams
+                    layoutParams.weight = 10f
+                    btnPositive.layoutParams = layoutParams
+                }
             }
             ChangePhotoUser -> {
                 val changeImageDialog = AlertDialog.Builder(requireContext())
@@ -240,7 +246,7 @@ class ProfileUserFagment : Fragment(), View.OnClickListener {
                     }).show()
             }
             deleteUserPhoto -> {
-                userProfileViewModel.deleteUserPhoto(arguments?.getString("id").toString())
+                userProfileViewModel.deleteUserPhoto(sharedPreferences?.getString("ID_USER", "").toString())
                 alertDialog.setTitle("Delete Photo")
                 alertDialog.setMessage("Delete Success")
 

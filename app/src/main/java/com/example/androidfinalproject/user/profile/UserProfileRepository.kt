@@ -46,8 +46,6 @@ class UserProfileRepository @Inject constructor(val userProfileAPI: UserProfileA
                 val response = response.body()
                 val gson = Gson()
                 val res = gson.toJson(response)
-                val resData = gson.toJson(response?.result)
-                userData.value = gson.fromJson<UserProfile>(resData, UserProfile::class.java)
                 userResponse.value = gson.fromJson<ResponseData>(res, ResponseData::class.java)
             }
         })
@@ -76,13 +74,12 @@ class UserProfileRepository @Inject constructor(val userProfileAPI: UserProfileA
             }
 
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                if (response.code() != 404) {
+                if (response.code() != 403) {
                     val responseImage =
                         BitmapFactory.decodeStream(response.body()!!.byteStream())
                     Glide.with(activity).asBitmap().load(responseImage).into(imageContainer)
                 }
             }
-
         })
     }
 

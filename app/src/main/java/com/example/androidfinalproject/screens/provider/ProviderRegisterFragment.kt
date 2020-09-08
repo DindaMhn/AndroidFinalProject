@@ -1,5 +1,6 @@
 package com.example.androidfinalproject.screens.provider
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import com.example.androidfinalproject.MyApplication
 import com.example.androidfinalproject.R
+import com.example.androidfinalproject.activity.MainActivity
 import com.example.androidfinalproject.provider.account.Provider
 import com.example.androidfinalproject.provider.account.ProviderViewModel
 import kotlinx.android.synthetic.main.fragment_profile_provider.*
@@ -42,8 +44,7 @@ class ProviderRegisterFragment : Fragment(), View.OnClickListener {
                 }else if (it.status == 200.toString()) {
                     Toast.makeText(this.context, "Register Success", Toast.LENGTH_SHORT)
                         .show()
-                    view?.findNavController()
-                        ?.navigate(R.id.chooseLoginFragment)
+                    startActivity(Intent(this.context, MainActivity::class.java))
                 }
             })
         LoginProviderText.setOnClickListener(this)
