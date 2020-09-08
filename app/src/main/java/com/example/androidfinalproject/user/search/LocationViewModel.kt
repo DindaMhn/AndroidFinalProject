@@ -11,7 +11,7 @@ class LocationViewModel @Inject constructor(var locationRepository: LocationRepo
     ViewModel() {
     val listLocationData : LiveData<List<Location>> = locationRepository.listLocation
 
-    fun getLocation(){
+    fun getAssetLocation(){
         locationRepository.getLocation()
     }
 }

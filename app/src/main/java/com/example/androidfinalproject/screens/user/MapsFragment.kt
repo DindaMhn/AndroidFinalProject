@@ -55,11 +55,15 @@ class MapsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(callback)
-        println("tes")
+//        println("tes")
         locationViewModel.listLocationData.observe(viewLifecycleOwner, Observer {
-            println("masuk")
+            println("masuk map")
+            println(it.size)
+            for (i in 0 until it.size){
+            println(it[i].asset_name)
+        }
         })
-//        locationViewModel.getLocation()
+        locationViewModel.getAssetLocation()
 
 //        for (i in locationViewModel.locationData.value!!){
 //            println(locationViewModel.locationData)
