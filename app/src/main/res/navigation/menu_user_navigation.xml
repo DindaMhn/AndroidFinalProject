@@ -3,8 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/menu_user_navigation"
-    app:startDestination="@+id/homeUserFragment">
-
+    app:startDestination="@id/homeUserFragment">
+    <action android:id="@+id/action_global_homeUserFragment" app:destination="@id/homeUserFragment" />
+    <action android:id="@+id/action_global_scanUserFragment" app:destination="@id/scanAssetQrCodeFragment" />
+    <action android:id="@+id/action_global_historyUserFragment" app:destination="@id/historyUserFragment" />
+    <action android:id="@+id/action_global_detailTicketFragment" app:destination="@id/detailTicketFragment"/>
     <fragment
         android:id="@+id/homeUserFragment"
         android:name="com.example.androidfinalproject.screens.user.HomeUserFragment"
@@ -14,12 +17,24 @@
             android:id="@+id/action_homeUserFragment_to_topUpSaldoFragment"
             app:destination="@id/topUpSaldoFragment" />
     </fragment>
-    <action android:id="@+id/action_global_homeUserFragment" app:destination="@id/homeUserFragment" />
+
     <fragment
         android:id="@+id/topUpSaldoFragment"
         android:name="com.example.androidfinalproject.screens.user.TopUpSaldoFragment"
         android:label="fragment_top_up_saldo"
         tools:layout="@layout/fragment_top_up_saldo" />
+    <fragment
+        android:id="@+id/scanAssetQrCodeFragment"
+        android:name="com.example.androidfinalproject.screens.user.ScanAssetQrCodeFragment"
+        android:label="fragment_scan_asset_qr_code"
+        tools:layout="@layout/fragment_scan_asset_qr_code" >
+
+    </fragment>
+    <fragment
+        android:id="@+id/historyUserFragment"
+        android:name="com.example.androidfinalproject.screens.user.HistoryUserFragment"
+        android:label="fragment_history_user"
+        tools:layout="@layout/fragment_history_user" />
     <fragment
         android:id="@+id/profileUserFagment"
         android:name="com.example.androidfinalproject.screens.user.ProfileUserFagment"
@@ -31,4 +46,9 @@
         android:name="com.example.androidfinalproject.screens.user.SearchFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search" /><action android:id="@+id/action_global_searchFragment" app:destination="@id/searchFragment"/>
+        android:id="@+id/detailTicketFragment"
+        android:name="com.example.androidfinalproject.screens.user.DetailTicketFragment"
+        android:label="fragment_detail_ticket"
+        tools:layout="@layout/fragment_detail_ticket" />
+
 </navigation>

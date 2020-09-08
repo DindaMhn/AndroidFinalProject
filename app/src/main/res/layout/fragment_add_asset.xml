@@ -47,7 +47,6 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
                     android:layout_marginStart="20dp"
-                    android:layout_marginBottom="10dp"
                     android:drawableStart="@drawable/ic_baseline_domain_24"
                     android:text=" Asset"
                     android:textColor="@color/colorBlack"
@@ -59,7 +58,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     app:cardBackgroundColor="@color/colorWhite"
-                    app:cardCornerRadius="50dp"
+                    app:cardCornerRadius="20dp"
                     app:cardElevation="5dp">
 
                     <LinearLayout
@@ -192,25 +191,39 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_margin="10dp"
+                                android:layout_weight="1"
+                                app:boxCornerRadiusTopStart="10dp">
 
-                            <EditText
+                            <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/imageUrlAsset"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_margin="5dp"
-                                android:layout_weight="1" />
-
+                                android:hint="Image"
+                                android:backgroundTint="@android:color/transparent"/>
+                            </com.google.android.material.textfield.TextInputLayout>
                             <com.google.android.material.button.MaterialButton
                                 android:id="@+id/uploadAssetPhoto"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
-                                android:layout_weight="1"
                                 android:layout_margin="10dp"
+                                android:layout_weight="1"
                                 android:backgroundTint="@color/colorBlue"
                                 android:text="Upload Photo"
                                 app:cornerRadius="38dp" />
                         </LinearLayout>
+
+                        <ImageView
+                            android:id="@+id/imageAsset"
+                            android:layout_width="200dp"
+                            android:layout_height="200dp"
+                            android:layout_gravity="center"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/ic_baseline_domain_24"/>
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/addAssetProsesButton"
