@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.8" />
+        app:layout_constraintGuide_percent="0.9" />
 
     <TextView
         android:id="@+id/text_view_qr_code_value"
@@ -29,7 +29,7 @@
     <com.google.android.material.button.MaterialButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/button_pay_ticket"
+        android:id="@+id/detail_button_pay_ticket"
         android:text="Pay!"
         android:backgroundTint="@color/colorBlue"
         android:textColor="@color/design_default_color_surface"

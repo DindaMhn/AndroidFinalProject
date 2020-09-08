@@ -37,10 +37,10 @@ class ScanAssetQrCodeFragment : Fragment(), ZXingScannerView.ResultHandler, View
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         initScannerView()
         initDefaultView()
-        button_pay_ticket.setOnClickListener(this)
+        detail_button_pay_ticket.setOnClickListener(this)
+
     }
 
     private fun initScannerView() {
@@ -52,12 +52,12 @@ class ScanAssetQrCodeFragment : Fragment(), ZXingScannerView.ResultHandler, View
 
     private fun initDefaultView() {
         text_view_qr_code_value.text = "QR Code Value"
-        button_pay_ticket.visibility = View.GONE
+        detail_button_pay_ticket.visibility = View.GONE
     }
 
     override fun onStart() {
-        mScannerView.startCamera()
         doRequestPermission()
+        mScannerView.startCamera()
         super.onStart()
     }
 
@@ -104,19 +104,23 @@ class ScanAssetQrCodeFragment : Fragment(), ZXingScannerView.ResultHandler, View
     }
 
     override fun handleResult(rawResult: Result?) {
+        val id = "556169b9-eccc-11ea-83bf-b4a9fc958140"
         text_view_qr_code_value.text = rawResult?.text
-        button_pay_ticket.visibility = View.VISIBLE
+//        button_pay_ticket.visibility = View.VISIBLE
+        ticketViewModel.updateTicketStatus(id)
+        view?.findNavController()
+            ?.navigate(R.id.detailTicketFragment)
     }
 
     override fun onClick(view: View?) {
 
         when (view?.id) {
 
-            R.id.button_pay_ticket -> {
+            R.id.detail_button_pay_ticket -> {
                 val ticketNew = Ticket(
                     id = "556169b9-eccc-11ea-83bf-b4a9fc958140"
                     , user_id = "177f3d50-eb57-11ea-86a5-b4a9fc958140"
-                    , asset_id = "750d28c1-eb59-11ea-86a5-b4a9fc958140"
+                    , asset_id = text_view_qr_code_value.text.toString()
                     , fee_id = "e3916ad8-eb5a-11ea-86a5-b4a9fc958140"
                     , vehicle_id = "209f6e05-eb5a-11ea-86a5-b4a9fc958140"
                     , license_plate = "B 3030 PTK"

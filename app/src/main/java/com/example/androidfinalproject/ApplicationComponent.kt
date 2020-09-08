@@ -3,6 +3,7 @@ package com.example.androidfinalproject
 import com.example.androidfinalproject.activity.MainActivity
 import com.example.androidfinalproject.activity.provider.MenuProviderActivity
 import com.example.androidfinalproject.activity.user.MenuUserActivity
+import com.example.androidfinalproject.recycleview.user.HistoryUserRecycleAdapter
 import com.example.androidfinalproject.screens.provider.AddAssetFragment
 import com.example.androidfinalproject.screens.provider.HomeProviderFragment
 import com.example.androidfinalproject.screens.provider.LoginProviderFragment
@@ -26,4 +27,6 @@ interface ApplicationComponent {
     fun inject(loginProviderFragment: LoginProviderFragment)
     fun inject(scanAssetQrCodeFragment: ScanAssetQrCodeFragment)
     fun inject(historyUserFragment: HistoryUserFragment)
+    fun inject(historyUserRecycleAdapter: HistoryUserRecycleAdapter)
+    fun inject(detailTicketFragment: DetailTicketFragment)
 }

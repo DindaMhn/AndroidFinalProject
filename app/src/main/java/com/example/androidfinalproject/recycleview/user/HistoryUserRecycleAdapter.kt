@@ -7,17 +7,23 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.example.androidfinalproject.MyApplication
 import com.example.androidfinalproject.R
 import com.example.androidfinalproject.user.ticket.TicketView
+import com.example.androidfinalproject.user.ticket.TicketViewModel
 import kotlinx.android.synthetic.main.item_history_layout.view.*
+import javax.inject.Inject
 
 class HistoryUserRecycleAdapter(
     val paymentList: List<TicketView>,
     val getActivity: FragmentActivity?
 ) : RecyclerView.Adapter<PaymentViewHolder>() {
+    @Inject lateinit var ticketViewModel: TicketViewModel
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PaymentViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_history_layout, parent, false)
+        (getActivity?.applicationContext as MyApplication).applicationComponent.inject(this)
         return PaymentViewHolder(view)
     }
 
@@ -26,6 +32,8 @@ class HistoryUserRecycleAdapter(
     }
 
     override fun onBindViewHolder(holder: PaymentViewHolder, position: Int) {
+
+
         holder.location.text = paymentList[position].asset_name
         holder.startParking.text = paymentList[position].start_at
         holder.endParking.text = paymentList[position].finished_at
@@ -33,7 +41,12 @@ class HistoryUserRecycleAdapter(
         holder.basedFee.text = paymentList[position].based_fee
         holder.feePay.text = paymentList[position].pay_fee
         holder.delete.setOnClickListener {
+            ticketViewModel.deleteTicket(paymentList[position].id)
 
+//            ticketViewModel.historyPayment(sharedPreferences?.getString(
+//                "ID_USER",
+//                "default"
+//            ))
         }
     }
 

@@ -1,5 +1,7 @@
 package com.example.androidfinalproject.screens.user
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -18,10 +20,14 @@ import javax.inject.Inject
 class HistoryUserFragment : Fragment() {
     private lateinit var historyUserRecycleAdapter: HistoryUserRecycleAdapter
     @Inject lateinit var ticketViewModel: TicketViewModel
-
+    var sharedPreferences: SharedPreferences? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         (activity?.applicationContext as MyApplication).applicationComponent.inject(this)
+        sharedPreferences = activity?.getSharedPreferences(
+            getString(R.string.shared_preference_name),
+            Context.MODE_PRIVATE
+        )
     }
 
     override fun onCreateView(
@@ -34,13 +40,24 @@ class HistoryUserFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+    }
+
+    override fun onResume() {
+        super.onResume()
         recycle_view_history_list.layoutManager=LinearLayoutManager(activity)
-        var user_id = "177f3d50-eb57-11ea-86a5-b4a9fc958140"
-        ticketViewModel.historyPayment(user_id)
+        var user_id = sharedPreferences?.getString(
+            "ID_USER",
+            "default"
+        )
+        user_id?.let { ticketViewModel.historyPayment(it) }
         ticketViewModel.historyPaymentList.observe(viewLifecycleOwner, Observer {
             historyUserRecycleAdapter = HistoryUserRecycleAdapter(it, activity)
+
+//            with(sharedPreferences?.edit())
             recycle_view_history_list.adapter =historyUserRecycleAdapter
         })
+
     }
 
 }

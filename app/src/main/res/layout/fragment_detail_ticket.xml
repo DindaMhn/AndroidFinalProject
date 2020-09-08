@@ -1,14 +1,165 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout10"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".screens.user.DetailTicketFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/detail_ticket_constraint_view"
+        android:layout_width="0dp"
+        android:layout_height="175dp"
+        android:layout_marginTop="7dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="10dp"
 
-</FrameLayout>
+        >
+
+        <LinearLayout
+            android:id="@+id/detail_ticket_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="1">
+                <TextView
+                    android:id="@+id/detail_location_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Gedung A"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="25dp"
+                    />
+                <TextView
+                    android:id="@+id/detail_start_parking_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="start parking at"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="14dp"
+                    />
+                <TextView
+                    android:id="@+id/detail_end_parking_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="end parking at"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="14dp"
+                    />
+                <TextView
+                    android:id="@+id/detail_head_license_plate_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="license plate"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="14dp"
+                    />
+                <TextView
+                    android:id="@+id/detail_head_based_fee_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="based fee per hour"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="14dp"
+                    />
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="right"
+                android:layout_weight="1"
+                >
+                <ImageView
+                    android:id="@+id/detail_delete_ticket"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:src="@drawable/ic_baseline_close_24" />
+                <TextView
+                    android:id="@+id/detail_time_start_parking_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="09/03/2020 20.00"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="14dp"
+                    />
+                <TextView
+                    android:id="@+id/detail_time_end_parking_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="09/03/2020 22.00"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="14dp"
+                    />
+                <TextView
+                    android:id="@+id/detail_license_plate_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="B 9090 PTK"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="14dp"
+                    />
+                <TextView
+                    android:id="@+id/detail_based_fee_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="Rp.2000"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="14dp"
+                    />
+            </LinearLayout>
+
+        </LinearLayout>
+        <TextView
+            android:id="@+id/detail_fee_pay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Rp. 4000"
+            android:gravity="right"
+            android:layout_gravity="right"
+            android:textColor="@color/colorBlack"
+            android:textSize="25dp"
+            app:layout_constraintTop_toBottomOf="@id/detail_ticket_view"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/detail_button_pay_ticket"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pay!"
+        android:backgroundTint="@color/colorBlue"
+        android:textColor="@color/design_default_color_surface"
+        app:cornerRadius="38dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/detail_ticket_constraint_view"
+        />
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
