@@ -33,62 +33,79 @@
                     android:layout_width="120dp"
                     android:layout_height="120dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/ic_baseline_account_circle_24"/>
+                    android:src="@drawable/ic_baseline_account_circle_24" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:orientation="horizontal"
-                android:layout_gravity="center">
+                android:layout_marginBottom="15dp">
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/ChangePhotoUser"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_weight="1"
                     android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/colorBlue"
                     android:clickable="true"
                     android:text="Edit Photo"
-                    app:cornerRadius="38dp"
-                    android:backgroundTint="@color/colorBlue" />
+                    app:cornerRadius="38dp" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/deleteUserPhoto"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:backgroundTint="@color/colorRed"
                     android:text="Delete Photo"
-                    app:cornerRadius="38dp"
-                    android:backgroundTint="@color/colorRed"/>
+                    app:cornerRadius="38dp" />
             </LinearLayout>
 
-            <EditText
-                android:id="@+id/fNameUserEditTextUser"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:editable="false"
-                android:focusable="false"
-                android:clickable="false"/>
+                android:layout_margin="5dp"
+                app:boxCornerRadiusTopStart="10dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/fNameUserEditTextUser"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@android:color/transparent"
+                    android:clickable="false"
+                    android:editable="false"
+                    android:ems="10"
+                    android:focusable="false"
+                    android:hint="Fullname"
+                    android:inputType="textPersonName" />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <EditText
-                    android:id="@+id/bornDateEditTextUser"
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:hint="Born Date" />
+                    app:boxCornerRadiusTopStart="10dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/bornDateEditTextUser"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:backgroundTint="@android:color/transparent"
+                        android:ems="10"
+                        android:hint="Born Date"
+                        android:inputType="textPersonName" />
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView
                     android:id="@+id/calenderPickerUser"
@@ -99,33 +116,61 @@
                     android:drawableStart="@drawable/ic_baseline_calendar_today_24" />
             </LinearLayout>
 
-            <EditText
-                android:id="@+id/phoneNumberEditTextUser"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:editable="false"
-                android:focusable="false"
-                android:clickable="false"/>
+                android:layout_margin="5dp"
+                app:boxCornerRadiusTopStart="10dp">
 
-            <EditText
-                android:id="@+id/addressEditTextUser"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/phoneNumberEditTextUser"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:backgroundTint="@android:color/transparent"
+                    android:clickable="false"
+                    android:editable="false"
+                    android:ems="10"
+                    android:focusable="false"
+                    android:hint="Phone Number"
+                    android:inputType="textPersonName" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_marginTop="10dp"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:hint="Address"/>
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                app:boxCornerRadiusTopStart="10dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/addressEditTextUser"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="10dp"
+                    android:ems="10"
+                    android:hint="Address"
+                    android:inputType="textPersonName"
+                    android:backgroundTint="@android:color/transparent"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/simpanEditUserButton"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_margin="10dp"
                 android:backgroundTint="@color/colorBlue"
                 android:text="Simpan"
+                app:cornerRadius="38dp"
+                app:iconGravity="textEnd"></com.google.android.material.button.MaterialButton>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/logoutUserButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:backgroundTint="@color/colorRed"
+                android:text="Logout"
                 app:cornerRadius="38dp"
                 app:iconGravity="textEnd"></com.google.android.material.button.MaterialButton>
         </LinearLayout>

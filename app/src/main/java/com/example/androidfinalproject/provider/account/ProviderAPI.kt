@@ -13,6 +13,4 @@ interface ProviderAPI {
     fun loginProvider(@Body provider: Provider):Call<ResponseData>
     @POST("authProvider/register")
     fun registerProvider(@Body provider: Provider):Call<ResponseData>
-//    @GET("provider/saldo/{id}")
-//    fun getSaldoProvider(@Path("id") id: String):Call<ResponseData>
 }

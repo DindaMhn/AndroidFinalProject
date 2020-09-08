@@ -12,6 +12,7 @@ import com.example.androidfinalproject.MyApplication
 import com.example.androidfinalproject.R
 import com.example.androidfinalproject.provider.account.Provider
 import com.example.androidfinalproject.provider.account.ProviderViewModel
+import kotlinx.android.synthetic.main.fragment_profile_provider.*
 import kotlinx.android.synthetic.main.fragment_provider_register.*
 import javax.inject.Inject
 
@@ -42,7 +43,7 @@ class ProviderRegisterFragment : Fragment(), View.OnClickListener {
                     Toast.makeText(this.context, "Register Success", Toast.LENGTH_SHORT)
                         .show()
                     view?.findNavController()
-                        ?.navigate(R.id.action_global_loginProviderFragment)
+                        ?.navigate(R.id.chooseLoginFragment)
                 }
             })
         LoginProviderText.setOnClickListener(this)
@@ -61,11 +62,12 @@ class ProviderRegisterFragment : Fragment(), View.OnClickListener {
                         email = inputEmailRegisProvider.text.toString(),
                         username = inputUnameRegisProvider.text.toString(),
                         password = InputPwRegisProvider.text.toString(),
-                        phoneNumber = inputPhoneRegisProvider.text.toString(),
+                        phone_number = inputPhoneRegisProvider.text.toString(),
                         fullname = inputFNameRegisProvider.text.toString()
                     )
                 providerViewModel.registerProvider(providerData)
             }
+
         }
     }
 }

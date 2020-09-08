@@ -95,20 +95,14 @@
                 android:layout_marginTop="30dp"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/textView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="Doesn't Have an Account ?" />
 
                 <TextView
-                    android:id="@+id/registerProviderText"
+                    android:id="@+id/backtoMainProviderText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:clickable="true"
-                    android:text=" Register"
+                    android:text="Back to Main Menu"
                     android:textColor="#0056FE"
                     android:textStyle="bold" />
             </LinearLayout>

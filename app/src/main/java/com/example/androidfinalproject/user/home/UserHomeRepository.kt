@@ -41,7 +41,6 @@ class UserHomeRepository @Inject constructor(val userHomeAPI: UserHomeAPI) {
                 val gson = Gson()
                 val res = gson.toJson(response)
                 val resData = gson.toJson(response?.result)
-                userSaldoData.value = gson.fromJson<UserWallet>(resData, UserWallet::class.java)
                 userResponse.value = gson.fromJson<ResponseData>(res, ResponseData::class.java)
             }
         })

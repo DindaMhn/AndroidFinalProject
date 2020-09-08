@@ -40,7 +40,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_gravity="center">
+                android:layout_gravity="center"
+                android:layout_marginBottom="15dp">
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/ChangePhotoProvider"
@@ -64,30 +65,43 @@
                     android:backgroundTint="@color/colorRed"/>
             </LinearLayout>
 
-            <EditText
-                android:id="@+id/fNameUserEditTextProvider"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_margin="5dp"
+                app:boxCornerRadiusTopStart="10dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/fNameEditTextProvider"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:text="Full Name" />
-
+                android:hint="Full Name"
+                android:backgroundTint="@android:color/transparent"/>
+            </com.google.android.material.textfield.TextInputLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <EditText
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    app:boxCornerRadiusTopStart="10dp">
+
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/bornDateEditTextProvider"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:layout_weight="1"
                     android:ems="10"
                     android:inputType="textPersonName"
-                    android:hint="Born Date" />
-
+                    android:hint="Born Date"
+                    android:backgroundTint="@android:color/transparent"/>
+                </com.google.android.material.textfield.TextInputLayout>
                 <TextView
                     android:id="@+id/calenderPickerProvider"
                     android:layout_width="match_parent"
@@ -97,31 +111,55 @@
                     android:drawableStart="@drawable/ic_baseline_calendar_today_24" />
             </LinearLayout>
 
-            <EditText
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                app:boxCornerRadiusTopStart="10dp">
+
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/phoneNumberEditTextProvider"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:text="Phone Number" />
-
-            <EditText
-                android:id="@+id/addressEditTextProvider"
+                android:hint="Phone Number"
+                android:backgroundTint="@android:color/transparent"/>
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                app:boxCornerRadiusTopStart="10dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/addressEditTextProvider"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
                 android:layout_marginTop="10dp"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:hint="Address" />
-
+                android:hint="Address"
+                android:backgroundTint="@android:color/transparent"/>
+            </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/simpanEditProviderButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_gravity="center"
+                android:backgroundTint="@color/colorBlue"
+                android:text="Simpan"
+                app:cornerRadius="38dp"
+                app:iconGravity="textEnd"></com.google.android.material.button.MaterialButton>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/logoutProviderButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:backgroundTint="@color/colorBlue"
-                android:text="Simpan"
+                android:backgroundTint="@color/colorRed"
+                android:text="Logout"
                 app:cornerRadius="38dp"
                 app:iconGravity="textEnd"></com.google.android.material.button.MaterialButton>
         </LinearLayout>

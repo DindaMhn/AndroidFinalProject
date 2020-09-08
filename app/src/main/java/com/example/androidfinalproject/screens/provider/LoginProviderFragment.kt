@@ -1,6 +1,7 @@
 package com.example.androidfinalproject.screens.provider
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,16 +9,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import com.example.androidfinalproject.MyApplication
 import com.example.androidfinalproject.R
+import com.example.androidfinalproject.activity.MainActivity
 import com.example.androidfinalproject.provider.account.Provider
 import com.example.androidfinalproject.provider.account.ProviderViewModel
-import com.example.androidfinalproject.user.account.User
-import com.example.androidfinalproject.user.account.UserViewModel
 import kotlinx.android.synthetic.main.fragment_login_provider.*
+import kotlinx.android.synthetic.main.fragment_login_user.*
 import javax.inject.Inject
 
 class LoginProviderFragment : Fragment(), View.OnClickListener {
@@ -28,7 +28,7 @@ class LoginProviderFragment : Fragment(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         (activity?.applicationContext as MyApplication).applicationComponent.inject(this)
-        activity?.getSharedPreferences(
+        sharedPreferences = activity?.getSharedPreferences(
             getString(R.string.shared_preference_name),
             Context.MODE_PRIVATE
         )
@@ -44,46 +44,68 @@ class LoginProviderFragment : Fragment(), View.OnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        providerViewModel.providerResponse.observe(
-            viewLifecycleOwner, Observer {
-                if (it.status == 400.toString() && it.message == "Login Provider Failed") {
-                    Toast.makeText(
-                        this.context,
-                        "Invalid Login",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                } else if (it.status == 200.toString()) {
-                    Toast.makeText(this.context, "Login Success", Toast.LENGTH_SHORT)
-                        .show()
-                    val bundle = bundleOf(Pair("id_provider", it.result))
-                    providerViewModel.providerData.observe(
-                        viewLifecycleOwner, Observer {
-                            if (it != null) {
-                                with(sharedPreferences?.edit()) {
-                                    this?.putString(
-                                        getString(R.string.id_provider_key),
-                                        it.id
-                                    )
-                                    this?.commit()
+        if (sharedPreferences?.getBoolean("ISLOGGEDIN_PROVIDER", false) == true) {
+            view?.findNavController()
+                ?.navigate(R.id.action_loginProviderFragment_to_menuProviderActivity)
+        } else {
+            providerViewModel.providerResponse.observe(
+                viewLifecycleOwner, Observer {
+                    if (it.status == 400.toString() && it.message == "Login Provider Failed") {
+                        Toast.makeText(
+                            this.context,
+                            "Invalid Login",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    } else if (it.status == 200.toString()) {
+                        Toast.makeText(this.context, "Login Success", Toast.LENGTH_SHORT)
+                            .show()
+                        providerViewModel.providerData.observe(
+                            viewLifecycleOwner, Observer {
+                                if (it != null) {
+                                    with(sharedPreferences?.edit()) {
+                                        this?.putString(
+                                            "ID_PROVIDER",
+                                            it.id
+                                        )
+                                        this?.putString(
+                                            getString(R.string.fullname_provider_key),
+                                            it.fullname
+                                        )
+                                        println("FULLNAME" + it.fullname)
+                                        this?.putString(
+                                            getString(R.string.borndate_provider_key),
+                                            it.borndate
+                                        )
+                                        this?.putString(
+                                            getString(R.string.phone_provider_key),
+                                            it.phone_number
+                                        )
+                                        this?.putString(
+                                            getString(R.string.address_provider_key),
+                                            it.address
+                                        )
+                                        this?.putBoolean(
+                                            "ISLOGGEDIN_PROVIDER",
+                                            true
+                                        )
+                                        this?.commit()
+                                    }
+                                    view?.findNavController()
+                                        ?.navigate(R.id.action_loginProviderFragment_to_menuProviderActivity)
                                 }
-                            }
-                            view?.findNavController()
-                                ?.navigate(R.id.action_loginProviderFragment_to_menuProviderActivity)
-                        })
-                }
-            })
+                            })
+                    }
+                })
 
-
-        registerProviderText.setOnClickListener(this)
+        }
+        backtoMainProviderText.setOnClickListener(this)
         loginProviderButton.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
         when (v) {
-            registerProviderText -> {
-                v?.findNavController()
-                    ?.navigate(R.id.action_loginProviderFragment_to_chooseUserFragment)
+            backtoMainProviderText -> {
+                startActivity(Intent(this.context, MainActivity::class.java))
             }
             loginProviderButton -> {
                 val providerLogin =

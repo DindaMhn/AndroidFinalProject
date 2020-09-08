@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/menu_provider_navigation"
-    app:startDestination="@id/homeProviderFragment">
+    app:startDestination="@+id/homeProviderFragment">
 
     <fragment
         android:id="@+id/homeProviderFragment"
@@ -23,5 +23,6 @@
         android:id="@+id/profileProviderFragment"
         android:name="com.example.androidfinalproject.screens.provider.ProfileProviderFragment"
         android:label="fragment_profile_provider"
-        tools:layout="@layout/fragment_profile_provider" /><action android:id="@+id/action_global_profileProviderFragment" app:destination="@id/profileProviderFragment"/>
+        tools:layout="@layout/fragment_profile_provider" />
+    <action android:id="@+id/action_global_profileProviderFragment" app:destination="@id/profileProviderFragment"/>
 </navigation>
