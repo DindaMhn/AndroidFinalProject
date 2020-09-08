@@ -1,11 +1,18 @@
 package com.example.androidfinalproject.screens.user
 
+import android.app.Activity
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,10 +27,12 @@ class SearchFragment : Fragment() {
     @Inject
     lateinit var locationViewModel: LocationViewModel
     lateinit var adapter:LocationRecycleAdapter
+    val FINE_LOCATION_RQ = 101
 //    val locationViewModel by activityViewModels<LocationViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         (activity?.applicationContext as MyApplication).applicationComponent.inject(this)
+//    checkPermission(android.Manifest.permission.ACCESS_FINE_LOCATION, "location",FINE_LOCATION_RQ)
     }
 
     override fun onCreateView(
@@ -43,4 +52,6 @@ class SearchFragment : Fragment() {
         })
         locationViewModel.getAssetLocation()
     }
+
+
 }
