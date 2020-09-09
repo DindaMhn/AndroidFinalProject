@@ -17,6 +17,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.FileProvider
 import com.example.androidfinalproject.MyApplication
@@ -146,12 +147,20 @@ class AddAssetFragment : Fragment(), View.OnClickListener {
                         "motorcycle_capacity":${motorCapInput.text.toString()},
                         "bicycle_capacity":${bicycleCapInput.text.toString()}}"""
             )
-            providerHomeViewModel.createAsset(
-                imageFileChoosed, result
-            )
-            imageUrlAsset.text = Editable.Factory.getInstance().newEditable(imageFile.absolutePath)
+            if (assetNameInput.text.toString() == "" && assetAreaInput.text.toString() == "" && longitudeInput.text.toString() == ""
+                && latitudeInput.text.toString() == "" && carCapInput.text.toString() == "" && motorCapInput.text.toString() == ""
+                && bicycleCapInput.text.toString() == "" && imageFileChoosed == null
+            ) {
+                Toast.makeText(this.context, "Must be Field", Toast.LENGTH_SHORT).show()
+            } else {
+                providerHomeViewModel.createAsset(
+                    imageFileChoosed, result
+                )
+                imageUrlAsset.text =
+                    Editable.Factory.getInstance().newEditable(imageFile.absolutePath)
 
-            imageAsset.setImageBitmap(imageBitmap)
+                imageAsset.setImageBitmap(imageBitmap)
+            }
         }
     }
 

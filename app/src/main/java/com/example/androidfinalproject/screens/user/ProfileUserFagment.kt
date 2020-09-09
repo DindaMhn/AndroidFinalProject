@@ -19,8 +19,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.lifecycle.Observer
+import com.bumptech.glide.Glide
 import com.example.androidfinalproject.MyApplication
 import com.example.androidfinalproject.R
 import com.example.androidfinalproject.activity.MainActivity
@@ -246,13 +248,19 @@ class ProfileUserFagment : Fragment(), View.OnClickListener {
                     }).show()
             }
             deleteUserPhoto -> {
-                userProfileViewModel.deleteUserPhoto(sharedPreferences?.getString("ID_USER", "").toString())
+                userProfileViewModel.deleteUserPhoto(
+                    sharedPreferences?.getString("ID_USER", "").toString()
+                )
                 alertDialog.setTitle("Delete Photo")
                 alertDialog.setMessage("Delete Success")
 
                 alertDialog.setButton(
                     AlertDialog.BUTTON_POSITIVE, "OK"
-                ) { dialog, which -> dialog.dismiss() }
+                ) { dialog, which ->
+                    Glide.with(this.requireActivity())
+                        .load(ContextCompat.getDrawable(requireContext(), R.drawable.defaultphoto))
+                        .into(photoProfileUser)
+                }
                 alertDialog.show()
 
                 val btnPositive = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
@@ -260,6 +268,7 @@ class ProfileUserFagment : Fragment(), View.OnClickListener {
                 val layoutParams = btnPositive.layoutParams as LinearLayout.LayoutParams
                 layoutParams.weight = 10f
                 btnPositive.layoutParams = layoutParams
+
             }
         }
     }

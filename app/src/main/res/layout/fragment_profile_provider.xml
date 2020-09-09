@@ -30,10 +30,10 @@
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/photoProfileProvider"
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/ic_baseline_account_circle_24" />
+                    android:src="@drawable/defaultphoto" />
             </LinearLayout>
 
             <LinearLayout

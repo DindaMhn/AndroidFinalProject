@@ -10,10 +10,14 @@
         android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
+        android:requestLegacyExternalStorage="true"
         android:supportsRtl="true"
         android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar"
-        android:requestLegacyExternalStorage="true"
         android:usesCleartextTraffic="true">
+        <activity
+            android:name=".activity.SplashScreen"
+            android:label="@string/title_activity_splash_screen"
+            android:theme="@style/NoActionBar"></activity>
         <activity android:name=".activity.provider.LoginProviderActivity" />
         <activity android:name=".activity.user.LoginUserActivity" />
         <activity android:name=".activity.provider.MenuProviderActivity" />
@@ -28,7 +32,7 @@
 
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities= "com.example.androidfinalproject.fileProvider"
+            android:authorities="com.example.androidfinalproject.fileProvider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
