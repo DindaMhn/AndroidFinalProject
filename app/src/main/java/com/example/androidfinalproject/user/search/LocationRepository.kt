@@ -11,6 +11,7 @@ import javax.inject.Inject
 
 class LocationRepository @Inject constructor(val locationAPI : LocationAPI) {
     var listLocation: MutableLiveData<List<Location>> = MutableLiveData<List<Location>>()
+    var detailLocation:MutableLiveData<Location> = MutableLiveData<Location>()
     fun getLocation(){
         locationAPI.getAsset().enqueue(object : Callback<ResponseLocation>{
             override fun onFailure(call: Call<ResponseLocation>, t: Throwable) {
@@ -20,9 +21,6 @@ class LocationRepository @Inject constructor(val locationAPI : LocationAPI) {
 
             override fun onResponse(call: Call<ResponseLocation>, response: Response<ResponseLocation>) {
                 val response = response.body()
-                println("masuk 1")
-                println(response?.message)
-                println(response?.status)
                 if(response?.message == "Success"){
                     println("masuk 2")
                     val res = response.response
@@ -34,4 +32,27 @@ class LocationRepository @Inject constructor(val locationAPI : LocationAPI) {
             }
         })
     }
+    fun getDateilLocation(id:String){
+        locationAPI.getAssetByID(id).enqueue(object : Callback<ResponseLocation>{
+            override fun onFailure(call: Call<ResponseLocation>, t: Throwable) {
+                t.printStackTrace()
+            }
+
+            override fun onResponse(
+                call: Call<ResponseLocation>,
+                response: Response<ResponseLocation>
+            ) {
+                val response = response.body()
+                if(response?.message == "Success"){
+                    val res = response.response
+                    val gson = Gson()
+                    detailLocation.value = gson.fromJson(gson.toJson(res),Location::class.java)
+                }else{
+                    println("Data Not Found")
+                }
+            }
+
+        })
+    }
+
 }

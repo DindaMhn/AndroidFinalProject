@@ -35,4 +35,6 @@ interface ApplicationComponent {
     fun inject(loginUserActivity: LoginUserActivity)
     fun inject(mapsFragment: MapsFragment)
     fun inject(searchFragment: SearchFragment)
+    fun inject(detailAssetFragment: DetailAssetFragment)
+
 }

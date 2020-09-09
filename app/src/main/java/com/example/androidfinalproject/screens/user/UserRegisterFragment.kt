@@ -1,5 +1,6 @@
 package com.example.androidfinalproject.screens.user
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import com.example.androidfinalproject.MyApplication
 import com.example.androidfinalproject.R
+import com.example.androidfinalproject.activity.MainActivity
 import com.example.androidfinalproject.user.account.User
 import com.example.androidfinalproject.user.account.UserViewModel
 import kotlinx.android.synthetic.main.fragment_user_register.*
@@ -40,8 +42,7 @@ class UserRegisterFragment : Fragment(), View.OnClickListener {
                 }else if (it.status == 200.toString()) {
                     Toast.makeText(this.context, "Register Success", Toast.LENGTH_SHORT)
                         .show()
-                    view?.findNavController()
-                        ?.navigate(R.id.action_global_loginUserFragment)
+                    startActivity(Intent(this.context, MainActivity::class.java))
                 }
             })
 

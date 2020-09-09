@@ -23,6 +23,7 @@ import androidx.core.content.FileProvider
 import androidx.lifecycle.Observer
 import com.example.androidfinalproject.MyApplication
 import com.example.androidfinalproject.R
+import com.example.androidfinalproject.activity.MainActivity
 import com.example.androidfinalproject.user.profile.UserProfileViewModel
 import com.example.androidfinalproject.user.profile.UserUpdate
 import kotlinx.android.synthetic.main.fragment_profile_user_fagment.*
@@ -202,7 +203,7 @@ class ProfileUserFagment : Fragment(), View.OnClickListener {
                     this?.clear()
                     this?.commit()
                 }
-                activity?.finish()
+                startActivity(Intent(this.context, MainActivity::class.java))
             }
             simpanEditUserButton -> {
                 val id = sharedPreferences?.getString("ID_USER", "")

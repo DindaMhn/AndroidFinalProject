@@ -1,16 +1,20 @@
 package com.example.androidfinalproject.adapter
 
-import android.app.Activity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.os.bundleOf
 import androidx.fragment.app.FragmentActivity
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.example.androidfinalproject.R
 import com.example.androidfinalproject.user.search.Location
 
-class LocationRecycleAdapter(private var locationList:List<Location>,private var activity: FragmentActivity?):RecyclerView.Adapter<LocationViewHolder>(){
+class LocationRecycleAdapter(
+    private var locationList: List<Location>,
+    private var activity: FragmentActivity?
+):RecyclerView.Adapter<LocationViewHolder>(){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LocationViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_list, parent, false)
@@ -23,10 +27,17 @@ class LocationRecycleAdapter(private var locationList:List<Location>,private var
 
     override fun onBindViewHolder(holder: LocationViewHolder, position: Int) {
         holder.locationName.text =locationList[position].asset_name
+        holder.itemView.setOnClickListener {
+            val bundle = bundleOf(
+                Pair("id", locationList[position].id)
+            )
+            Navigation.findNavController(it)
+                .navigate(R.id.action_searchFragment_to_detailAssetFragment,bundle)
+        }
     }
-
 }
 
 class LocationViewHolder(v:View):RecyclerView.ViewHolder(v) {
-    val locationName = v.findViewById<TextView>(R.id.location_name)
+    val locationName = v.findViewById<TextView>(R.id.asset_name)
+    val distance = v.findViewById<TextView>(R.id.distance)
 }
