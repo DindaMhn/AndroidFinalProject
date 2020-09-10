@@ -29,4 +29,7 @@ class TicketViewModel @Inject constructor(var ticketRepository: TicketRepository
     fun getTicketViewByID(id:String){
         ticketRepository.getTicketViewByID(id)
     }
+    fun createTicket(ticket: Ticket){
+        ticketRepository.createTicket(ticket)
+    }
 }

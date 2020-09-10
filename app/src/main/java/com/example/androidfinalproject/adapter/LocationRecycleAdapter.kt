@@ -27,6 +27,10 @@ class LocationRecycleAdapter(
 
     override fun onBindViewHolder(holder: LocationViewHolder, position: Int) {
         holder.locationName.text =locationList[position].asset_name
+        holder.carCap.text = locationList[position].car_capacity_available
+        holder.bicycleCap.text = locationList[position].bicycle_capacity_available
+        println("BICYCLE"+locationList[position].bicycle_capacity_available)
+        holder.motorcycleCap.text = locationList[position].motorcycle_capacity_available
         holder.itemView.setOnClickListener {
             val bundle = bundleOf(
                 Pair("id", locationList[position].id)
@@ -39,5 +43,7 @@ class LocationRecycleAdapter(
 
 class LocationViewHolder(v:View):RecyclerView.ViewHolder(v) {
     val locationName = v.findViewById<TextView>(R.id.asset_name)
-    val distance = v.findViewById<TextView>(R.id.distance)
+    val carCap = v.findViewById<TextView>(R.id.carCap)
+    val bicycleCap = v.findViewById<TextView>(R.id.bicycleCap)
+    val motorcycleCap = v.findViewById<TextView>(R.id.motorCap)
 }

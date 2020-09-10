@@ -59,7 +59,16 @@
         android:id="@+id/detailAssetFragment"
         android:name="com.example.androidfinalproject.screens.user.DetailAssetFragment"
         android:label="fragment_detail_asset"
-        tools:layout="@layout/fragment_detail_asset" />
+        tools:layout="@layout/fragment_detail_asset" >
+        <action
+            android:id="@+id/action_detailAssetFragment_to_bookingTicketFragment"
+            app:destination="@id/bookingTicketFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/bookingTicketFragment"
+        android:name="com.example.androidfinalproject.screens.user.BookingTicketFragment"
+        android:label="fragment_booking_ticket"
+        tools:layout="@layout/fragment_booking_ticket" />
     android:id="@+id/detailTicketFragment"
         android:name="com.example.androidfinalproject.screens.user.DetailTicketFragment"
         android:label="fragment_detail_ticket"

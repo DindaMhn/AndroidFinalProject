@@ -101,8 +101,22 @@ class TicketRepository @Inject constructor(val ticketAPI: TicketAPI){
                 ticketViewResponse.value =  gson.fromJson<ResponseData>(res, ResponseData::class.java)
                 ticketView.value = gson.fromJson<TicketView>(resData, TicketView::class.java)
             }
-
         })
     }
+fun createTicket(ticket: Ticket){
+    ticketAPI.createTicket(ticket).enqueue(object :Callback<ResponseData>{
+        override fun onFailure(call: Call<ResponseData>, t: Throwable) {
+            t.printStackTrace()
+        }
 
+        override fun onResponse(call: Call<ResponseData>, response: Response<ResponseData>) {
+            val response = response.body()
+            val gson = Gson()
+            val res = gson.toJson(response)
+            val resData = gson.toJson(response?.result)
+            ticketViewResponse.value =  gson.fromJson<ResponseData>(res, ResponseData::class.java)
+            ticketView.value = gson.fromJson<TicketView>(resData, TicketView::class.java)
+        }
+    })
+}
 }

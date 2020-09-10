@@ -22,5 +22,10 @@
         <item>Open Camera</item>
         <item>Open From Galeri</item>
     </string-array>
-
+    <string name="vehicle_type">Choose Vehicle Type</string>
+    <string-array name="vehicle_arrays">
+        <item>CAR</item>
+        <item>MOTORCYCLE</item>
+        <item>BICYCLE</item>
+    </string-array>
 </resources>

@@ -8,7 +8,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
 import com.example.androidfinalproject.MyApplication
 import com.example.androidfinalproject.R
 import com.example.androidfinalproject.adapter.LocationRecycleAdapter
@@ -19,7 +21,7 @@ import kotlinx.android.synthetic.main.fragment_search.*
 import java.text.DecimalFormat
 import javax.inject.Inject
 
-class DetailAssetFragment : Fragment() {
+class DetailAssetFragment : Fragment(), View.OnClickListener {
     @Inject
     lateinit var locationViewModel: LocationViewModel
     var sharedPreferences: SharedPreferences? = null
@@ -46,17 +48,32 @@ class DetailAssetFragment : Fragment() {
         locationViewModel.detailLocationData.observe(viewLifecycleOwner, Observer {
             assetNameDetail.text = it.asset_name
             if (it != null) {
-                distanceDetail.text = CalculationByDistance(LatLng(it.latitude.toDouble(),it.longitude.toDouble()),
-                LatLng(
-                    sharedPreferences?.getString("device_latitude",""
-                    )!!.toDouble(),sharedPreferences?.getString("device_longitude",""
-                    )!!.toDouble()
-                )).toString()
+                distanceDetail.text = "Distance : " + CalculationByDistance(
+                    LatLng(it.latitude.toDouble(), it.longitude.toDouble()),
+                    LatLng(
+                        sharedPreferences?.getString(
+                            "device_latitude", ""
+                        )!!.toDouble(), sharedPreferences?.getString(
+                            "device_longitude", ""
+                        )!!.toDouble()
+                    )
+                ).toString()
             }
         })
         println("detail")
         println(arguments?.getString("id"))
         locationViewModel.getDetail(arguments?.getString("id")!!)
+        bookAssetButton.setOnClickListener(this)
+    }
+
+    override fun onClick(v: View?) {
+        when (v) {
+            bookAssetButton -> {
+                val bundle = bundleOf(Pair("asset_id", arguments?.getString("id")))
+                v?.findNavController()
+                    ?.navigate(R.id.action_detailAssetFragment_to_bookingTicketFragment, bundle)
+            }
+        }
     }
 
     fun CalculationByDistance(StartP: LatLng, EndP: LatLng): Double {

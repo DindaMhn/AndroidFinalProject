@@ -1,21 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/colorBlueOcean"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/colorBlueOcean">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/item"
         android:layout_width="match_parent"
-        android:layout_height="110dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="20dp"
-        app:cardCornerRadius="30dp"
-        app:cardBackgroundColor="#ffffff"
+        android:layout_height="150dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="15dp"
+        app:cardBackgroundColor="@color/colorWhite"
+        app:cardCornerRadius="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -24,27 +23,15 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#ffffff">
+            android:background="@color/colorWhite">
 
-            <ImageView
-                android:id="@+id/AssetImage"
-                android:layout_width="130dp"
-                android:layout_height="110dp"
-
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="128dp"
-                android:text="Rp.2000"
-                android:textSize="10dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.494" />
+            <!--            <ImageView-->
+            <!--                android:id="@+id/AssetImage"-->
+            <!--                android:layout_width="130dp"-->
+            <!--                android:layout_height="110dp"-->
+            <!--                app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--                app:layout_constraintStart_toStartOf="parent"-->
+            <!--                app:layout_constraintTop_toTopOf="parent" />-->
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/motorCap"
@@ -52,6 +39,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
                 android:text="Tes"
+                android:textColor="@color/colorBlack"
                 app:layout_constraintBottom_toTopOf="@+id/bicycleCap"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/carCap" />
@@ -62,6 +50,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
                 android:text="Tes"
+                android:textColor="@color/colorBlack"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/motorCap" />
@@ -72,6 +61,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
                 android:text="Tes"
+                android:textColor="@color/colorBlack"
                 app:layout_constraintBottom_toTopOf="@+id/motorCap"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -81,7 +71,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Motor Capacity : "
-                android:textSize="10dp"
+                android:textColor="@color/colorBlack"
                 app:layout_constraintBottom_toTopOf="@+id/materialTextView9"
                 app:layout_constraintEnd_toStartOf="@+id/motorCap"
                 app:layout_constraintTop_toBottomOf="@+id/materialTextView4" />
@@ -91,7 +81,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Car Capacity : "
-                android:textSize="10dp"
+                android:textColor="@color/colorBlack"
                 app:layout_constraintBottom_toTopOf="@+id/labelMotor"
                 app:layout_constraintEnd_toStartOf="@+id/carCap"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -101,7 +91,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Bicycle Capacity : "
-                android:textSize="10dp"
+                android:textColor="@color/colorBlack"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/bicycleCap"
                 app:layout_constraintTop_toBottomOf="@+id/labelMotor" />
@@ -110,38 +100,27 @@
                 android:id="@+id/constraintLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="15dp"
-                app:layout_constraintStart_toEndOf="@id/AssetImage"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/motorCap"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0">
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/asset_name"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:maxWidth="185dp"
-                    android:maxHeight="60dp"
+                    android:layout_margin="20dp"
                     android:text="Tes"
-                    android:textSize="25dp"
-                    app:layout_constraintBottom_toTopOf="@+id/distance"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="20dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/distance"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:layout_marginTop="10dp"
-                    android:maxWidth="185dp"
-                    android:text="Tes"
-                    android:textSize="15dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/asset_name" />
-
             </androidx.constraintlayout.widget.ConstraintLayout>
-
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
