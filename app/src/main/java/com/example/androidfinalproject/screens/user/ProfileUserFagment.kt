@@ -26,6 +26,9 @@ import com.example.androidfinalproject.R
 import com.example.androidfinalproject.activity.MainActivity
 import com.example.androidfinalproject.user.profile.UserProfileViewModel
 import com.example.androidfinalproject.user.profile.UserUpdate
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import kotlinx.android.synthetic.main.fragment_profile_user_fagment.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -44,6 +47,7 @@ class ProfileUserFagment : Fragment(), View.OnClickListener {
     val SELECT_FILE_FORM_STORAGE = 66
     lateinit var currentPhotoPath: String
     lateinit var photoFile: File
+    lateinit var mGoogleSignInClient: GoogleSignInClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,6 +56,11 @@ class ProfileUserFagment : Fragment(), View.OnClickListener {
             getString(R.string.shared_preference_name),
             Context.MODE_PRIVATE
         )
+        val gso =
+            GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build()
+        mGoogleSignInClient = GoogleSignIn.getClient(activity as Activity, gso);
     }
 
     override fun onCreateView(
@@ -203,6 +212,9 @@ class ProfileUserFagment : Fragment(), View.OnClickListener {
                     this?.clear()
                     this?.commit()
                 }
+
+                mGoogleSignInClient.signOut()
+
                 startActivity(Intent(this.context, MainActivity::class.java))
             }
             simpanEditUserButton -> {
