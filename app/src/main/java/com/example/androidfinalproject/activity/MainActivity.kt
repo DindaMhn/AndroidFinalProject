@@ -25,12 +25,13 @@ class MainActivity : AppCompatActivity() {
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-
-        if (requestCode == REQUEST_READ_STORAGE_PERMISSION && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            secondCameraPermission()
-        } else if (requestCode == REQUEST_READ_STORAGE_PERMISSION && grantResults[0] == PackageManager.PERMISSION_DENIED) {
-            Toast.makeText(this, "Mohon berikan perizinan", Toast.LENGTH_SHORT).show()
-            firstStoragePermission()
+        if (grantResults.size != 0) {
+            if (requestCode == REQUEST_READ_STORAGE_PERMISSION && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                secondCameraPermission()
+            } else if (requestCode == REQUEST_READ_STORAGE_PERMISSION && grantResults[0] == PackageManager.PERMISSION_DENIED) {
+                Toast.makeText(this, "Mohon berikan perizinan", Toast.LENGTH_SHORT).show()
+                firstStoragePermission()
+            }
         }
     }
 
@@ -54,7 +55,6 @@ class MainActivity : AppCompatActivity() {
             )
         }
     }
-
 
 
 }

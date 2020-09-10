@@ -31,7 +31,6 @@ import com.example.androidfinalproject.user.profile.UserUpdate
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import kotlinx.android.synthetic.main.fragment_profile_provider.*
 import kotlinx.android.synthetic.main.fragment_profile_user_fagment.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
