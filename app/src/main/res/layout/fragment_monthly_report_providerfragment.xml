@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout12"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBlueOcean"
+    tools:context=".screens.provider.MonthlyReportProviderfragment">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/wrapper_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/mothly_header_asset_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="GedungA"
+            android:textColor="@color/colorBlack"
+            android:textSize="30dp"
+            android:layout_marginVertical="10dp"
+            android:layout_marginHorizontal="25dp"
+            app:layout_constraintEnd_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/buttonLinearPanel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@id/mothly_header_asset_name">
+            <Button
+                android:id="@+id/button_to_monthly_report_monthly"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="MONTHLY"
+                android:enabled="false"/>
+            <Button
+                android:id="@+id/button_to_daily_report_monthly"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="DAILY"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/list_asset_provider_linear"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/bg_rounded_top_corner"
+            android:orientation="vertical"
+            android:layout_marginTop="30dp"
+            android:layout_marginHorizontal="25dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/buttonLinearPanel">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycle_view_montly_report_asset"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="45dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

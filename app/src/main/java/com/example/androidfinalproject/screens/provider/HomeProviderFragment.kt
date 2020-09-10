@@ -10,16 +10,20 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.androidfinalproject.MyApplication
 import com.example.androidfinalproject.R
+import com.example.androidfinalproject.provider.asset.AssetViewModel
 import com.example.androidfinalproject.provider.home.ProviderHomeViewModel
+import com.example.androidfinalproject.recycleview.provider.ListAssetProviderRecycleAdapter
 import kotlinx.android.synthetic.main.fragment_add_asset.*
 import kotlinx.android.synthetic.main.fragment_home_provider.*
 import javax.inject.Inject
 
 class HomeProviderFragment : Fragment(), View.OnClickListener {
-    @Inject
-    lateinit var providerHomeViewModel: ProviderHomeViewModel
+    private lateinit var listAssetProviderRecycleAdapter: ListAssetProviderRecycleAdapter
+    @Inject lateinit var providerHomeViewModel: ProviderHomeViewModel
+    @Inject lateinit var listAssetViewModel: AssetViewModel
     var sharedPreferences: SharedPreferences? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,6 +54,13 @@ class HomeProviderFragment : Fragment(), View.OnClickListener {
         providerHomeViewModel.providerResponse.observe(viewLifecycleOwner, Observer {
             saldoProviderText.text = "Rp. ${it.result}"
         })
+        recycle_view_list_asset.layoutManager= LinearLayoutManager(activity)
+
+        id?.let { listAssetViewModel.getAssetListByProviderID(it) }
+        listAssetViewModel.assetList.observe(viewLifecycleOwner, Observer {
+            listAssetProviderRecycleAdapter = ListAssetProviderRecycleAdapter(it, activity)
+
+            recycle_view_list_asset.adapter=listAssetProviderRecycleAdapter})
     }
 
     override fun onClick(v: View?) {

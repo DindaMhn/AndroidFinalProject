@@ -35,5 +35,6 @@ interface ApplicationComponent {
     fun inject(profileProviderFragment: ProfileProviderFragment)
     fun inject(loginUserActivity: LoginUserActivity)
     fun inject(listAssetProviderRecycleAdapter: ListAssetProviderRecycleAdapter)
-    fun inject(listAssetProvider: ListAssetProvider)
+    fun inject(monthlyReportProviderfragment: MonthlyReportProviderfragment)
+    fun inject(dailyReportProviderFragment: DailyReportProviderFragment)
 }

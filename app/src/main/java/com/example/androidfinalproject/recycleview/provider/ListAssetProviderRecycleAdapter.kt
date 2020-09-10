@@ -4,18 +4,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.os.bundleOf
 import androidx.fragment.app.FragmentActivity
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.example.androidfinalproject.MyApplication
 import com.example.androidfinalproject.R
 import com.example.androidfinalproject.provider.asset.AssetViewModel
 import com.example.androidfinalproject.provider.home.Asset
+import com.example.androidfinalproject.provider.home.AssetView
 import com.example.androidfinalproject.recycleview.user.PaymentViewHolder
 import kotlinx.android.synthetic.main.item_list_asset_provider_layout.view.*
 import javax.inject.Inject
 
 class ListAssetProviderRecycleAdapter(
-    val assetList: List<Asset>,
+    val assetList: List<AssetView>,
     val getActivity: FragmentActivity?
 ):RecyclerView.Adapter<AssetViewHolder>() {
     @Inject lateinit var assetViewModel: AssetViewModel
@@ -33,9 +36,19 @@ class ListAssetProviderRecycleAdapter(
     override fun onBindViewHolder(holder: AssetViewHolder, position: Int) {
         val longitude = assetList[position].longitude
         val latitude = assetList[position].latitude
+        val saldo = assetList[position].saldo
         val assetLocation = "${latitude} ,${longitude}"
         holder.assetName.text = assetList[position].asset_name
-        holder.location.text = assetLocation
+        holder.location.text = "saldo : Rp.${saldo}"
+        val id_asset = bundleOf(
+            Pair("id_asset", assetList[position].id)
+            ,Pair("asset_name", assetList[position].asset_name)
+        )
+        println(id_asset)
+
+        holder.itemView.setOnClickListener{
+            Navigation.findNavController(it).navigate(R.id.action_global_monthlyReportProviderfragment, id_asset)
+        }
     }
 }
 

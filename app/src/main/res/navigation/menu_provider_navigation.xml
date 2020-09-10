@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/menu_provider_navigation"
     app:startDestination="@+id/homeProviderFragment">
-
+    <action android:id="@+id/action_global_monthlyReportProviderfragment" app:destination="@id/monthlyReportProviderfragment"/>
+    <action android:id="@+id/action_global_dailyReportProviderFragment" app:destination="@id/dailyReportProviderFragment"/>
     <fragment
         android:id="@+id/homeProviderFragment"
         android:name="com.example.androidfinalproject.screens.provider.HomeProviderFragment"
@@ -26,8 +27,13 @@
         tools:layout="@layout/fragment_profile_provider" />
     <action android:id="@+id/action_global_profileProviderFragment" app:destination="@id/profileProviderFragment"/>
     <fragment
-        android:id="@+id/listAssetProvider"
-        android:name="com.example.androidfinalproject.screens.provider.ListAssetProvider"
-        android:label="fragment_list_asset_provider"
-        tools:layout="@layout/fragment_list_asset_provider" /><action android:id="@+id/action_global_listAssetProvider" app:destination="@id/listAssetProvider"/>
+        android:id="@+id/dailyReportProviderFragment"
+        android:name="com.example.androidfinalproject.screens.provider.DailyReportProviderFragment"
+        android:label="fragment_daily_report_provider"
+        tools:layout="@layout/fragment_daily_report_provider" />
+    <fragment
+        android:id="@+id/monthlyReportProviderfragment"
+        android:name="com.example.androidfinalproject.screens.provider.MonthlyReportProviderfragment"
+        android:label="fragment_monthly_report_providerfragment"
+        tools:layout="@layout/fragment_monthly_report_providerfragment" />
 </navigation>

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBlueOcean"
-    tools:context=".screens.provider.ListAssetProvider">
+    tools:context=".screens.provider.DailyReportProviderFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/wrapper_content"
@@ -14,18 +14,35 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/daily_header_asset_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Assets Need Approval"
+            android:text="GedungA"
             android:textColor="@color/colorBlack"
             android:textSize="30dp"
             android:layout_marginVertical="10dp"
             android:layout_marginHorizontal="25dp"
-            app:layout_constraintBottom_toTopOf="@+id/list_history_linear"
             app:layout_constraintEnd_toStartOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+        <LinearLayout
+            android:id="@+id/buttonLinearPanel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@id/daily_header_asset_name">
+            <Button
+                android:id="@+id/button_to_monthly_report_daily"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="MONTHLY"/>
+            <Button
+                android:id="@+id/button_to_daily_report_daily"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="DAILY"
+                android:enabled="false"/>
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/list_asset_provider_linear"
@@ -38,10 +55,10 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView3">
+            app:layout_constraintTop_toBottomOf="@+id/buttonLinearPanel">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycle_view_list_asset"
+                android:id="@+id/recycle_view_daily_report_asset"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="45dp"
