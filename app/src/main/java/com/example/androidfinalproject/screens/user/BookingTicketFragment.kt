@@ -1,0 +1,116 @@
+package com.example.androidfinalproject.screens.user
+
+import android.content.Context
+import android.content.SharedPreferences
+import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.LinearLayout
+import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
+import androidx.navigation.findNavController
+import com.bumptech.glide.Glide
+import com.example.androidfinalproject.MyApplication
+import com.example.androidfinalproject.R
+import com.example.androidfinalproject.user.home.UserHomeViewModel
+import com.example.androidfinalproject.user.ticket.Ticket
+import com.example.androidfinalproject.user.ticket.TicketViewModel
+import kotlinx.android.synthetic.main.fragment_booking_ticket.*
+import kotlinx.android.synthetic.main.fragment_profile_user_fagment.*
+import javax.inject.Inject
+
+class BookingTicketFragment : Fragment(), View.OnClickListener {
+    @Inject
+    lateinit var ticketViewModel: TicketViewModel
+    var sharedPreferences: SharedPreferences? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        (activity?.applicationContext as MyApplication).applicationComponent.inject(this)
+        sharedPreferences = activity?.getSharedPreferences(
+            getString(R.string.shared_preference_name),
+            Context.MODE_PRIVATE
+        )
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_booking_ticket, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        bookButton.setOnClickListener(this)
+    }
+
+    override fun onClick(v: View?) {
+        val alertDialog = AlertDialog.Builder(requireContext()).create()
+
+        when (v) {
+
+            bookButton -> {
+                if (vehicle_type.selectedItem.toString() == "CAR") {
+                    ticketViewModel.createTicket(
+                        Ticket(
+                            user_id = sharedPreferences?.getString(
+                                "ID_USER",
+                                ""
+                            ).toString(),
+                            license_plate = platNo.text.toString(),
+                            asset_id = arguments?.getString("asset_id").toString(),
+                            vehicle_id = "1",
+                            fee_id = "1"
+                        )
+                    )
+                } else if (vehicle_type.selectedItem.toString() == "MOTORCYCLE") {
+                    ticketViewModel.createTicket(
+                        Ticket(
+                            user_id = sharedPreferences?.getString(
+                                "ID_USER",
+                                ""
+                            ).toString(),
+                            license_plate = platNo.text.toString(),
+                            asset_id = arguments?.getString("asset_id").toString(),
+                            vehicle_id = "2",
+                            fee_id = "2"
+                        )
+                    )
+                } else {
+                    ticketViewModel.createTicket(
+                        Ticket(
+                            user_id = sharedPreferences?.getString(
+                                "ID_USER",
+                                ""
+                            ).toString(),
+                            license_plate = platNo.text.toString(),
+                            asset_id = arguments?.getString("asset_id").toString(),
+                            vehicle_id = "3",
+                            fee_id = "3"
+                        )
+                    )
+                }
+                alertDialog.setTitle("Booking Ticket")
+                alertDialog.setMessage("Booking Ticket Success")
+
+                alertDialog.setButton(
+                    AlertDialog.BUTTON_POSITIVE, "OK"
+                ) { dialog, which ->
+                    v?.findNavController()
+                        ?.navigate(R.id.action_homeUserFragment_to_topUpSaldoFragment)
+                }
+                alertDialog.show()
+
+                val btnPositive = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
+
+                val layoutParams = btnPositive.layoutParams as LinearLayout.LayoutParams
+                layoutParams.weight = 10f
+                btnPositive.layoutParams = layoutParams
+            }
+        }
+    }
+}

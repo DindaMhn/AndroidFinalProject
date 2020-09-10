@@ -37,4 +37,8 @@ interface ApplicationComponent {
     fun inject(listAssetProviderRecycleAdapter: ListAssetProviderRecycleAdapter)
     fun inject(monthlyReportProviderfragment: MonthlyReportProviderfragment)
     fun inject(dailyReportProviderFragment: DailyReportProviderFragment)
+    fun inject(mapsFragment: MapsFragment)
+    fun inject(searchFragment: SearchFragment)
+    fun inject(detailAssetFragment: DetailAssetFragment)
+    fun inject(bookingTicketFragment: BookingTicketFragment)
 }

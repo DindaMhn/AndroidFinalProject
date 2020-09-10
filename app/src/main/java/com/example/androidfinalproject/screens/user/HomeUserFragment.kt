@@ -45,11 +45,26 @@ class HomeUserFragment : Fragment(), View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         topUpButton.setOnClickListener(this)
-        val id = sharedPreferences?.getString("ID_USER",""
+        val id = sharedPreferences?.getString(
+            "ID_USER", ""
         )
         userHomeViewModel.getUserSaldo(id.toString())
         userHomeViewModel.userSaldoData.observe(viewLifecycleOwner, Observer {
             saldoUserText.text = "Rp. ${it.saldo}"
+        })
+        userHomeViewModel.getUserTicket(id.toString())
+        userHomeViewModel.userTicket.observe(viewLifecycleOwner, Observer {
+            if (it != null) {
+                ticketAssetName.text = it.asset_name
+                typeVehicle.text = it.vehicle_type
+                plat.text = it.license_plate
+                book_at.text = it.book_at
+            } else{
+                ticketAssetName.text = "No Ticket"
+                typeVehicle.text = ""
+                plat.text = ""
+                book_at.text = ""
+            }
         })
     }
 

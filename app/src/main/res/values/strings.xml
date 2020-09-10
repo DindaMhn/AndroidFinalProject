@@ -15,10 +15,17 @@
     <string name="phone_provider_key">PHONE_PROVIDER</string>
     <string name="wallet_id_key">WALLET_ID</string>
     <string name="default_value">default</string>
+    <string name="device_latitude">device_latitude</string>
+    <string name="device_longitude">device_longitude</string>
     <string name="change_photo_prompt">Choose</string>
     <string-array name="change_photo_arrays">
         <item>Open Camera</item>
         <item>Open From Galeri</item>
     </string-array>
-
+    <string name="vehicle_type">Choose Vehicle Type</string>
+    <string-array name="vehicle_arrays">
+        <item>CAR</item>
+        <item>MOTORCYCLE</item>
+        <item>BICYCLE</item>
+    </string-array>
 </resources>

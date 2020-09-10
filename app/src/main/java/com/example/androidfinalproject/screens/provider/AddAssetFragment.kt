@@ -139,7 +139,7 @@ class AddAssetFragment : Fragment(), View.OnClickListener {
                 "result",
                 """{"provider_id": "${sharedPreferences?.getString("ID_PROVIDER", "").toString()}",
                         "asset_name":"${assetNameInput.text.toString()}",
-                        "asset_area":"${assetAreaInput.text.toString()}",
+                        "asset_area":${assetAreaInput.text.toString()},
                         "longitude":${longitudeInput.text.toString()},
                         "latitude":${latitudeInput.text.toString()},
                         "car_capacity":${carCapInput.text.toString()},

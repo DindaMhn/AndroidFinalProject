@@ -1,9 +1,13 @@
 package com.example.androidfinalproject.activity
 
 import android.content.pm.PackageManager
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.example.androidfinalproject.R
 
 class MainActivity : AppCompatActivity() {
@@ -21,12 +25,13 @@ class MainActivity : AppCompatActivity() {
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-
-        if (requestCode == REQUEST_READ_STORAGE_PERMISSION && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            secondCameraPermission()
-        } else if (requestCode == REQUEST_READ_STORAGE_PERMISSION && grantResults[0] == PackageManager.PERMISSION_DENIED) {
-            Toast.makeText(this, "Mohon berikan perizinan", Toast.LENGTH_SHORT).show()
-            firstStoragePermission()
+        if (grantResults.size != 0) {
+            if (requestCode == REQUEST_READ_STORAGE_PERMISSION && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                secondCameraPermission()
+            } else if (requestCode == REQUEST_READ_STORAGE_PERMISSION && grantResults[0] == PackageManager.PERMISSION_DENIED) {
+                Toast.makeText(this, "Please Give Permission", Toast.LENGTH_SHORT).show()
+                firstStoragePermission()
+            }
         }
     }
 
@@ -50,4 +55,6 @@ class MainActivity : AppCompatActivity() {
             )
         }
     }
+
+
 }

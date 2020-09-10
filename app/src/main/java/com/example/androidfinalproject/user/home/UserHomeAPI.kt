@@ -11,6 +11,10 @@ import retrofit2.http.Path
 interface UserHomeAPI {
     @GET("user/saldo/{id}")
     fun getSaldoUser(@Path("id") id: String): Call<ResponseData>
+
     @PUT("user/saldo/{id}")
     fun updateSaldoUser(@Path("id") id: String, @Body userWallet: UserWallet): Call<ResponseData>
+
+    @GET("user/ticket/{id}")
+    fun getUserTicket(@Path("id") id: String): Call<ResponseData>
 }

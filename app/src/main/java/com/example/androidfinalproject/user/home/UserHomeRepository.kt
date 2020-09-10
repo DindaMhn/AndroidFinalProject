@@ -12,6 +12,8 @@ import javax.inject.Inject
 class UserHomeRepository @Inject constructor(val userHomeAPI: UserHomeAPI) {
     var userSaldoData: MutableLiveData<UserWallet> = MutableLiveData<UserWallet>()
     var userResponse: MutableLiveData<ResponseData> = MutableLiveData<ResponseData>()
+    var userTicketData:MutableLiveData<UserTicket> = MutableLiveData<UserTicket>()
+
     fun getSaldoUser(id: String) {
         userHomeAPI.getSaldoUser(id).enqueue(object : Callback<ResponseData> {
             override fun onFailure(call: Call<ResponseData>, t: Throwable) {
@@ -42,6 +44,22 @@ class UserHomeRepository @Inject constructor(val userHomeAPI: UserHomeAPI) {
                 val res = gson.toJson(response)
                 val resData = gson.toJson(response?.result)
                 userResponse.value = gson.fromJson<ResponseData>(res, ResponseData::class.java)
+            }
+        })
+    }
+    fun getUserTicket(id:String){
+        userHomeAPI.getUserTicket(id).enqueue(object:Callback<ResponseData>{
+            override fun onFailure(call: Call<ResponseData>, t: Throwable) {
+                t.printStackTrace()
+            }
+
+            override fun onResponse(call: Call<ResponseData>, response: Response<ResponseData>) {
+                val response = response.body()
+                val gson = Gson()
+                val res = gson.toJson(response)
+                val resData = gson.toJson(response?.result)
+                userResponse.value = gson.fromJson<ResponseData>(res, ResponseData::class.java)
+                userTicketData.value = gson.fromJson<UserTicket>(resData,UserTicket::class.java)
             }
         })
     }

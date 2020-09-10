@@ -23,4 +23,7 @@ interface TicketAPI {
 
     @GET("ticket/{id}")
     fun getTicketViewByID(@Path("id") id: String): Call<ResponseData>
+
+    @POST("ticket/new")
+    fun createTicket(@Body ticket: Ticket): Call<ResponseData>
 }
