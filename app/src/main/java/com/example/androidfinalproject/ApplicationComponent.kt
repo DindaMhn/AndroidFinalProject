@@ -4,6 +4,7 @@ import com.example.androidfinalproject.activity.MainActivity
 import com.example.androidfinalproject.activity.provider.MenuProviderActivity
 import com.example.androidfinalproject.activity.user.LoginUserActivity
 import com.example.androidfinalproject.activity.user.MenuUserActivity
+import com.example.androidfinalproject.recycleview.provider.ListAssetProviderRecycleAdapter
 import com.example.androidfinalproject.recycleview.user.HistoryUserRecycleAdapter
 import com.example.androidfinalproject.screens.provider.AddAssetFragment
 import com.example.androidfinalproject.screens.provider.HomeProviderFragment
@@ -33,4 +34,6 @@ interface ApplicationComponent {
     fun inject(detailTicketFragment: DetailTicketFragment)
     fun inject(profileProviderFragment: ProfileProviderFragment)
     fun inject(loginUserActivity: LoginUserActivity)
+    fun inject(listAssetProviderRecycleAdapter: ListAssetProviderRecycleAdapter)
+    fun inject(listAssetProvider: ListAssetProvider)
 }

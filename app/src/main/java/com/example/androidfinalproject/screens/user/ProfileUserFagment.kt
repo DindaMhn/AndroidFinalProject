@@ -23,6 +23,7 @@ import androidx.core.content.FileProvider
 import androidx.lifecycle.Observer
 import com.example.androidfinalproject.MyApplication
 import com.example.androidfinalproject.R
+import com.example.androidfinalproject.activity.MainActivity
 import com.example.androidfinalproject.user.profile.UserProfileViewModel
 import com.example.androidfinalproject.user.profile.UserUpdate
 import kotlinx.android.synthetic.main.fragment_profile_user_fagment.*
@@ -196,13 +197,13 @@ class ProfileUserFagment : Fragment(), View.OnClickListener {
             logoutUserButton -> {
                 with(sharedPreferences?.edit()) {
                     this?.putBoolean(
-                        "ISLOGGEDIN_USER",
-                        false
-                    )
+                    "ISLOGGEDIN_USER",
+                    false
+                )
                     this?.clear()
                     this?.commit()
                 }
-                activity?.finish()
+                startActivity(Intent(this.context, MainActivity::class.java))
             }
             simpanEditUserButton -> {
                 val id = sharedPreferences?.getString("ID_USER", "")
@@ -240,7 +241,7 @@ class ProfileUserFagment : Fragment(), View.OnClickListener {
                     }).show()
             }
             deleteUserPhoto -> {
-                userProfileViewModel.deleteUserPhoto(arguments?.getString("id").toString())
+                userProfileViewModel.deleteUserPhoto(sharedPreferences?.getString("ID_USER", "").toString())
                 alertDialog.setTitle("Delete Photo")
                 alertDialog.setMessage("Delete Success")
 

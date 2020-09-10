@@ -2,6 +2,7 @@ package com.example.androidfinalproject
 
 import com.example.androidfinalproject.config.RetrofitBuilder
 import com.example.androidfinalproject.provider.account.ProviderAPI
+import com.example.androidfinalproject.provider.asset.AssetAPI
 import com.example.androidfinalproject.provider.home.ProviderHomeAPI
 import com.example.androidfinalproject.provider.profile.ProviderProfileAPI
 import com.example.androidfinalproject.user.account.UserAPI
@@ -40,5 +41,9 @@ class NetworkModule {
     @Provides
     fun provideProviderProfile():ProviderProfileAPI{
         return RetrofitBuilder.createRetrofit().create(ProviderProfileAPI::class.java)
+    }
+    @Provides
+    fun provideAssetAPI():AssetAPI{
+        return RetrofitBuilder.createRetrofit().create(AssetAPI::class.java)
     }
 }

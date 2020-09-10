@@ -25,4 +25,9 @@
         android:label="fragment_profile_provider"
         tools:layout="@layout/fragment_profile_provider" />
     <action android:id="@+id/action_global_profileProviderFragment" app:destination="@id/profileProviderFragment"/>
+    <fragment
+        android:id="@+id/listAssetProvider"
+        android:name="com.example.androidfinalproject.screens.provider.ListAssetProvider"
+        android:label="fragment_list_asset_provider"
+        tools:layout="@layout/fragment_list_asset_provider" /><action android:id="@+id/action_global_listAssetProvider" app:destination="@id/listAssetProvider"/>
 </navigation>

@@ -26,6 +26,7 @@ import androidx.core.content.FileProvider
 import androidx.navigation.findNavController
 import com.example.androidfinalproject.MyApplication
 import com.example.androidfinalproject.R
+import com.example.androidfinalproject.activity.MainActivity
 import com.example.androidfinalproject.provider.profile.ProviderProfileViewModel
 import com.example.androidfinalproject.provider.profile.ProviderUpdate
 import kotlinx.android.synthetic.main.fragment_profile_provider.*
@@ -263,7 +264,7 @@ class ProfileProviderFragment : Fragment(), View.OnClickListener {
                     this?.clear()
                     this?.commit()
                 }
-                activity?.finish()
+                startActivity(Intent(this.context, MainActivity::class.java))
             }
         }
     }
