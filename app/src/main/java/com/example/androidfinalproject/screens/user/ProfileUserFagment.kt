@@ -19,8 +19,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.lifecycle.Observer
+import com.bumptech.glide.Glide
 import com.example.androidfinalproject.MyApplication
 import com.example.androidfinalproject.R
 import com.example.androidfinalproject.activity.MainActivity
@@ -29,6 +31,7 @@ import com.example.androidfinalproject.user.profile.UserUpdate
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import kotlinx.android.synthetic.main.fragment_profile_provider.*
 import kotlinx.android.synthetic.main.fragment_profile_user_fagment.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -81,11 +84,11 @@ class ProfileUserFagment : Fragment(), View.OnClickListener {
         val month = c.get(Calendar.MONTH)
         val day = c.get(Calendar.DAY_OF_MONTH)
         mPickTimeBtn?.setOnClickListener {
-            val monthView = month + 1
             val dpd = DatePickerDialog(
                 requireContext(),
                 DatePickerDialog.OnDateSetListener { view, year, month, day ->
                     // Display Selected date in TextView
+                    val monthView = month + 1
                     textView?.setText("$year-$monthView-$day")
                 }, year, month, day
             )
@@ -218,27 +221,32 @@ class ProfileUserFagment : Fragment(), View.OnClickListener {
                 startActivity(Intent(this.context, MainActivity::class.java))
             }
             simpanEditUserButton -> {
-                val id = sharedPreferences?.getString("ID_USER", "")
-                userProfileViewModel.updateUserProfile(
-                    id.toString(),
-                    UserUpdate(
-                        borndate = bornDateEditTextUser.text.toString(),
-                        address = addressEditTextUser.text.toString()
+                if(bornDateEditTextUser.text.toString()=="" || addressEditTextUser.text.toString()==""){
+                    Toast.makeText(this.context, "Must be field", Toast.LENGTH_SHORT)
+                        .show()
+                } else {
+                    val id = sharedPreferences?.getString("ID_USER", "")
+                    userProfileViewModel.updateUserProfile(
+                        id.toString(),
+                        UserUpdate(
+                            borndate = bornDateEditTextUser.text.toString(),
+                            address = addressEditTextUser.text.toString()
+                        )
                     )
-                )
-                alertDialog.setTitle("Edit Profile")
-                alertDialog.setMessage("Edit Success")
+                    alertDialog.setTitle("Edit Profile")
+                    alertDialog.setMessage("Edit Success")
 
-                alertDialog.setButton(
-                    AlertDialog.BUTTON_POSITIVE, "OK"
-                ) { dialog, which -> dialog.dismiss() }
-                alertDialog.show()
+                    alertDialog.setButton(
+                        AlertDialog.BUTTON_POSITIVE, "OK"
+                    ) { dialog, which -> dialog.dismiss() }
+                    alertDialog.show()
 
-                val btnPositive = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
+                    val btnPositive = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
 
-                val layoutParams = btnPositive.layoutParams as LinearLayout.LayoutParams
-                layoutParams.weight = 10f
-                btnPositive.layoutParams = layoutParams
+                    val layoutParams = btnPositive.layoutParams as LinearLayout.LayoutParams
+                    layoutParams.weight = 10f
+                    btnPositive.layoutParams = layoutParams
+                }
             }
             ChangePhotoUser -> {
                 val changeImageDialog = AlertDialog.Builder(requireContext())
@@ -259,7 +267,9 @@ class ProfileUserFagment : Fragment(), View.OnClickListener {
 
                 alertDialog.setButton(
                     AlertDialog.BUTTON_POSITIVE, "OK"
-                ) { dialog, which -> dialog.dismiss() }
+                ) { dialog, which -> Glide.with(this.requireActivity())
+                    .load(ContextCompat.getDrawable(requireContext(), R.drawable.defaultphoto))
+                    .into(photoProfileUser) }
                 alertDialog.show()
 
                 val btnPositive = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
