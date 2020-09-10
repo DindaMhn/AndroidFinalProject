@@ -84,6 +84,10 @@ class ProfileUserFagment : Fragment(), View.OnClickListener {
         val month = c.get(Calendar.MONTH)
         val day = c.get(Calendar.DAY_OF_MONTH)
         mPickTimeBtn?.setOnClickListener {
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
             val dpd = DatePickerDialog(
                 requireContext(),
                 DatePickerDialog.OnDateSetListener { view, year, month, day ->

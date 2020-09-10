@@ -255,9 +255,13 @@ class ProfileProviderFragment : Fragment(), View.OnClickListener {
                 alertDialog.setButton(
                     AlertDialog.BUTTON_POSITIVE, "OK"
                 ) { dialog, which ->
+<<<<<<< Updated upstream
                     Glide.with(this.requireActivity())
                         .load(ContextCompat.getDrawable(requireContext(), R.drawable.defaultphoto))
                         .into(photoProfileProvider)
+=======
+                    Glide.with(activity).asBitmap().load(responseImage).into(imageContainer)
+>>>>>>> Stashed changes
                 }
                 alertDialog.show()
 
