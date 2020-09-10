@@ -21,9 +21,12 @@ interface TicketAPI {
     @PUT("ticket/inactive/{id}")
     fun updateTicketStatus(@Path("id") id: String): Call<ResponseData>
 
-    @GET("ticket/{id}")
+    @GET("ticket/view/{id}")
     fun getTicketViewByID(@Path("id") id: String): Call<ResponseData>
 
     @POST("ticket/new")
     fun createTicket(@Body ticket: Ticket): Call<ResponseData>
+
+    @PUT("ticket/active/{id}")
+    fun updateTicketStatusActive(@Path("id") id: String): Call<ResponseData>
 }

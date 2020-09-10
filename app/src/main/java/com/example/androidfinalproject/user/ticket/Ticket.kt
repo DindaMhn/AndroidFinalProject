@@ -14,14 +14,14 @@ class Ticket(
 )
 
 class TicketView(
-    var id: String = "556169b9-eccc-11ea-83bf-b4a9fc958140",
-    var username: String = "username",
-    var asset_name: String = "MONAS",
-    var license_plate: String = "B 3030 PTK",
-    var based_fee: String = "2000",
-    var parking_duration_hour: String = "123",
-    var pay_fee: String = "246000",
-    var book_at: String = "2020-09-02 10:28:13",
-    var start_at: String = "2020-09-02 10:28:13",
-    var finished_at: String = "2020-09-07 12:36:03"
+    var id: String = "",
+    var username: String = "",
+    var asset_name: String = "",
+    var license_plate: String = "",
+    var based_fee: String = "",
+    var parking_duration_hour: String = "",
+    var pay_fee: String = "",
+    var book_at: String = "",
+    var start_at: String = "",
+    var finished_at: String = ""
 )

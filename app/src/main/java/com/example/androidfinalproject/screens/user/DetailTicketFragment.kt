@@ -44,7 +44,8 @@ class DetailTicketFragment : Fragment(), View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         detail_button_pay_ticket.setOnClickListener(this)
-        var id = "556169b9-eccc-11ea-83bf-b4a9fc958140"
+        var id = sharedPreferences?.getString("ID_TICKET", "default").toString()
+        println("ini_id ticket ${id}" )
         ticketViewModel.getTicketViewByID(id)
         ticketViewModel.ticketView.observe(viewLifecycleOwner, Observer {
             detail_location_view.text = it.asset_name
@@ -62,16 +63,16 @@ class DetailTicketFragment : Fragment(), View.OnClickListener {
 
             R.id.detail_button_pay_ticket -> {
                 val ticketNew = Ticket(
-                    id = "556169b9-eccc-11ea-83bf-b4a9fc958140"
+                    id = sharedPreferences?.getString("ID_TICKET", "default").toString()
                     , user_id = sharedPreferences?.getString("ID_USER", "default").toString()
-                    , asset_id = text_view_qr_code_value.text.toString()
-                    , fee_id = "e3916ad8-eb5a-11ea-86a5-b4a9fc958140"
-                    , vehicle_id = "209f6e05-eb5a-11ea-86a5-b4a9fc958140"
+                    , asset_id = sharedPreferences?.getString("ID_ASSET_TICKET", "default").toString()
+                    , fee_id = sharedPreferences?.getString("ID_FEE_TICKET", "default").toString()
+                    , vehicle_id = sharedPreferences?.getString("ID_VEHICLE_TICKET", "default").toString()
                     , license_plate = detail_license_plate_view.text.toString()
-                    , book_at = "2020-09-02 10:28:13"
-                    , start_at = detail_start_parking_view.text.toString()
-                    , finished_at = detail_end_parking_view.text.toString()
-                    , status = "A"
+                    , book_at = sharedPreferences?.getString("BOOK_AT_TICKET", "default").toString()
+                    , start_at = detail_time_start_parking_view.text.toString()
+                    , finished_at = detail_time_end_parking_view.text.toString()
+                    , status = sharedPreferences?.getString("STATUS_TICKET","").toString()
                 )
                 ticketViewModel.paymentTicket(ticketNew)
                 ticketViewModel.ticketResponse.observe(

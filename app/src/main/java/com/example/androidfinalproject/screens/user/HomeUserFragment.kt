@@ -53,8 +53,20 @@ class HomeUserFragment : Fragment(), View.OnClickListener {
             saldoUserText.text = "Rp. ${it.saldo}"
         })
         userHomeViewModel.getUserTicket(id.toString())
+
+
         userHomeViewModel.userTicket.observe(viewLifecycleOwner, Observer {
+
             if (it != null) {
+                with(sharedPreferences?.edit()){
+                    this?.putString("ID_TICKET",it.id)
+                    this?.putString("STATUS_TICKET", it.status)
+                    this?.putString("BOOK_AT_TICKET", it.book_at)
+                    this?.putString("ID_ASSET_TICKET",it.asset_id)
+                    this?.putString("ID_FEE_TICKET", it.fee_id)
+                    this?.putString("ID_VEHICLE_TICKET", it.vehicle_id)
+                    this?.commit()
+                }
                 ticketAssetName.text = it.asset_name
                 typeVehicle.text = it.vehicle_type
                 plat.text = it.license_plate
