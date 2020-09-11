@@ -110,7 +110,7 @@ class ProfileUserFagment : Fragment(), View.OnClickListener {
             bornDateEditTextUser.text =
                 Editable.Factory.getInstance().newEditable(it.borndate.toString())
         })
-        deleteUserPhoto.setOnClickListener(this)
+//        deleteUserPhoto.setOnClickListener(this)
         ChangePhotoUser.setOnClickListener(this)
         simpanEditUserButton.setOnClickListener(this)
         logoutUserButton.setOnClickListener(this)
@@ -201,6 +201,29 @@ class ProfileUserFagment : Fragment(), View.OnClickListener {
         return originalPath
     }
 
+    fun deleteUserPhoto() {
+        val alertDialog = AlertDialog.Builder(requireContext()).create()
+
+        userProfileViewModel.deleteUserPhoto(sharedPreferences?.getString("ID_USER", "").toString())
+        alertDialog.setTitle("Delete Photo")
+        alertDialog.setMessage("Delete Success")
+
+        alertDialog.setButton(
+            AlertDialog.BUTTON_POSITIVE, "OK"
+        ) { dialog, which ->
+            Glide.with(this.requireActivity())
+                .load(ContextCompat.getDrawable(requireContext(), R.drawable.defaultphoto))
+                .into(photoProfileUser)
+        }
+        alertDialog.show()
+
+        val btnPositive = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
+
+        val layoutParams = btnPositive.layoutParams as LinearLayout.LayoutParams
+        layoutParams.weight = 10f
+        btnPositive.layoutParams = layoutParams
+    }
+
     override fun onClick(v: View?) {
         val alertDialog = AlertDialog.Builder(requireContext()).create()
 
@@ -220,7 +243,7 @@ class ProfileUserFagment : Fragment(), View.OnClickListener {
                 startActivity(Intent(this.context, MainActivity::class.java))
             }
             simpanEditUserButton -> {
-                if(bornDateEditTextUser.text.toString()=="" || addressEditTextUser.text.toString()==""){
+                if (bornDateEditTextUser.text.toString() == "" || addressEditTextUser.text.toString() == "") {
                     Toast.makeText(this.context, "Must be field", Toast.LENGTH_SHORT)
                         .show()
                 } else {
@@ -256,27 +279,29 @@ class ProfileUserFagment : Fragment(), View.OnClickListener {
                             openCamera()
                         } else if (selectedOption == 1) {
                             browseFile()
+                        } else if (selectedOption == 2) {
+                            deleteUserPhoto()
                         }
                     }).show()
             }
-            deleteUserPhoto -> {
-                userProfileViewModel.deleteUserPhoto(arguments?.getString("id").toString())
-                alertDialog.setTitle("Delete Photo")
-                alertDialog.setMessage("Delete Success")
-
-                alertDialog.setButton(
-                    AlertDialog.BUTTON_POSITIVE, "OK"
-                ) { dialog, which -> Glide.with(this.requireActivity())
-                    .load(ContextCompat.getDrawable(requireContext(), R.drawable.defaultphoto))
-                    .into(photoProfileUser) }
-                alertDialog.show()
-
-                val btnPositive = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
-
-                val layoutParams = btnPositive.layoutParams as LinearLayout.LayoutParams
-                layoutParams.weight = 10f
-                btnPositive.layoutParams = layoutParams
-            }
+//            deleteUserPhoto -> {
+//                userProfileViewModel.deleteUserPhoto(arguments?.getString("id").toString())
+//                alertDialog.setTitle("Delete Photo")
+//                alertDialog.setMessage("Delete Success")
+//
+//                alertDialog.setButton(
+//                    AlertDialog.BUTTON_POSITIVE, "OK"
+//                ) { dialog, which -> Glide.with(this.requireActivity())
+//                    .load(ContextCompat.getDrawable(requireContext(), R.drawable.defaultphoto))
+//                    .into(photoProfileUser) }
+//                alertDialog.show()
+//
+//                val btnPositive = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
+//
+//                val layoutParams = btnPositive.layoutParams as LinearLayout.LayoutParams
+//                layoutParams.weight = 10f
+//                btnPositive.layoutParams = layoutParams
+//            }
         }
     }
 }

@@ -14,7 +14,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="15dp"
         app:cardBackgroundColor="@color/colorWhite"
-        app:cardCornerRadius="20dp"
+        app:cardCornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -115,6 +115,8 @@
                     android:text="Tes"
                     android:textColor="@color/colorBlack"
                     android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:drawableStart="@drawable/ic_baseline_location_on_24"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

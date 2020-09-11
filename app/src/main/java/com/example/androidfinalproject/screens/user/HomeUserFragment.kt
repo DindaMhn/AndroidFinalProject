@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
@@ -16,6 +17,8 @@ import com.example.androidfinalproject.R
 import com.example.androidfinalproject.user.account.UserViewModel
 import com.example.androidfinalproject.user.home.UserHomeRepository
 import com.example.androidfinalproject.user.home.UserHomeViewModel
+import com.synnapps.carouselview.CarouselView
+import com.synnapps.carouselview.ImageListener
 import kotlinx.android.synthetic.main.fragment_home_user.*
 import javax.inject.Inject
 
@@ -23,6 +26,12 @@ class HomeUserFragment : Fragment(), View.OnClickListener {
     @Inject
     lateinit var userHomeViewModel: UserHomeViewModel
     var sharedPreferences: SharedPreferences? = null
+    var sampleImages = intArrayOf(
+        R.drawable.driving_safety_blog1,
+        R.drawable.parking,
+        R.drawable.safe_driving,
+        R.drawable.parking2
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +42,13 @@ class HomeUserFragment : Fragment(), View.OnClickListener {
         )
 
     }
-
+    var imageListener: ImageListener = object : ImageListener {
+        override fun setImageForPosition(position: Int, imageView: ImageView) {
+            // You can use Glide or Picasso here
+            imageView.setImageResource(sampleImages[position])
+            imageView.scaleType = ImageView.ScaleType.FIT_XY
+        }
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -48,6 +63,10 @@ class HomeUserFragment : Fragment(), View.OnClickListener {
         val id = sharedPreferences?.getString(
             "ID_USER", ""
         )
+
+        val carouselView = view.findViewById(R.id.carouselView) as CarouselView;
+        carouselView.setImageListener(imageListener);
+        carouselView.setPageCount(sampleImages.size);
         userHomeViewModel.getUserSaldo(id.toString())
         userHomeViewModel.userSaldoData.observe(viewLifecycleOwner, Observer {
             saldoUserText.text = "Rp. ${it.saldo}"
@@ -59,7 +78,7 @@ class HomeUserFragment : Fragment(), View.OnClickListener {
                 typeVehicle.text = it.vehicle_type
                 plat.text = it.license_plate
                 book_at.text = it.book_at
-            } else{
+            } else {
                 ticketAssetName.text = "No Ticket"
                 typeVehicle.text = ""
                 plat.text = ""

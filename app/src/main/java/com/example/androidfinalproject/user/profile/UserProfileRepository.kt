@@ -77,7 +77,7 @@ class UserProfileRepository @Inject constructor(val userProfileAPI: UserProfileA
                 if (response.code() != 403) {
                     val responseImage =
                         BitmapFactory.decodeStream(response.body()!!.byteStream())
-                    Glide.with(activity).asBitmap().load(responseImage).into(imageContainer)
+                    Glide.with(activity).asBitmap().load(responseImage).centerCrop().into(imageContainer)
                 }
             }
 
