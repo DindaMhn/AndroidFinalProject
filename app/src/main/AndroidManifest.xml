@@ -34,6 +34,10 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+
         <activity android:name=".activity.provider.LoginProviderActivity" />
         <activity android:name=".activity.user.LoginUserActivity" />
         <activity android:name=".activity.provider.MenuProviderActivity" />

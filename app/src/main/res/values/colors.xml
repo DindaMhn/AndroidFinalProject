@@ -7,5 +7,9 @@
     <color name="colorBlack">#000000</color>
     <color name="colorBlue">#0056FE</color>
     <color name="colorBlueOcean">#C2DEED</color>
+    <color name="colorBlue1">#5392D9</color>
     <color name="colorRed">#C31D1D</color>
+    <color name="colorMainBlue">#6F57FF</color>
+    <color name="colorSecondBlue">#78053377</color>
+    <color name="colorMerchantBlue">#0652DD</color>
 </resources>

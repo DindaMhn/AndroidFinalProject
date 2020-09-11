@@ -27,10 +27,10 @@ class HomeUserFragment : Fragment(), View.OnClickListener {
     lateinit var userHomeViewModel: UserHomeViewModel
     var sharedPreferences: SharedPreferences? = null
     var sampleImages = intArrayOf(
-        R.drawable.driving_safety_blog1,
-        R.drawable.parking,
-        R.drawable.safe_driving,
-        R.drawable.parking2
+        R.drawable.park_1,
+        R.drawable.park_2,
+        R.drawable.parking_3,
+        R.drawable.parking_4
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
