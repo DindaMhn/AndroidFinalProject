@@ -36,10 +36,10 @@ class ListAssetProviderRecycleAdapter(
     override fun onBindViewHolder(holder: AssetViewHolder, position: Int) {
         val longitude = assetList[position].longitude
         val latitude = assetList[position].latitude
-        val saldo = assetList[position].saldo
+//        val saldo = assetList[position].saldo
         val assetLocation = "${latitude} ,${longitude}"
         holder.assetName.text = assetList[position].asset_name
-        holder.location.text = "saldo : Rp.${saldo}"
+        holder.location.text = assetLocation
         val id_asset = bundleOf(
             Pair("id_asset", assetList[position].id)
             ,Pair("asset_name", assetList[position].asset_name)

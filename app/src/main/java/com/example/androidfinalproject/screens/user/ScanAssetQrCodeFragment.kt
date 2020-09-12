@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
@@ -23,6 +24,7 @@ import javax.inject.Inject
 
 class ScanAssetQrCodeFragment : Fragment(), ZXingScannerView.ResultHandler, View.OnClickListener {
     @Inject lateinit var ticketViewModel: TicketViewModel
+
     private lateinit var mScannerView: ZXingScannerView
     private var isCaptured = false
     var sharedPreferences: SharedPreferences? = null
@@ -102,16 +104,22 @@ class ScanAssetQrCodeFragment : Fragment(), ZXingScannerView.ResultHandler, View
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_scan_asset_qr_code, container, false)
+
     }
 
     override fun handleResult(rawResult: Result?) {
+        text_view_qr_code_value.text = rawResult?.text
+
         var id = sharedPreferences?.getString("ID_TICKET", "").toString()
         var status = sharedPreferences?.getString("STATUS_TICKET","").toString()
-        println("INI STATUS ${status}")
-        println("INI ID TICKET ${id}")
-        text_view_qr_code_value.text = rawResult?.text
+
         if (status=="B"){
             ticketViewModel.updateTicketStatusActive(id)
+            Toast.makeText(
+                this.context,
+                "Ticket Active",
+                Toast.LENGTH_SHORT
+            ).show()
             with(sharedPreferences?.edit()) {
                 this?.putString("STATUS_TICKET", "A")
                 this?.commit()
@@ -120,8 +128,19 @@ class ScanAssetQrCodeFragment : Fragment(), ZXingScannerView.ResultHandler, View
                 ?.navigate(R.id.homeUserFragment)
         } else if (status=="A"){
             ticketViewModel.updateTicketStatus(id)
+            Toast.makeText(
+                this.context,
+                "Ticket Valid",
+                Toast.LENGTH_SHORT
+            ).show()
             view?.findNavController()
                 ?.navigate(R.id.detailTicketFragment)
+        } else {
+            Toast.makeText(
+                this.context,
+                "Ticket Invalid",
+                Toast.LENGTH_SHORT
+            ).show()
         }
 
     }

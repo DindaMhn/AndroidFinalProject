@@ -21,6 +21,7 @@ class TicketViewModel @Inject constructor(var ticketRepository: TicketRepository
     }
     fun deleteTicket(id: String){
         ticketRepository.deleteTicket(id)
+//        historyPaymentList.
     }
     fun updateTicketStatus(id: String){
         ticketRepository.updateTicketStatus(id)

@@ -101,7 +101,7 @@ class BookingTicketFragment : Fragment(), View.OnClickListener {
                     AlertDialog.BUTTON_POSITIVE, "OK"
                 ) { dialog, which ->
                     v?.findNavController()
-                        ?.navigate(R.id.action_homeUserFragment_to_topUpSaldoFragment)
+                        ?.navigate(R.id.homeUserFragment)
                 }
                 alertDialog.show()
 

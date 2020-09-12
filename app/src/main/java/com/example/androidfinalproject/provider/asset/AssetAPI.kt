@@ -7,7 +7,7 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface AssetAPI {
-    @GET("providerassets/{id}")
+    @GET("listassets/{id}")
     fun getListAssetByProviderID(@Path("id")id: String): Call<ResponseData>
     @GET("providerreports/daily")
     fun getReportAssetDaily(@Query("id")id: String): Call<ResponseData>

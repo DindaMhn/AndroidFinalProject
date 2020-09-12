@@ -54,7 +54,11 @@
         android:id="@+id/detailTicketFragment"
         android:name="com.example.androidfinalproject.screens.user.DetailTicketFragment"
         android:label="fragment_detail_ticket"
-        tools:layout="@layout/fragment_detail_ticket" />
+        tools:layout="@layout/fragment_detail_ticket" >
+        <action
+            android:id="@+id/action_detailTicketFragment_to_ratingAssetFragment"
+            app:destination="@id/ratingAssetFragment" />
+    </fragment>
     <fragment
         android:id="@+id/detailAssetFragment"
         android:name="com.example.androidfinalproject.screens.user.DetailAssetFragment"
@@ -69,6 +73,11 @@
         android:name="com.example.androidfinalproject.screens.user.BookingTicketFragment"
         android:label="fragment_booking_ticket"
         tools:layout="@layout/fragment_booking_ticket" />
+    <fragment
+        android:id="@+id/ratingAssetFragment"
+        android:name="com.example.androidfinalproject.screens.user.RatingAssetFragment"
+        android:label="fragment_rating_asset"
+        tools:layout="@layout/fragment_rating_asset" />
     android:id="@+id/detailTicketFragment"
         android:name="com.example.androidfinalproject.screens.user.DetailTicketFragment"
         android:label="fragment_detail_ticket"

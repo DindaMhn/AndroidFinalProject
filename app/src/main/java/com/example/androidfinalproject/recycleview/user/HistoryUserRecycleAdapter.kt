@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.FragmentActivity
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.androidfinalproject.MyApplication
 import com.example.androidfinalproject.R
@@ -42,7 +43,8 @@ class HistoryUserRecycleAdapter(
         holder.feePay.text = paymentList[position].pay_fee
         holder.delete.setOnClickListener {
             ticketViewModel.deleteTicket(paymentList[position].id)
-
+            it?.findNavController()
+                ?.navigate(R.id.historyUserFragment)
 //            ticketViewModel.historyPayment(sharedPreferences?.getString(
 //                "ID_USER",
 //                "default"
