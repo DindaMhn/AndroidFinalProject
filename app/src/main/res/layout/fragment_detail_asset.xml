@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/frameLayout11"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBlueOcean"
     tools:context=".screens.user.DetailAssetFragment">
     <ScrollView
         android:layout_width="match_parent"
@@ -17,6 +16,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:orientation="vertical">
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
@@ -24,6 +24,7 @@
         android:layout_marginStart="30dp"
         android:layout_marginTop="100dp"
         android:layout_marginEnd="30dp"
+        app:cardElevation="10dp"
         android:layout_marginBottom="100dp"
         android:backgroundTint="@color/colorWhite"
         app:cardCornerRadius="30dp">
@@ -36,7 +37,7 @@
                 android:id="@+id/image_detail"
                 android:layout_width="300dp"
                 android:layout_height="100dp"
-                android:layout_margin="20dp"
+                android:layout_margin="30dp"
                 android:src="@drawable/logo_parkiryuk"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -46,11 +47,12 @@
                 android:id="@+id/assetNameDetail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:text="Tes"
-                android:textSize="40dp"
+                android:layout_margin="30dp"
                 android:drawableStart="@drawable/ic_baseline_location_on_24"
+                android:fontFamily="@font/averia_gruesa_libre"
+                android:text="Tes"
                 android:textColor="@color/colorBlack"
+                android:textSize="30dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -60,7 +62,7 @@
                 android:id="@+id/distanceDetail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="30dp"
+                android:layout_margin="40dp"
                 android:text="distance"
                 android:textAlignment="center"
                 android:textSize="20dp"
@@ -73,11 +75,13 @@
                 android:id="@+id/carPrice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginStart="20dp"
                 android:text="Car : Rp.2000"
                 android:textColor="@color/colorBlack"
                 android:textSize="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.6"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/distanceDetail" />
 
@@ -108,7 +112,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/colorBlue"
-                android:layout_margin="20dp"
+                android:layout_margin="40dp"
                 android:text="Book Now"
                 app:cornerRadius="38dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -120,4 +124,4 @@
     </com.google.android.material.card.MaterialCardView>
     </LinearLayout>
     </ScrollView>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

@@ -5,7 +5,6 @@
     android:id="@+id/frameLayout5"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBlueOcean"
     tools:context=".screens.user.ProfileUserFagment">
 
     <ScrollView
@@ -20,56 +19,62 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="50dp"
-                android:layout_weight="1"
-                android:orientation="vertical">
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            <View
+                android:id="@+id/vector_2"
+                android:layout_width="match_parent"
+                android:layout_height="280dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/ic_vector_3" />
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/photoProfileUser"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_gravity="center"
+                    android:layout_marginBottom="20dp"
                     android:src="@drawable/defaultphoto" />
-            </LinearLayout>
-
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:orientation="horizontal"
-                android:layout_marginBottom="15dp">
+                android:layout_marginTop="70dp">
 
-                <com.google.android.material.button.MaterialButton
+                <TextView
                     android:id="@+id/ChangePhotoUser"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginEnd="5dp"
                     android:layout_weight="1"
-                    android:backgroundTint="@color/colorBlue"
+                    android:textColor="@color/colorBlue"
                     android:clickable="true"
-                    android:text="Edit Photo"
-                    app:cornerRadius="38dp" />
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:drawableStart="@drawable/ic_baseline_photo_camera_24"
+                    android:text=" Edit Profile Photo" />
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/deleteUserPhoto"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:backgroundTint="@color/colorRed"
-                    android:text="Delete Photo"
-                    app:cornerRadius="38dp" />
+<!--                <com.google.android.material.button.MaterialButton-->
+<!--                    android:id="@+id/deleteUserPhoto"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:backgroundTint="@color/colorRed"-->
+<!--                    android:text="Delete Photo"-->
+<!--                    app:cornerRadius="38dp" />-->
             </LinearLayout>
-
+            </FrameLayout>
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                app:boxCornerRadiusTopStart="10dp">
+                app:boxCornerRadiusTopStart="10dp"
+                app:startIconDrawable="@drawable/ic_baseline_how_to_reg_24">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/fNameUserEditTextUser"
@@ -94,6 +99,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
+                    app:startIconDrawable="@drawable/ic_baseline_date_range_24"
                     app:boxCornerRadiusTopStart="10dp">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -120,6 +126,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
+                app:startIconDrawable="@drawable/ic_baseline_local_phone_24"
                 app:boxCornerRadiusTopStart="10dp">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -140,6 +147,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
+                app:startIconDrawable="@drawable/ic_baseline_house_24"
                 app:boxCornerRadiusTopStart="10dp">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -160,19 +168,25 @@
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
                 android:backgroundTint="@color/colorBlue"
-                android:text="Simpan"
+                android:text="SAVE"
                 app:cornerRadius="38dp"
                 app:iconGravity="textEnd"></com.google.android.material.button.MaterialButton>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/logoutUserButton"
-                android:layout_width="match_parent"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:backgroundTint="@color/colorRed"
+                android:layout_gravity="center"
+                android:layout_margin="30dp"
+                android:backgroundTint="@color/colorWhite"
                 android:text="Logout"
                 app:cornerRadius="38dp"
-                app:iconGravity="textEnd"></com.google.android.material.button.MaterialButton>
+                app:strokeWidth="2dp"
+                app:strokeColor="@color/colorRed"
+                android:textColor="@color/colorRed"
+                app:iconGravity="textEnd">
+
+            </com.google.android.material.button.MaterialButton>
         </LinearLayout>
     </ScrollView>
 

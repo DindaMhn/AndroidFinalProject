@@ -3,25 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/frameLayout10"
-    android:background="@color/colorBlueOcean"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".screens.user.SearchFragment" >
+    tools:context=".screens.user.SearchFragment">
 
-<!--    <fragment-->
-<!--        android:id="@+id/fragment"-->
-<!--        android:name="com.example.androidfinalproject.screens.user.MapsFragment"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="300dp"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.498"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
     <com.google.android.gms.maps.MapView
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="400dp"
         android:id="@+id/map_view"
-        android:layout_margin="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"

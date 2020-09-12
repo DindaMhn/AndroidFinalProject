@@ -74,10 +74,10 @@ class UserProfileRepository @Inject constructor(val userProfileAPI: UserProfileA
             }
 
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                if (response.code() != 403) {
+                if (response.message() != "Not Found") {
                     val responseImage =
                         BitmapFactory.decodeStream(response.body()!!.byteStream())
-                    Glide.with(activity).asBitmap().load(responseImage).into(imageContainer)
+                    Glide.with(activity).asBitmap().load(responseImage).centerCrop().into(imageContainer)
                 }
             }
 

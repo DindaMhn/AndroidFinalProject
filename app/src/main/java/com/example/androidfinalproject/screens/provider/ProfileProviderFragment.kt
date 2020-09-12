@@ -109,7 +109,7 @@ class ProfileProviderFragment : Fragment(), View.OnClickListener {
         })
         ChangePhotoProvider.setOnClickListener(this)
         simpanEditProviderButton.setOnClickListener(this)
-        deleteProviderPhoto.setOnClickListener(this)
+//        deleteProviderPhoto.setOnClickListener(this)
         logoutProviderButton.setOnClickListener(this)
     }
 
@@ -198,6 +198,34 @@ class ProfileProviderFragment : Fragment(), View.OnClickListener {
         return originalPath
     }
 
+    fun deletePhotoProvider() {
+        val alertDialog = AlertDialog.Builder(requireContext()).create()
+
+        val id = sharedPreferences?.getString(
+            getString(R.string.id_provider_key),
+            getString(R.string.default_value)
+        )
+        providerProfileViewModel.deleteProviderPhoto(id.toString())
+        alertDialog.setTitle("Delete Photo")
+        alertDialog.setMessage("Delete Success")
+
+        alertDialog.setButton(
+            AlertDialog.BUTTON_POSITIVE, "OK"
+        ) { dialog, which ->
+
+            Glide.with(this.requireActivity())
+                .load(ContextCompat.getDrawable(requireContext(), R.drawable.defaultphoto))
+                .into(photoProfileProvider)
+        }
+        alertDialog.show()
+
+        val btnPositive = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
+
+        val layoutParams = btnPositive.layoutParams as LinearLayout.LayoutParams
+        layoutParams.weight = 10f
+        btnPositive.layoutParams = layoutParams
+    }
+
     override fun onClick(v: View?) {
         val alertDialog = AlertDialog.Builder(requireContext()).create()
 
@@ -240,34 +268,36 @@ class ProfileProviderFragment : Fragment(), View.OnClickListener {
                             openCamera()
                         } else if (selectedOption == 1) {
                             browseFile()
+                        } else if (selectedOption == 2) {
+                            deletePhotoProvider()
                         }
                     }).show()
             }
-            deleteProviderPhoto -> {
-                val id = sharedPreferences?.getString(
-                    getString(R.string.id_provider_key),
-                    getString(R.string.default_value)
-                )
-                providerProfileViewModel.deleteProviderPhoto(id.toString())
-                alertDialog.setTitle("Delete Photo")
-                alertDialog.setMessage("Delete Success")
-
-                alertDialog.setButton(
-                    AlertDialog.BUTTON_POSITIVE, "OK"
-                ) { dialog, which ->
-
-                    Glide.with(this.requireActivity())
-                        .load(ContextCompat.getDrawable(requireContext(), R.drawable.defaultphoto))
-                        .into(photoProfileProvider)
-                }
-                alertDialog.show()
-
-                val btnPositive = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
-
-                val layoutParams = btnPositive.layoutParams as LinearLayout.LayoutParams
-                layoutParams.weight = 10f
-                btnPositive.layoutParams = layoutParams
-            }
+//            deleteProviderPhoto -> {
+//                val id = sharedPreferences?.getString(
+//                    getString(R.string.id_provider_key),
+//                    getString(R.string.default_value)
+//                )
+//                providerProfileViewModel.deleteProviderPhoto(id.toString())
+//                alertDialog.setTitle("Delete Photo")
+//                alertDialog.setMessage("Delete Success")
+//
+//                alertDialog.setButton(
+//                    AlertDialog.BUTTON_POSITIVE, "OK"
+//                ) { dialog, which ->
+//
+//                    Glide.with(this.requireActivity())
+//                        .load(ContextCompat.getDrawable(requireContext(), R.drawable.defaultphoto))
+//                        .into(photoProfileProvider)
+//                }
+//                alertDialog.show()
+//
+//                val btnPositive = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
+//
+//                val layoutParams = btnPositive.layoutParams as LinearLayout.LayoutParams
+//                layoutParams.weight = 10f
+//                btnPositive.layoutParams = layoutParams
+//            }
             logoutProviderButton -> {
                 with(sharedPreferences?.edit()) {
                     this?.putBoolean(

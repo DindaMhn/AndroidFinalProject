@@ -1,20 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/colorBlueOcean">
+    android:layout_height="wrap_content">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/item"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="15dp"
+        android:layout_margin="10dp"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="10dp"
         app:cardBackgroundColor="@color/colorWhite"
-        app:cardCornerRadius="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -22,24 +20,17 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/colorWhite">
-
-            <!--            <ImageView-->
-            <!--                android:id="@+id/AssetImage"-->
-            <!--                android:layout_width="130dp"-->
-            <!--                android:layout_height="110dp"-->
-            <!--                app:layout_constraintBottom_toBottomOf="parent"-->
-            <!--                app:layout_constraintStart_toStartOf="parent"-->
-            <!--                app:layout_constraintTop_toTopOf="parent" />-->
+            android:layout_height="match_parent">
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/motorCap"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="20dp"
+                android:layout_marginEnd="44dp"
                 android:text="Tes"
                 android:textColor="@color/colorBlack"
+                android:textStyle="bold"
+                android:textSize="15dp"
                 app:layout_constraintBottom_toTopOf="@+id/bicycleCap"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/carCap" />
@@ -48,9 +39,11 @@
                 android:id="@+id/bicycleCap"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="20dp"
+                android:layout_marginEnd="44dp"
                 android:text="Tes"
                 android:textColor="@color/colorBlack"
+                android:textStyle="bold"
+                android:textSize="15dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/motorCap" />
@@ -59,9 +52,11 @@
                 android:id="@+id/carCap"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="20dp"
+                android:layout_marginEnd="44dp"
                 android:text="Tes"
+                android:textSize="15dp"
                 android:textColor="@color/colorBlack"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/motorCap"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -70,18 +65,24 @@
                 android:id="@+id/labelMotor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Motor Capacity : "
+                android:layout_marginEnd="36dp"
+                android:text="Motor Capacity "
                 android:textColor="@color/colorBlack"
+                android:textStyle="bold"
+                android:textSize="15dp"
                 app:layout_constraintBottom_toTopOf="@+id/materialTextView9"
                 app:layout_constraintEnd_toStartOf="@+id/motorCap"
                 app:layout_constraintTop_toBottomOf="@+id/materialTextView4" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/materialTextView4"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Car Capacity : "
+                android:layout_marginEnd="52dp"
+                android:text="Car Capacity "
                 android:textColor="@color/colorBlack"
+                android:textStyle="bold"
+                android:textSize="15dp"
                 app:layout_constraintBottom_toTopOf="@+id/labelMotor"
                 app:layout_constraintEnd_toStartOf="@+id/carCap"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -90,19 +91,21 @@
                 android:id="@+id/materialTextView9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Bicycle Capacity : "
+                android:layout_marginEnd="28dp"
+                android:text="Bicycle Capacity "
                 android:textColor="@color/colorBlack"
+                android:textStyle="bold"
+                android:textSize="15dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/bicycleCap"
                 app:layout_constraintTop_toBottomOf="@+id/labelMotor" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout"
-                android:layout_width="wrap_content"
+                android:layout_width="150dp"
                 android:layout_height="match_parent"
+                android:background="@drawable/card_search_color"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/motorCap"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.0">
@@ -111,10 +114,13 @@
                     android:id="@+id/asset_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="20dp"
+                    android:layout_margin="10dp"
+                    android:drawableStart="@drawable/ic_baseline_location_on_24_1"
+                    android:fontFamily="@font/averia_gruesa_libre"
                     android:text="Tes"
-                    android:textColor="@color/colorBlack"
+                    android:textColor="@color/colorWhite"
                     android:textSize="20dp"
+                    android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -123,4 +129,4 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>
