@@ -74,7 +74,8 @@ class UserProfileRepository @Inject constructor(val userProfileAPI: UserProfileA
             }
 
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                if (response.message() != "Not Found") {
+//                println("ini_response ${response}")
+                if (response.code() != 404 && response.code() != 403) {
                     val responseImage =
                         BitmapFactory.decodeStream(response.body()!!.byteStream())
                     Glide.with(activity).asBitmap().load(responseImage).centerCrop().into(imageContainer)

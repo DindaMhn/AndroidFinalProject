@@ -6,6 +6,6 @@ class Rating(
     , var asset_id: String = ""
     , var rating: String = ""
     , var comment: String = ""
-    , var crated_at: String = ""
+    , var created_at: String = ""
     , var status: String = ""
 )

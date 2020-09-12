@@ -32,7 +32,7 @@
             android:text="GEDUNG A" />
 
         <EditText
-            android:id="@+id/editTextTextMultiLine"
+            android:id="@+id/rating_comment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -54,7 +54,6 @@
             android:id="@+id/button_rating"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/btn_rounded"
             android:text="Rate" />
     </LinearLayout>
 

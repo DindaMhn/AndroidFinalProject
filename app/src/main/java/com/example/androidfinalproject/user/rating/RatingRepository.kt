@@ -12,6 +12,7 @@ class RatingRepository @Inject constructor(val ratingAPI: RatingAPI) {
     var statusRatingResponse: MutableLiveData<ResponseData> = MutableLiveData<ResponseData>()
     var statusRatingData: MutableLiveData<String> = MutableLiveData<String>()
 
+    var createRatingResponse: MutableLiveData<ResponseData> = MutableLiveData<ResponseData>()
     fun getStatusRating(user_id: String, asset_id: String) {
         ratingAPI.getStatusRating(user_id, asset_id).enqueue(object : Callback<ResponseData> {
             override fun onFailure(call: Call<ResponseData>, t: Throwable) {
@@ -38,7 +39,13 @@ class RatingRepository @Inject constructor(val ratingAPI: RatingAPI) {
             }
 
             override fun onResponse(call: Call<ResponseData>, response: Response<ResponseData>) {
-                TODO("Not yet implemented")
+                val response = response.body()
+                val gson = Gson()
+                val res = gson.toJson(response)
+//                val resData = gson.toJson(response?.result)
+//                statusRatingData.value = gson.fromJson<String>(resData, String::class.java)
+                createRatingResponse.value =
+                    gson.fromJson<ResponseData>(res, ResponseData::class.java)
             }
 
         })

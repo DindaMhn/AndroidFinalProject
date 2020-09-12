@@ -7,9 +7,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import com.example.androidfinalproject.MyApplication
 import com.example.androidfinalproject.R
+import com.example.androidfinalproject.user.rating.Rating
 import com.example.androidfinalproject.user.rating.RatingViewModel
+import kotlinx.android.synthetic.main.fragment_detail_ticket.*
+import kotlinx.android.synthetic.main.fragment_rating_asset.*
 import javax.inject.Inject
 
 
@@ -35,6 +39,17 @@ class RatingAssetFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        button_rating.setOnClickListener {
+            val newRating = Rating(
+                user_id =  sharedPreferences?.getString("ID_USER", "default").toString()
+            , asset_id = sharedPreferences?.getString("ID_ASSET_TICKET", "default").toString()
+            , rating = ratingBar.rating.toString()
+            , comment = rating_comment.text.toString()
+            )
 
+            ratingViewModel.createRating(newRating)
+            view?.findNavController()
+                ?.navigate(R.id.action_global_homeUserFragment)
+        }
     }
 }

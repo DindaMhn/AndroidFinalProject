@@ -49,9 +49,7 @@ class DetailTicketFragment : Fragment(), View.OnClickListener {
         super.onViewCreated(view, savedInstanceState)
         detail_button_pay_ticket.setOnClickListener(this)
         var id = sharedPreferences?.getString("ID_TICKET", "default").toString()
-        var user_id = sharedPreferences?.getString("ID_USER", "default").toString()
-        var asset_id = sharedPreferences?.getString("ID_ASSET_TICKET", "default").toString()
-        ratingViewModel.getStatusRating(user_id, asset_id)
+
         println("ini_id ticket ${id}")
         ticketViewModel.getTicketViewByID(id)
         ticketViewModel.ticketView.observe(viewLifecycleOwner, Observer {
@@ -109,10 +107,13 @@ class DetailTicketFragment : Fragment(), View.OnClickListener {
                         } else if (it.status == 202.toString()) {
                             Toast.makeText(this.context, "Payment Success", Toast.LENGTH_SHORT)
                                 .show()
+                            var user_id = sharedPreferences?.getString("ID_USER", "default").toString()
+                            var asset_id = sharedPreferences?.getString("ID_ASSET_TICKET", "default").toString()
+                            ratingViewModel.getStatusRating(user_id, asset_id)
                             ratingViewModel.statusRatingResponse.observe(
                                 viewLifecycleOwner,
-                                Observer {
-                                    if (it.result != "null") {
+                                Observer { ratingResponse ->
+                                    if (ratingResponse.result == "hello") {
                                         view?.findNavController()
                                             ?.navigate(R.id.action_detailTicketFragment_to_ratingAssetFragment)
                                     } else {
