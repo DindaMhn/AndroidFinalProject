@@ -1,5 +1,6 @@
 package com.example.androidfinalproject.recycleview.provider
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -40,6 +41,14 @@ class ListAssetProviderRecycleAdapter(
         val assetLocation = "${latitude} ,${longitude}"
         holder.assetName.text = assetList[position].asset_name
         holder.location.text = assetLocation
+        if(assetList[position].status=="A"){
+            holder.status.text = "Active"
+            holder.status.setTextColor(Color.BLUE)
+        } else {
+            holder.status.text = "Waiting for Confirmation"
+            holder.status.setTextColor(Color.RED)
+        }
+
         val id_asset = bundleOf(
             Pair("id_asset", assetList[position].id)
             ,Pair("asset_name", assetList[position].asset_name)
@@ -55,4 +64,5 @@ class ListAssetProviderRecycleAdapter(
 class AssetViewHolder(v: View): RecyclerView.ViewHolder(v){
     val assetName = v.findViewById<TextView>(R.id.item_asset_name_list)
     val location = v.findViewById<TextView>(R.id.item_location_lat_long_asset_list)
+    val status = v.findViewById<TextView>(R.id.status_asset)
 }
