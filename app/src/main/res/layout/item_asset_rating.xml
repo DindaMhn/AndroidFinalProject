@@ -5,14 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <LinearLayout
+    <androidx.cardview.widget.CardView
         android:id="@+id/linearLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="#0394fc"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:background="@color/colorWhite"
         android:padding="10dp"
         android:orientation="vertical"
-        android:layout_margin="6dp"
+        android:layout_margin="10dp"
+        app:cardElevation="10dp"
+        app:cardCornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -21,29 +23,39 @@
             android:id="@+id/item_asset_rating_list"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Gedung A"
-            android:textColor="@color/colorWhite"
-            android:textSize="36sp"/>
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:drawableStart="@drawable/ic_baseline_location_on_24"
+            android:fontFamily="@font/averia_gruesa_libre"
+            android:text="  Gedung A"
+            android:textColor="@color/colorBlack"
+            android:textSize="30dp" />
 
         <RatingBar
             android:id="@+id/rating_bar_asset_list"
             style="?android:attr/ratingBarStyleIndicator"
             android:layout_width="wrap_content"
+            android:layout_marginStart="20dp"
             android:layout_height="wrap_content"
             android:isIndicator="true"
+            android:layout_marginTop="60dp"
             android:numStars="5"
             android:rating="0"
             android:stepSize="0.5"
             android:theme="@style/RatingBar"
 
             />
+
         <TextView
             android:id="@+id/item_comment_rating_list"
+            android:layout_marginStart="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="sakdjkasdjhkasdjh"
-            android:textColor="@color/colorWhite"
+            android:layout_marginTop="110dp"
+            android:textSize="18dp"
+            android:textColor="@color/colorBlack"
             />
-    </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

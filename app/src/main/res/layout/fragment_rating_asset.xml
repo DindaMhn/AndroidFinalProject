@@ -8,25 +8,31 @@
     tools:context=".screens.user.RatingAssetFragment">
 
 
-    <LinearLayout
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="300dp"
         android:orientation="vertical"
         android:padding="10dp"
         android:background="@color/colorBlueOcean"
         android:layout_marginHorizontal="30dp"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.AppCompatTextView
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Thank you for using our service"
             android:textColor="@color/colorBlack"/>
 
         <TextView
+            android:layout_marginTop="50dp"
+            android:layout_marginStart="20dp"
             android:id="@+id/gedung_rating"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -36,9 +42,13 @@
         <EditText
             android:id="@+id/rating_comment"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="65dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="70dp"
+            android:layout_marginEnd="20dp"
             android:ems="10"
             android:gravity="start|top"
+            android:hint="Comment.."
             android:inputType="textMultiLine" />
 
         <RatingBar
@@ -47,6 +57,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:isIndicator="false"
+            android:layout_marginTop="20dp"
             android:layout_gravity="center"
             android:numStars="5"
             android:rating="0"
@@ -57,10 +68,13 @@
             android:id="@+id/button_rating"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             android:text="Rate"
+            android:layout_marginTop="220dp"
             android:backgroundTint="@color/colorBlue"
             app:cornerRadius="38dp"/>
-    </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
 
 

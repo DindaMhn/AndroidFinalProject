@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="wrap_content">
 
-    <LinearLayout
+    <androidx.cardview.widget.CardView
         android:id="@+id/detail_asset_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="150dp"
+        app:cardElevation="10dp"
+        app:cardCornerRadius="10dp"
         android:orientation="horizontal"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,6 +26,8 @@
             android:layout_weight="1">
 
             <TextView
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
                 android:id="@+id/item_monthly_asset_report_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -32,6 +36,8 @@
                 android:textSize="14dp"
                 />
             <TextView
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
                 android:id="@+id/item_monthly_total_parked_report_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -51,6 +57,9 @@
             >
 
             <TextView
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
                 android:id="@+id/item_monthly_data_report_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -60,6 +69,9 @@
                 android:textSize="14dp"
                 />
             <TextView
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
                 android:id="@+id/item_monthly_data_total_parked_report_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -69,6 +81,9 @@
                 android:textSize="14dp"
                 />
             <TextView
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
                 android:id="@+id/item_monthly_revenue_report_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -83,6 +98,6 @@
 
         </LinearLayout>
 
-    </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>
