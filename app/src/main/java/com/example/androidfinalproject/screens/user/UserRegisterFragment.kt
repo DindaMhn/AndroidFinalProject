@@ -24,6 +24,7 @@ class UserRegisterFragment : Fragment(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         (activity?.applicationContext as MyApplication).applicationComponent.inject(this)
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -36,10 +37,10 @@ class UserRegisterFragment : Fragment(), View.OnClickListener {
         super.onViewCreated(view, savedInstanceState)
         userViewModel.userResponse.observe(viewLifecycleOwner,
             Observer {
-                if(it.status==400.toString()){
+                if (it.status == 400.toString()) {
                     Toast.makeText(this.context, "Username/Email Exist", Toast.LENGTH_SHORT)
                         .show()
-                }else if (it.status == 200.toString()) {
+                } else if (it.status == 200.toString()) {
                     Toast.makeText(this.context, "Register Success", Toast.LENGTH_SHORT)
                         .show()
                     startActivity(Intent(this.context, MainActivity::class.java))
@@ -56,15 +57,23 @@ class UserRegisterFragment : Fragment(), View.OnClickListener {
                 v?.findNavController()
                     ?.navigate(R.id.action_global_chooseLoginFragment)
             }
-            regisButtonUser->{
-                val userData = User(
-                    email = inputEmailRegisUser.text.toString(),
-                    username = inputUnameRegisUser.text.toString(),
-                    password = InputPwRegisUser.text.toString(),
-                    phone_number = inputPhoneRegisUser.text.toString(),
-                    fullname = inputFNameRegisUser.text.toString()
-                )
-                userViewModel.registerUser(userData)
+            regisButtonUser -> {
+                if (inputEmailRegisUser.text.toString() == "" || inputUnameRegisUser.text.toString() == "" ||
+                    InputPwRegisUser.text.toString() == "" || inputFNameRegisUser.text.toString() == "" ||
+                    inputPhoneRegisUser.text.toString()==""
+                ) {
+                    Toast.makeText(this.context, "Must be filled", Toast.LENGTH_SHORT)
+                        .show()
+                } else {
+                    val userData = User(
+                        email = inputEmailRegisUser.text.toString(),
+                        username = inputUnameRegisUser.text.toString(),
+                        password = InputPwRegisUser.text.toString(),
+                        phone_number = inputPhoneRegisUser.text.toString(),
+                        fullname = inputFNameRegisUser.text.toString()
+                    )
+                    userViewModel.registerUser(userData)
+                }
             }
         }
     }

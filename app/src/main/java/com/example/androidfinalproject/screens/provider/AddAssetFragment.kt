@@ -17,6 +17,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.FileProvider
 import com.example.androidfinalproject.MyApplication
@@ -135,6 +136,7 @@ class AddAssetFragment : Fragment(), View.OnClickListener {
             val requestBody = imageFile.asRequestBody("multipart".toMediaTypeOrNull())
             val imageFileChoosed =
                 MultipartBody.Part.createFormData("photo", imageFile.name, requestBody)
+
             val result = MultipartBody.Part.createFormData(
                 "result",
                 """{"provider_id": "${sharedPreferences?.getString("ID_PROVIDER", "").toString()}",
@@ -152,6 +154,7 @@ class AddAssetFragment : Fragment(), View.OnClickListener {
             imageUrlAsset.text = Editable.Factory.getInstance().newEditable(imageFile.absolutePath)
 
             imageAsset.setImageBitmap(imageBitmap)
+
         }
     }
 
@@ -173,19 +176,28 @@ class AddAssetFragment : Fragment(), View.OnClickListener {
 
         when (v) {
             addAssetProsesButton -> {
-                alertDialog.setTitle("Add Asset")
-                alertDialog.setMessage("Add Asset Success")
+                if (assetNameInput.text.toString() == "" || assetAreaInput.text.toString() == "" ||
+                    longitudeInput.text.toString() == "" || latitudeInput.text.toString() == "" ||
+                    carCapInput.text.toString() == "" || motorCapInput.text.toString() == "" ||
+                    bicycleCapInput.text.toString() == ""
+                ) {
+                    Toast.makeText(this.context, "Must be filled", Toast.LENGTH_SHORT)
+                        .show()
+                } else {
+                    alertDialog.setTitle("Add Asset")
+                    alertDialog.setMessage("Add Asset Success")
 
-                alertDialog.setButton(
-                    AlertDialog.BUTTON_POSITIVE, "OK"
-                ) { dialog, which -> activity?.onBackPressed() }
-                alertDialog.show()
+                    alertDialog.setButton(
+                        AlertDialog.BUTTON_POSITIVE, "OK"
+                    ) { dialog, which -> activity?.onBackPressed() }
+                    alertDialog.show()
 
-                val btnPositive = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
+                    val btnPositive = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
 
-                val layoutParams = btnPositive.layoutParams as LinearLayout.LayoutParams
-                layoutParams.weight = 10f
-                btnPositive.layoutParams = layoutParams
+                    val layoutParams = btnPositive.layoutParams as LinearLayout.LayoutParams
+                    layoutParams.weight = 10f
+                    btnPositive.layoutParams = layoutParams
+                }
             }
             uploadAssetPhoto -> {
                 val changeImageDialog = AlertDialog.Builder(requireContext())

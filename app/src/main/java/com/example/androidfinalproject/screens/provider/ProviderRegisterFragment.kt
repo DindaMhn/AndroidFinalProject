@@ -16,6 +16,7 @@ import com.example.androidfinalproject.provider.account.Provider
 import com.example.androidfinalproject.provider.account.ProviderViewModel
 import kotlinx.android.synthetic.main.fragment_profile_provider.*
 import kotlinx.android.synthetic.main.fragment_provider_register.*
+import kotlinx.android.synthetic.main.fragment_user_register.*
 import javax.inject.Inject
 
 class ProviderRegisterFragment : Fragment(), View.OnClickListener {
@@ -38,10 +39,10 @@ class ProviderRegisterFragment : Fragment(), View.OnClickListener {
         super.onViewCreated(view, savedInstanceState)
         providerViewModel.providerResponse.observe(viewLifecycleOwner,
             Observer {
-                if(it.status==400.toString()){
+                if (it.status == 400.toString()) {
                     Toast.makeText(this.context, "Username/Email Exist", Toast.LENGTH_SHORT)
                         .show()
-                }else if (it.status == 200.toString()) {
+                } else if (it.status == 200.toString()) {
                     Toast.makeText(this.context, "Register Success", Toast.LENGTH_SHORT)
                         .show()
                     startActivity(Intent(this.context, MainActivity::class.java))
@@ -57,18 +58,25 @@ class ProviderRegisterFragment : Fragment(), View.OnClickListener {
                 view?.findNavController()
                     ?.navigate(R.id.action_global_chooseLoginFragment)
             }
-            regisButtonProvider->{
-                val providerData =
-                    Provider(
-                        email = inputEmailRegisProvider.text.toString(),
-                        username = inputUnameRegisProvider.text.toString(),
-                        password = InputPwRegisProvider.text.toString(),
-                        phone_number = inputPhoneRegisProvider.text.toString(),
-                        fullname = inputFNameRegisProvider.text.toString()
-                    )
-                providerViewModel.registerProvider(providerData)
+            regisButtonProvider -> {
+                if (inputEmailRegisProvider.text.toString() == "" || inputUnameRegisProvider.text.toString() == "" ||
+                    InputPwRegisProvider.text.toString() == "" || inputPhoneRegisProvider.text.toString() == "" ||
+                    inputFNameRegisProvider.text.toString() == ""
+                ) {
+                    Toast.makeText(this.context, "Must be filled", Toast.LENGTH_SHORT)
+                        .show()
+                } else {
+                    val providerData =
+                        Provider(
+                            email = inputEmailRegisProvider.text.toString(),
+                            username = inputUnameRegisProvider.text.toString(),
+                            password = InputPwRegisProvider.text.toString(),
+                            phone_number = inputPhoneRegisProvider.text.toString(),
+                            fullname = inputFNameRegisProvider.text.toString()
+                        )
+                    providerViewModel.registerProvider(providerData)
+                }
             }
-
         }
     }
 }

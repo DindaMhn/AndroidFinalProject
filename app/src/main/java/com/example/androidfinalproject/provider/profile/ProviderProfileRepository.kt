@@ -84,9 +84,10 @@ class ProviderProfileRepository @Inject constructor(val providerProfileAPI: Prov
             }
 
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                if (response.message() != "Not Found") {
+                if (response.code() != 404 && response.code() != 403) {
                     val responseImage = BitmapFactory.decodeStream(response.body()!!.byteStream())
-                    Glide.with(activity).asBitmap().load(responseImage).centerCrop().into(imageContainer)
+                    Glide.with(activity).asBitmap().load(responseImage).centerCrop()
+                        .into(imageContainer)
                 }
             }
         })
