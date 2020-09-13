@@ -36,4 +36,9 @@
         android:name="com.example.androidfinalproject.screens.provider.MonthlyReportProviderfragment"
         android:label="fragment_monthly_report_providerfragment"
         tools:layout="@layout/fragment_monthly_report_providerfragment" />
+    <fragment
+        android:id="@+id/assetRatingFragment"
+        android:name="com.example.androidfinalproject.screens.provider.AssetRatingFragment"
+        android:label="fragment_asset_rating"
+        tools:layout="@layout/fragment_asset_rating" /><action android:id="@+id/action_global_assetRatingFragment" app:destination="@id/assetRatingFragment"/>
 </navigation>

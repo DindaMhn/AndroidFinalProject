@@ -11,4 +11,9 @@
         android:icon="@drawable/ic_baseline_account_circle_24"
         android:title=""
         />
+    <item
+        android:id="@+id/ratingProvider"
+        android:icon="@drawable/ic_baseline_view_list_24"
+        android:title=""
+        />
 </menu>

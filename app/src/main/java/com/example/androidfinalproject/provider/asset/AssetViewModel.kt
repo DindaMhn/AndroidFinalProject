@@ -13,6 +13,8 @@ class AssetViewModel @Inject constructor(var assetRepository: AssetRepository):
     var reportMonthly = assetRepository.reportMonthly
     var reportMontlyResponse = assetRepository.reportMontlyResponse
 
+    var assetRating = assetRepository.ratingAsset
+
     fun getAssetListByProviderID(provider_id: String){
         assetRepository.getAssetListByProviderID(provider_id)
     }
@@ -21,5 +23,8 @@ class AssetViewModel @Inject constructor(var assetRepository: AssetRepository):
     }
     fun getReportAssetMonthly(id: String){
        assetRepository.getReportAssetMonthly(id)
+    }
+    fun getRatingAsset(provider_id: String){
+        assetRepository.getRatingAsset(provider_id)
     }
 }

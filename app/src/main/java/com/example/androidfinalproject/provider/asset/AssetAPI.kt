@@ -13,5 +13,7 @@ interface AssetAPI {
     fun getReportAssetDaily(@Query("id")id: String): Call<ResponseData>
     @GET("providerreports/monthly")
     fun getReportAssetMonthly(@Query("id")id: String): Call<ResponseData>
+    @GET("provider/asset/review/{id}")
+    fun getRatingAsset(@Path("id")id:String):Call<ResponseData>
 
 }

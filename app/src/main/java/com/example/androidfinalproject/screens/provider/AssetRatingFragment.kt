@@ -1,4 +1,4 @@
-package com.example.androidfinalproject.screens.user
+package com.example.androidfinalproject.screens.provider
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -7,20 +7,21 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.androidfinalproject.MyApplication
 import com.example.androidfinalproject.R
-import com.example.androidfinalproject.recycleview.user.HistoryUserRecycleAdapter
-import com.example.androidfinalproject.user.ticket.TicketViewModel
-import kotlinx.android.synthetic.main.fragment_history_user.*
+import com.example.androidfinalproject.provider.asset.AssetViewModel
+import com.example.androidfinalproject.recycleview.provider.AssetRatingRecycleAdapter
+import kotlinx.android.synthetic.main.fragment_asset_rating.*
 import javax.inject.Inject
 
 
-class HistoryUserFragment : Fragment() {
-    private lateinit var historyUserRecycleAdapter: HistoryUserRecycleAdapter
-    @Inject
-    lateinit var ticketViewModel: TicketViewModel
+class AssetRatingFragment : Fragment() {
+
+    private lateinit var assetRatingRecycleAdapter: AssetRatingRecycleAdapter
+    @Inject lateinit var assetViewModel: AssetViewModel
     var sharedPreferences: SharedPreferences? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,32 +37,19 @@ class HistoryUserFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_history_user, container, false)
+        return inflater.inflate(R.layout.fragment_asset_rating, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewHistoryTicket()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        viewHistoryTicket()
-
-    }
-
-    private fun viewHistoryTicket() {
-        recycle_view_history_list.layoutManager = LinearLayoutManager(activity)
-        var user_id = sharedPreferences?.getString(
-            "ID_USER",
-            "default"
-        )
-        user_id?.let { ticketViewModel.historyPayment(it) }
-        ticketViewModel.historyPaymentList.observe(viewLifecycleOwner, Observer {
-            historyUserRecycleAdapter = HistoryUserRecycleAdapter(it, activity)
-
-            recycle_view_history_list.adapter = historyUserRecycleAdapter
+        recycle_view_asset_rating.layoutManager=LinearLayoutManager(activity)
+        var providerId = sharedPreferences?.getString("ID_PROVIDER","").toString()
+        assetViewModel.getRatingAsset(providerId)
+        assetViewModel.assetRating.observe(viewLifecycleOwner, Observer {
+            assetRatingRecycleAdapter = AssetRatingRecycleAdapter(it,activity)
+            recycle_view_asset_rating.adapter=assetRatingRecycleAdapter
         })
     }
+
 
 }

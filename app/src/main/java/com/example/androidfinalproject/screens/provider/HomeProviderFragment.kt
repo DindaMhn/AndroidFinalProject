@@ -47,8 +47,8 @@ class HomeProviderFragment : Fragment(), View.OnClickListener {
         super.onViewCreated(view, savedInstanceState)
         addAssetButton.setOnClickListener(this)
         val id = sharedPreferences?.getString(
-            getString(R.string.id_provider_key),
-            getString(R.string.default_value)
+            "ID_PROVIDER",
+            ""
         )
         providerHomeViewModel.getSaldoProvider(id.toString())
         providerHomeViewModel.providerResponse.observe(viewLifecycleOwner, Observer {

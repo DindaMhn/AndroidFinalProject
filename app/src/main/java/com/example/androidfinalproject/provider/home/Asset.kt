@@ -45,3 +45,10 @@ class AssetMonthlyView(
     var total_parked: String = "",
     var total_revenue: String = ""
 )
+
+class AssetRating(
+    var provider_id: String = ""
+    , var asset_name: String = ""
+    , var rating: String = ""
+    , var comment: String = ""
+)

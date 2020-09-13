@@ -28,6 +28,10 @@ class MenuProviderActivity : AppCompatActivity() {
                     navController.navigate(R.id.action_global_profileProviderFragment)
                     true
                 }
+                R.id.ratingProvider ->{
+                    navController.navigate(R.id.action_global_assetRatingFragment)
+                    true
+                }
                 else -> {
                     true
                 }

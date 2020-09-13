@@ -42,4 +42,5 @@ interface ApplicationComponent {
     fun inject(detailAssetFragment: DetailAssetFragment)
     fun inject(bookingTicketFragment: BookingTicketFragment)
     fun inject(ratingAssetFragment: RatingAssetFragment)
+    fun inject(assetRatingFragment: AssetRatingFragment)
 }

@@ -20,7 +20,6 @@
             android:id="@+id/item_asset_name_list"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:text="Gedung A"
             android:textColor="#fafafa"
             android:textSize="36sp"
