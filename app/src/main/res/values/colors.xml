@@ -12,4 +12,6 @@
     <color name="colorMainBlue">#6F57FF</color>
     <color name="colorSecondBlue">#78053377</color>
     <color name="colorMerchantBlue">#0652DD</color>
+    <color name="colorGolden">#ffbf00</color>
+    <color name="colorGray">#AAA3A3</color>
 </resources>

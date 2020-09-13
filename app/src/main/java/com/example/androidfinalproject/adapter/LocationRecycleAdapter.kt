@@ -3,6 +3,7 @@ package com.example.androidfinalproject.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RatingBar
 import android.widget.TextView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.FragmentActivity
@@ -31,6 +32,11 @@ class LocationRecycleAdapter(
         holder.bicycleCap.text = locationList[position].bicycle_capacity_available
         println("BICYCLE"+locationList[position].bicycle_capacity_available)
         holder.motorcycleCap.text = locationList[position].motorcycle_capacity_available
+        if(locationList[position].rating== ""){
+            holder.ratingBarAsset.rating = "0".toFloat()
+        } else {
+            holder.ratingBarAsset.rating = locationList[position].rating.toFloat()
+        }
         holder.itemView.setOnClickListener {
             val bundle = bundleOf(
                 Pair("id", locationList[position].id)
@@ -46,4 +52,5 @@ class LocationViewHolder(v:View):RecyclerView.ViewHolder(v) {
     val carCap = v.findViewById<TextView>(R.id.carCap)
     val bicycleCap = v.findViewById<TextView>(R.id.bicycleCap)
     val motorcycleCap = v.findViewById<TextView>(R.id.motorCap)
+    val ratingBarAsset = v.findViewById<RatingBar>(R.id.ratingBarAsset)
 }

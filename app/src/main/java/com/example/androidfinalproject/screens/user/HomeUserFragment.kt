@@ -83,6 +83,7 @@ class HomeUserFragment : Fragment(), View.OnClickListener {
                     this?.putString("BOOK_AT_TICKET", it.book_at)
                     this?.putString("ID_ASSET_TICKET",it.asset_id)
                     this?.putString("ID_FEE_TICKET", it.fee_id)
+                    this?.putString("ASSET_NAME_TICKET",it.asset_name)
                     this?.putString("ID_VEHICLE_TICKET", it.vehicle_id)
                     this?.commit()
                 }

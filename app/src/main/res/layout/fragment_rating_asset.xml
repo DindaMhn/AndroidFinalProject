@@ -23,13 +23,15 @@
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Terimakasih telah menggunakan layan kami" />
+            android:text="Thank you for using our service"
+            android:textColor="@color/colorBlack"/>
 
         <TextView
             android:id="@+id/gedung_rating"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="GEDUNG A" />
+            android:text="GEDUNG A"
+            android:textColor="@color/colorBlack"/>
 
         <EditText
             android:id="@+id/rating_comment"
@@ -41,6 +43,7 @@
 
         <RatingBar
             android:id="@+id/ratingBar"
+            android:theme="@style/RatingBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:isIndicator="false"
@@ -54,7 +57,9 @@
             android:id="@+id/button_rating"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Rate" />
+            android:text="Rate"
+            android:backgroundTint="@color/colorBlue"
+            app:cornerRadius="38dp"/>
     </LinearLayout>
 
 

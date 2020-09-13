@@ -40,7 +40,17 @@ class HistoryUserFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        recycle_view_history_list.layoutManager=LinearLayoutManager(activity)
+        var user_id = sharedPreferences?.getString(
+            "ID_USER",
+            "default"
+        )
+        user_id?.let { ticketViewModel.historyPayment(it) }
+        ticketViewModel.historyPaymentList.observe(viewLifecycleOwner, Observer {
+            historyUserRecycleAdapter = HistoryUserRecycleAdapter(it, activity)
 
+            recycle_view_history_list.adapter =historyUserRecycleAdapter
+        })
     }
 
     override fun onResume() {
@@ -54,7 +64,6 @@ class HistoryUserFragment : Fragment() {
         ticketViewModel.historyPaymentList.observe(viewLifecycleOwner, Observer {
             historyUserRecycleAdapter = HistoryUserRecycleAdapter(it, activity)
 
-//            with(sharedPreferences?.edit())
             recycle_view_history_list.adapter =historyUserRecycleAdapter
         })
 

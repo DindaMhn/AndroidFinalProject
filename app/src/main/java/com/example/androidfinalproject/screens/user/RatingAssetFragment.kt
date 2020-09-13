@@ -18,7 +18,8 @@ import javax.inject.Inject
 
 
 class RatingAssetFragment : Fragment() {
-    @Inject lateinit var ratingViewModel: RatingViewModel
+    @Inject
+    lateinit var ratingViewModel: RatingViewModel
     var sharedPreferences: SharedPreferences? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,15 +42,16 @@ class RatingAssetFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         button_rating.setOnClickListener {
             val newRating = Rating(
-                user_id =  sharedPreferences?.getString("ID_USER", "default").toString()
-            , asset_id = sharedPreferences?.getString("ID_ASSET_TICKET", "default").toString()
-            , rating = ratingBar.rating.toString()
-            , comment = rating_comment.text.toString()
+                user_id = sharedPreferences?.getString("ID_USER", "default").toString()
+                , asset_id = sharedPreferences?.getString("ID_ASSET_TICKET", "default").toString()
+                , rating = ratingBar.rating.toString()
+                , comment = rating_comment.text.toString()
             )
-
             ratingViewModel.createRating(newRating)
             view?.findNavController()
                 ?.navigate(R.id.action_global_homeUserFragment)
         }
+        gedung_rating.text =
+            sharedPreferences?.getString("ASSET_NAME_TICKET", "default").toString()
     }
 }
