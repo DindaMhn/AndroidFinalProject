@@ -8,8 +8,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import com.bumptech.glide.Glide
 import com.example.androidfinalproject.MyApplication
@@ -24,6 +26,9 @@ import javax.inject.Inject
 class BookingTicketFragment : Fragment(), View.OnClickListener {
     @Inject
     lateinit var ticketViewModel: TicketViewModel
+
+    @Inject
+    lateinit var userHomeViewModel: UserHomeViewModel
     var sharedPreferences: SharedPreferences? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,64 +57,72 @@ class BookingTicketFragment : Fragment(), View.OnClickListener {
         val alertDialog = AlertDialog.Builder(requireContext()).create()
 
         when (v) {
-
             bookButton -> {
-                if (vehicle_type.selectedItem.toString() == "CAR") {
-                    ticketViewModel.createTicket(
-                        Ticket(
-                            user_id = sharedPreferences?.getString(
-                                "ID_USER",
-                                ""
-                            ).toString(),
-                            license_plate = platNo.text.toString(),
-                            asset_id = arguments?.getString("asset_id").toString(),
-                            vehicle_id = "1",
-                            fee_id = "1"
-                        )
-                    )
-                } else if (vehicle_type.selectedItem.toString() == "MOTORCYCLE") {
-                    ticketViewModel.createTicket(
-                        Ticket(
-                            user_id = sharedPreferences?.getString(
-                                "ID_USER",
-                                ""
-                            ).toString(),
-                            license_plate = platNo.text.toString(),
-                            asset_id = arguments?.getString("asset_id").toString(),
-                            vehicle_id = "2",
-                            fee_id = "2"
-                        )
-                    )
-                } else {
-                    ticketViewModel.createTicket(
-                        Ticket(
-                            user_id = sharedPreferences?.getString(
-                                "ID_USER",
-                                ""
-                            ).toString(),
-                            license_plate = platNo.text.toString(),
-                            asset_id = arguments?.getString("asset_id").toString(),
-                            vehicle_id = "3",
-                            fee_id = "3"
-                        )
-                    )
-                }
-                alertDialog.setTitle("Booking Ticket")
-                alertDialog.setMessage("Booking Ticket Success")
+                userHomeViewModel.getUserTicket(sharedPreferences?.getString("ID_USER", "default").toString())
+                userHomeViewModel.userResponse.observe(viewLifecycleOwner, Observer {
+                    if (it.status != 400.toString()) {
+                        Toast.makeText(this.context, "You are Already Booked", Toast.LENGTH_SHORT)
+                            .show()
+                    } else {
+                        if (vehicle_type.selectedItem.toString() == "CAR") {
+                            ticketViewModel.createTicket(
+                                Ticket(
+                                    user_id = sharedPreferences?.getString(
+                                        "ID_USER",
+                                        ""
+                                    ).toString(),
+                                    license_plate = platNo.text.toString(),
+                                    asset_id = arguments?.getString("asset_id").toString(),
+                                    vehicle_id = "1",
+                                    fee_id = "1"
+                                )
+                            )
+                        } else if (vehicle_type.selectedItem.toString() == "MOTORCYCLE") {
+                            ticketViewModel.createTicket(
+                                Ticket(
+                                    user_id = sharedPreferences?.getString(
+                                        "ID_USER",
+                                        ""
+                                    ).toString(),
+                                    license_plate = platNo.text.toString(),
+                                    asset_id = arguments?.getString("asset_id").toString(),
+                                    vehicle_id = "2",
+                                    fee_id = "2"
+                                )
+                            )
+                        } else {
+                            ticketViewModel.createTicket(
+                                Ticket(
+                                    user_id = sharedPreferences?.getString(
+                                        "ID_USER",
+                                        ""
+                                    ).toString(),
+                                    license_plate = platNo.text.toString(),
+                                    asset_id = arguments?.getString("asset_id").toString(),
+                                    vehicle_id = "3",
+                                    fee_id = "3"
+                                )
+                            )
+                        }
 
-                alertDialog.setButton(
-                    AlertDialog.BUTTON_POSITIVE, "OK"
-                ) { dialog, which ->
-                    v?.findNavController()
-                        ?.navigate(R.id.homeUserFragment)
-                }
-                alertDialog.show()
+                        alertDialog.setTitle("Booking Ticket")
+                        alertDialog.setMessage("Booking Ticket Success")
 
-                val btnPositive = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
+                        alertDialog.setButton(
+                            AlertDialog.BUTTON_POSITIVE, "OK"
+                        ) { dialog, which ->
+                            v?.findNavController()
+                                ?.navigate(R.id.homeUserFragment)
+                        }
+                        alertDialog.show()
 
-                val layoutParams = btnPositive.layoutParams as LinearLayout.LayoutParams
-                layoutParams.weight = 10f
-                btnPositive.layoutParams = layoutParams
+                        val btnPositive = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
+
+                        val layoutParams = btnPositive.layoutParams as LinearLayout.LayoutParams
+                        layoutParams.weight = 10f
+                        btnPositive.layoutParams = layoutParams
+                    }
+                })
             }
         }
     }

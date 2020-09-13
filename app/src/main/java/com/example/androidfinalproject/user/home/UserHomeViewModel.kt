@@ -7,6 +7,7 @@ class UserHomeViewModel @Inject constructor(var userHomeRepository: UserHomeRepo
     ViewModel() {
     val userSaldoData = userHomeRepository.userSaldoData
     val userTicket = userHomeRepository.userTicketData
+    val userResponse = userHomeRepository.userResponse
     fun getUserSaldo(id: String) {
         userHomeRepository.getSaldoUser(id)
     }

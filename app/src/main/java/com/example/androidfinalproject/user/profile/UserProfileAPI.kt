@@ -27,4 +27,7 @@ interface UserProfileAPI {
         @Part photo: MultipartBody.Part,
         @Part id: MultipartBody.Part
     ): Call<ResponseData>
+
+    @GET ("user/ticket/status/{id}")
+    fun getUserTicketById(@Path("id")id:String):Call<ResponseData>
 }

@@ -103,4 +103,19 @@ class UserProfileRepository @Inject constructor(val userProfileAPI: UserProfileA
                 }
             })
     }
+    fun getTicketById(id: String) {
+        userProfileAPI.getUserTicketById(id).enqueue(object : Callback<ResponseData> {
+            override fun onFailure(call: Call<ResponseData>, t: Throwable) {
+                t.printStackTrace()
+            }
+
+            override fun onResponse(call: Call<ResponseData>, response: Response<ResponseData>) {
+                val response = response.body()
+                val gson = Gson()
+                val res = gson.toJson(response)
+                userResponse.value = gson.fromJson<ResponseData>(res, ResponseData::class.java)
+            }
+
+        })
+    }
 }

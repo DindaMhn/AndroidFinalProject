@@ -34,7 +34,6 @@ class HistoryUserRecycleAdapter(
 
     override fun onBindViewHolder(holder: PaymentViewHolder, position: Int) {
 
-
         holder.location.text = paymentList[position].asset_name
         holder.startParking.text = paymentList[position].start_at
         holder.endParking.text = paymentList[position].finished_at

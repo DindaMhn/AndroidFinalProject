@@ -33,4 +33,8 @@ class UserProfileViewModel @Inject constructor(var userProfileRepository: UserPr
     fun updateUserPhoto(userId: String, photo: MultipartBody.Part, id: MultipartBody.Part) {
         userProfileRepository.updateUserPhoto(userId, photo, id)
     }
+
+    fun getTicketById(id: String) {
+        userProfileRepository.getTicketById(id)
+    }
 }
