@@ -25,7 +25,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
-            android:drawableStart="@drawable/ic_baseline_location_on_24"
             android:fontFamily="@font/averia_gruesa_libre"
             android:text="  Gedung A"
             android:textColor="@color/colorBlack"

@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">AndroidFinalProject</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="shared_preference_name">com.androidfinalproject.shared.preference</string>
@@ -18,6 +17,7 @@
     <string name="device_latitude">device_latitude</string>
     <string name="device_longitude">device_longitude</string>
     <string name="change_photo_prompt">Choose</string>
+    <string name="app_name">ParkirYuk!</string>
     <string-array name="change_photo_arrays">
         <item>Edit Photo</item>
         <item>Delete Photo</item>
