@@ -8,7 +8,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="180dp"
+        android:layout_height="wrap_content"
         android:background="@color/colorWhite"
         android:padding="10dp"
         android:orientation="vertical"
@@ -37,7 +37,7 @@
             android:layout_marginStart="20dp"
             android:layout_height="wrap_content"
             android:isIndicator="true"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="80dp"
             android:numStars="5"
             android:rating="0"
             android:stepSize="0.5"
@@ -51,7 +51,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="sakdjkasdjhkasdjh"
-            android:layout_marginTop="110dp"
+            android:layout_marginTop="150dp"
             android:textSize="18dp"
             android:textColor="@color/colorBlack"
             />
