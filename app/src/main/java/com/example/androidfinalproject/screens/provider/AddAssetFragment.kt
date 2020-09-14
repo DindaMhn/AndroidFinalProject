@@ -25,6 +25,7 @@ import com.example.androidfinalproject.R
 import com.example.androidfinalproject.provider.home.Asset
 import com.example.androidfinalproject.provider.home.ProviderHomeViewModel
 import com.example.androidfinalproject.provider.profile.ProviderProfileViewModel
+import com.github.dhaval2404.imagepicker.ImagePicker
 import kotlinx.android.synthetic.main.fragment_add_asset.*
 import kotlinx.android.synthetic.main.fragment_profile_provider.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -104,39 +105,13 @@ class AddAssetFragment : Fragment(), View.OnClickListener {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == OPEN_CAMERA_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-            val imageBitmap = BitmapFactory.decodeFile(photoFile.absolutePath)
+        if (requestCode == 66 && resultCode == Activity.RESULT_OK) {
+            val getFile = ImagePicker.getFile(data)
+            val imageBitmap = BitmapFactory.decodeFile(getFile?.absolutePath)
 
-            val requestBody = photoFile.asRequestBody("multipart".toMediaTypeOrNull())
+            val requestBody = getFile?.asRequestBody("multipart".toMediaTypeOrNull())
             val imageFileChoosed =
-                MultipartBody.Part.createFormData("photo", photoFile.name, requestBody)
-
-            val result = MultipartBody.Part.createFormData(
-                "result",
-                """{"provider_id": "${sharedPreferences?.getString("ID_PROVIDER", "").toString()}",
-                        "asset_name":"${assetNameInput.text.toString()}",
-                        "asset_area":${assetAreaInput.text.toString()},
-                        "longitude":${longitudeInput.text.toString()},
-                        "latitude":${latitudeInput.text.toString()},
-                        "car_capacity":${carCapInput.text.toString()},
-                        "motorcycle_capacity":${motorCapInput.text.toString()},
-                        "bicycle_capacity":${bicycleCapInput.text.toString()}}"""
-            )
-            var token = sharedPreferences?.getString("TOKEN", "").toString()
-            providerHomeViewModel.createAsset(
-                token, imageFileChoosed, result
-            )
-            imageUrlAsset.text = Editable.Factory.getInstance().newEditable(photoFile.absolutePath)
-            imageAsset.setImageBitmap(imageBitmap)
-        }
-        if (requestCode == SELECT_FILE_FORM_STORAGE && resultCode == Activity.RESULT_OK) {
-            val originalPath = getOriginalPathFromUri(data?.data!!)
-            val imageFile: File = File(originalPath)
-            val imageBitmap = BitmapFactory.decodeFile(imageFile.absolutePath)
-
-            val requestBody = imageFile.asRequestBody("multipart".toMediaTypeOrNull())
-            val imageFileChoosed =
-                MultipartBody.Part.createFormData("photo", imageFile.name, requestBody)
+                MultipartBody.Part.createFormData("photo", getFile?.name, requestBody!!)
 
             val result = MultipartBody.Part.createFormData(
                 "result",
@@ -153,26 +128,84 @@ class AddAssetFragment : Fragment(), View.OnClickListener {
             providerHomeViewModel.createAsset(
                 token, imageFileChoosed, result
             )
-            imageUrlAsset.text = Editable.Factory.getInstance().newEditable(imageFile.absolutePath)
-
+            imageUrlAsset.text = Editable.Factory.getInstance().newEditable(getFile?.absolutePath)
             imageAsset.setImageBitmap(imageBitmap)
-
         }
+//        if (requestCode == OPEN_CAMERA_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+//            val imageBitmap = BitmapFactory.decodeFile(photoFile.absolutePath)
+//
+//            val requestBody = photoFile.asRequestBody("multipart".toMediaTypeOrNull())
+//            val imageFileChoosed =
+//                MultipartBody.Part.createFormData("photo", photoFile.name, requestBody)
+//
+//            val result = MultipartBody.Part.createFormData(
+//                "result",
+//                """{"provider_id": "${sharedPreferences?.getString("ID_PROVIDER", "").toString()}",
+//                        "asset_name":"${assetNameInput.text.toString()}",
+//                        "asset_area":${assetAreaInput.text.toString()},
+//                        "longitude":${longitudeInput.text.toString()},
+//                        "latitude":${latitudeInput.text.toString()},
+//                        "car_capacity":${carCapInput.text.toString()},
+//                        "motorcycle_capacity":${motorCapInput.text.toString()},
+//                        "bicycle_capacity":${bicycleCapInput.text.toString()}}"""
+//            )
+//            providerHomeViewModel.createAsset(
+//                imageFileChoosed, result
+//            )
+//            imageUrlAsset.text = Editable.Factory.getInstance().newEditable(photoFile.absolutePath)
+//            imageAsset.setImageBitmap(imageBitmap)
+//        }
+//        if (requestCode == SELECT_FILE_FORM_STORAGE && resultCode == Activity.RESULT_OK) {
+//            val originalPath = getOriginalPathFromUri(data?.data!!)
+//            val imageFile: File = File(originalPath)
+//            val imageBitmap = BitmapFactory.decodeFile(imageFile.absolutePath)
+//
+//            val requestBody = imageFile.asRequestBody("multipart".toMediaTypeOrNull())
+//            val imageFileChoosed =
+//                MultipartBody.Part.createFormData("photo", imageFile.name, requestBody)
+//
+//            val result = MultipartBody.Part.createFormData(
+//                "result",
+//                """{"provider_id": "${sharedPreferences?.getString("ID_PROVIDER", "").toString()}",
+//                        "asset_name":"${assetNameInput.text.toString()}",
+//                        "asset_area":${assetAreaInput.text.toString()},
+//                        "longitude":${longitudeInput.text.toString()},
+//                        "latitude":${latitudeInput.text.toString()},
+//                        "car_capacity":${carCapInput.text.toString()},
+//                        "motorcycle_capacity":${motorCapInput.text.toString()},
+//                        "bicycle_capacity":${bicycleCapInput.text.toString()}}"""
+//            )
+//            providerHomeViewModel.createAsset(
+//                imageFileChoosed, result
+//            )
+//            imageUrlAsset.text = Editable.Factory.getInstance().newEditable(imageFile.absolutePath)
+//
+//            imageAsset.setImageBitmap(imageBitmap)
+//
+//        }
     }
 
-    fun getOriginalPathFromUri(contentUri: Uri): String? {
-        var originalPath: String? = null
-        val projection =
-            arrayOf(MediaStore.Images.Media.DATA)
-        val cursor: Cursor? =
-            activity?.contentResolver?.query(contentUri, projection, null, null, null)
-        if (cursor?.moveToFirst()!!) {
-            val columnIndex: Int = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
-            originalPath = cursor.getString(columnIndex)
-        }
-        return originalPath
+//    fun getOriginalPathFromUri(contentUri: Uri): String? {
+//        var originalPath: String? = null
+//        val projection =
+//            arrayOf(MediaStore.Images.Media.DATA)
+//        val cursor: Cursor? =
+//            activity?.contentResolver?.query(contentUri, projection, null, null, null)
+//        if (cursor?.moveToFirst()!!) {
+//            val columnIndex: Int = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+//            originalPath = cursor.getString(columnIndex)
+//        }
+//        return originalPath
+//    }
+    private fun imagePicker() {
+        ImagePicker.with(this)
+            .compress(1024)
+            .maxResultSize(
+                1080,
+                1080
+            )
+            .start(66)
     }
-
     override fun onClick(v: View?) {
         val alertDialog = AlertDialog.Builder(requireContext()).create()
 
@@ -202,16 +235,17 @@ class AddAssetFragment : Fragment(), View.OnClickListener {
                 }
             }
             uploadAssetPhoto -> {
-                val changeImageDialog = AlertDialog.Builder(requireContext())
-                changeImageDialog.setTitle(R.string.change_photo_prompt).setItems(
-                    R.array.change_photo_arrays,
-                    DialogInterface.OnClickListener { dialog, selectedOption ->
-                        if (selectedOption == 0) {
-                            openCamera()
-                        } else if (selectedOption == 1) {
-                            browseFile()
-                        }
-                    }).show()
+                imagePicker()
+//                val changeImageDialog = AlertDialog.Builder(requireContext())
+//                changeImageDialog.setTitle(R.string.change_photo_prompt).setItems(
+//                    R.array.change_photo_arrays,
+//                    DialogInterface.OnClickListener { dialog, selectedOption ->
+//                        if (selectedOption == 0) {
+//                            openCamera()
+//                        } else if (selectedOption == 1) {
+//                            browseFile()
+//                        }
+//                    }).show()
             }
         }
     }
