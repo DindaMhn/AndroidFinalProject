@@ -21,7 +21,8 @@ import javax.inject.Inject
 class AssetRatingFragment : Fragment() {
 
     private lateinit var assetRatingRecycleAdapter: AssetRatingRecycleAdapter
-    @Inject lateinit var assetViewModel: AssetViewModel
+    @Inject
+    lateinit var assetViewModel: AssetViewModel
     var sharedPreferences: SharedPreferences? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,12 +43,13 @@ class AssetRatingFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        recycle_view_asset_rating.layoutManager=LinearLayoutManager(activity)
-        var providerId = sharedPreferences?.getString("ID_PROVIDER","").toString()
-        assetViewModel.getRatingAsset(providerId)
+        recycle_view_asset_rating.layoutManager = LinearLayoutManager(activity)
+        var providerId = sharedPreferences?.getString("ID_PROVIDER", "").toString()
+        var token = sharedPreferences?.getString("TOKEN_PROVIDER", "").toString()
+        assetViewModel.getRatingAsset(providerId, token)
         assetViewModel.assetRating.observe(viewLifecycleOwner, Observer {
-            assetRatingRecycleAdapter = AssetRatingRecycleAdapter(it,activity)
-            recycle_view_asset_rating.adapter=assetRatingRecycleAdapter
+            assetRatingRecycleAdapter = AssetRatingRecycleAdapter(it, activity)
+            recycle_view_asset_rating.adapter = assetRatingRecycleAdapter
         })
     }
 

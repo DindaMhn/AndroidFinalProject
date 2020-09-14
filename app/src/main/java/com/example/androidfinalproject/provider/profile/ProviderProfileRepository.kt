@@ -20,8 +20,8 @@ class ProviderProfileRepository @Inject constructor(val providerProfileAPI: Prov
     var providerResponse: MutableLiveData<ResponseData> = MutableLiveData<ResponseData>()
     var providerData: MutableLiveData<ProviderProfile> = MutableLiveData<ProviderProfile>()
 
-    fun updateProviderProfile(id: String, providerUpdate: ProviderUpdate) {
-        providerProfileAPI.updateProviderProfile(id, providerUpdate)
+    fun updateProviderProfile(id: String, token: String, providerUpdate: ProviderUpdate) {
+        providerProfileAPI.updateProviderProfile(id, token, providerUpdate)
             .enqueue(object : Callback<ResponseData> {
                 override fun onFailure(call: Call<ResponseData>, t: Throwable) {
                     t.printStackTrace()
@@ -45,8 +45,8 @@ class ProviderProfileRepository @Inject constructor(val providerProfileAPI: Prov
             })
     }
 
-    fun deleteProviderPhoto(id: String) {
-        providerProfileAPI.deleteProviderPhoto(id).enqueue(object : Callback<ResponseData> {
+    fun deleteProviderPhoto(id: String, token: String) {
+        providerProfileAPI.deleteProviderPhoto(id, token).enqueue(object : Callback<ResponseData> {
             override fun onFailure(call: Call<ResponseData>, t: Throwable) {
                 t.printStackTrace()
             }
@@ -60,8 +60,8 @@ class ProviderProfileRepository @Inject constructor(val providerProfileAPI: Prov
         })
     }
 
-    fun getProvider(id: String) {
-        providerProfileAPI.getProvider(id).enqueue(object : Callback<ResponseData> {
+    fun getProvider(id: String, token: String) {
+        providerProfileAPI.getProvider(id, token).enqueue(object : Callback<ResponseData> {
             override fun onFailure(call: Call<ResponseData>, t: Throwable) {
                 t.printStackTrace()
             }
@@ -77,8 +77,8 @@ class ProviderProfileRepository @Inject constructor(val providerProfileAPI: Prov
         })
     }
 
-    fun getProviderPhoto(id: String, imageContainer: ImageView, activity: Activity) {
-        providerProfileAPI.getProviderPhoto(id).enqueue(object : Callback<ResponseBody> {
+    fun getProviderPhoto(id: String, token: String, imageContainer: ImageView, activity: Activity) {
+        providerProfileAPI.getProviderPhoto(id, token).enqueue(object : Callback<ResponseBody> {
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 t.printStackTrace()
             }
@@ -93,8 +93,13 @@ class ProviderProfileRepository @Inject constructor(val providerProfileAPI: Prov
         })
     }
 
-    fun updateProviderPhoto(providerId: String, photo: MultipartBody.Part, id: MultipartBody.Part) {
-        providerProfileAPI.updateProviderPhoto(providerId, photo, id)
+    fun updateProviderPhoto(
+        providerId: String,
+        token: String,
+        photo: MultipartBody.Part,
+        id: MultipartBody.Part
+    ) {
+        providerProfileAPI.updateProviderPhoto(providerId, token, photo, id)
             .enqueue(object : Callback<ResponseData> {
                 override fun onFailure(call: Call<ResponseData>, t: Throwable) {
                     t.printStackTrace()

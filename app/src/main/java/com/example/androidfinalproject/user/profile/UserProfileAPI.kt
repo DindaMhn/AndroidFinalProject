@@ -9,25 +9,42 @@ import retrofit2.http.*
 
 interface UserProfileAPI {
     @PUT("user/{id}")
-    fun updateUserProfile(@Path("id") id: String, @Body userUpdate: UserUpdate): Call<ResponseData>
+    fun updateUserProfile(
+        @Path("id") id: String,
+        @Header("Authorization") token: String,
+        @Body userUpdate: UserUpdate
+    ): Call<ResponseData>
 
     @DELETE("user/photo/{id}")
-    fun deleteUserPhoto(@Path("id") id: String): Call<ResponseData>
+    fun deleteUserPhoto(
+        @Path("id") id: String,
+        @Header("Authorization") token: String
+    ): Call<ResponseData>
 
     @GET("authUser/{id}")
-    fun getUser(@Path("id") id: String): Call<ResponseData>
+    fun getUser(
+        @Path("id") id: String,
+        @Header("Authorization") token: String
+    ): Call<ResponseData>
 
     @GET("user/photo/{id}")
-    fun getUserPhoto(@Path("id") id: String): Call<ResponseBody>
+    fun getUserPhoto(
+        @Path("id") id: String,
+        @Header("Authorization") token: String
+    ): Call<ResponseBody>
 
     @Multipart
     @PUT("user/photo/{id}")
     fun updateUserPhoto(
         @Path("id") userId: String,
+        @Header("Authorization") token: String,
         @Part photo: MultipartBody.Part,
         @Part id: MultipartBody.Part
     ): Call<ResponseData>
 
-    @GET ("user/ticket/status/{id}")
-    fun getUserTicketById(@Path("id")id:String):Call<ResponseData>
+    @GET("user/ticket/status/{id}")
+    fun getUserTicketById(
+        @Path("id") id: String,
+        @Header("Authorization") token: String
+    ): Call<ResponseData>
 }

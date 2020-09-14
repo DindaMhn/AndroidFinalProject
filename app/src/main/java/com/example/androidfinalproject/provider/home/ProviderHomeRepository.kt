@@ -15,8 +15,8 @@ class ProviderHomeRepository @Inject constructor(val providerHomeAPI: ProviderHo
     var providerData: MutableLiveData<Provider> = MutableLiveData<Provider>()
     var providerResponse: MutableLiveData<ResponseData> = MutableLiveData<ResponseData>()
     var providerAssetData: MutableLiveData<Asset> = MutableLiveData<Asset>()
-    fun getSaldoProvider(id: String) {
-        providerHomeAPI.getSaldoProvider(id).enqueue(object : Callback<ResponseData> {
+    fun getSaldoProvider(id: String, token: String) {
+        providerHomeAPI.getSaldoProvider(id,token).enqueue(object : Callback<ResponseData> {
             override fun onFailure(call: Call<ResponseData>, t: Throwable) {
                 t.printStackTrace()
             }
@@ -35,8 +35,8 @@ class ProviderHomeRepository @Inject constructor(val providerHomeAPI: ProviderHo
         })
     }
 
-    fun createAsset(photo: MultipartBody.Part, result: MultipartBody.Part) {
-        providerHomeAPI.createAsset(photo, result)
+    fun createAsset(token: String,photo: MultipartBody.Part, result: MultipartBody.Part) {
+        providerHomeAPI.createAsset(token, photo, result)
             .enqueue(object : Callback<ResponseData> {
                 override fun onFailure(call: Call<ResponseData>, t: Throwable) {
                     t.printStackTrace()

@@ -47,7 +47,8 @@ class RatingAssetFragment : Fragment() {
                 , rating = ratingBar.rating.toString()
                 , comment = rating_comment.text.toString()
             )
-            ratingViewModel.createRating(newRating)
+            val token = sharedPreferences?.getString("TOKEN", "default").toString()
+            ratingViewModel.createRating(token, newRating)
             view?.findNavController()
                 ?.navigate(R.id.action_global_homeUserFragment)
         }

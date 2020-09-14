@@ -7,13 +7,21 @@ import retrofit2.http.*
 
 interface ProviderHomeAPI {
     @GET("provider/saldo/{id}")
-    fun getSaldoProvider(@Path("id") id: String): Call<ResponseData>
-    @POST("provider/asset")
-    fun createAsset(asset: Asset):Call<ResponseData>
+    fun getSaldoProvider(
+        @Path("id") id: String,
+        @Header("Authorization") token: String
+    ): Call<ResponseData>
+
+//    @POST("provider/asset")
+//    fun createAsset(
+//        @Header("Authorization") token: String,
+//        @Body asset: Asset
+//    ): Call<ResponseData>
 
     @Multipart
     @POST("provider/asset")
     fun createAsset(
+        @Header("Authorization") token: String,
         @Part photo: MultipartBody.Part,
         @Part result: MultipartBody.Part
     ): Call<ResponseData>

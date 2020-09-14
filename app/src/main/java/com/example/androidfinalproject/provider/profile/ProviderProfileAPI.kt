@@ -10,22 +10,33 @@ interface ProviderProfileAPI {
     @PUT("provider/data/{id}")
     fun updateProviderProfile(
         @Path("id") id: String,
+        @Header("Authorization") token: String,
         @Body providerUpdate: ProviderUpdate
     ): Call<ResponseData>
 
     @DELETE("provider/photo/{id}")
-    fun deleteProviderPhoto(@Path("id") id: String): Call<ResponseData>
+    fun deleteProviderPhoto(
+        @Path("id") id: String,
+        @Header("Authorization") token: String
+    ): Call<ResponseData>
 
     @GET("authProvider/{id}")
-    fun getProvider(@Path("id") id: String): Call<ResponseData>
+    fun getProvider(
+        @Path("id") id: String,
+        @Header("Authorization") token: String
+    ): Call<ResponseData>
 
     @GET("provider/photo/{id}")
-    fun getProviderPhoto(@Path("id") id: String): Call<ResponseBody>
+    fun getProviderPhoto(
+        @Path("id") id: String,
+        @Header("Authorization") token: String
+    ): Call<ResponseBody>
 
     @Multipart
     @PUT("provider/photo/{id}")
     fun updateProviderPhoto(
         @Path("id") providerId: String,
+        @Header("Authorization") token: String,
         @Part photo: MultipartBody.Part,
         @Part id: MultipartBody.Part
     ): Call<ResponseData>

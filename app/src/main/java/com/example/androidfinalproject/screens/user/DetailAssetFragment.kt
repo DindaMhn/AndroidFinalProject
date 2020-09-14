@@ -62,7 +62,8 @@ class DetailAssetFragment : Fragment(), View.OnClickListener {
         })
         println("detail")
         println(arguments?.getString("id"))
-        locationViewModel.getDetail(arguments?.getString("id")!!)
+        val token = sharedPreferences?.getString("TOKEN", "default").toString()
+        locationViewModel.getDetail(arguments?.getString("id")!!,token)
         bookAssetButton.setOnClickListener(this)
     }
 

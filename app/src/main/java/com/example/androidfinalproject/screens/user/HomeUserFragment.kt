@@ -62,16 +62,19 @@ class HomeUserFragment : Fragment(), View.OnClickListener {
         topUpButton.setOnClickListener(this)
         val id = sharedPreferences?.getString(
             "ID_USER", ""
-        )
+        ).toString()
+        val token = sharedPreferences?.getString(
+            "TOKEN",""
+        ).toString()
 
         val carouselView = view.findViewById(R.id.carouselView) as CarouselView;
         carouselView.setImageListener(imageListener);
         carouselView.setPageCount(sampleImages.size);
-        userHomeViewModel.getUserSaldo(id.toString())
+        userHomeViewModel.getUserSaldo(id,token)
         userHomeViewModel.userSaldoData.observe(viewLifecycleOwner, Observer {
             saldoUserText.text = "Rp. ${it.saldo}"
         })
-        userHomeViewModel.getUserTicket(id.toString())
+        userHomeViewModel.getUserTicket(id,token)
 
 
         userHomeViewModel.userTicket.observe(viewLifecycleOwner, Observer {

@@ -12,8 +12,8 @@ import javax.inject.Inject
 class LocationRepository @Inject constructor(val locationAPI : LocationAPI) {
     var listLocation: MutableLiveData<List<Location>> = MutableLiveData<List<Location>>()
     var detailLocation:MutableLiveData<Location> = MutableLiveData<Location>()
-    fun getLocation(){
-        locationAPI.getAsset().enqueue(object : Callback<ResponseLocation>{
+    fun getLocation(token:String){
+        locationAPI.getAsset(token).enqueue(object : Callback<ResponseLocation>{
             override fun onFailure(call: Call<ResponseLocation>, t: Throwable) {
                 t.printStackTrace()
                 println("gak masuk")
@@ -32,8 +32,8 @@ class LocationRepository @Inject constructor(val locationAPI : LocationAPI) {
             }
         })
     }
-    fun getDateilLocation(id:String){
-        locationAPI.getAssetByID(id).enqueue(object : Callback<ResponseLocation>{
+    fun getDateilLocation(id:String,token: String){
+        locationAPI.getAssetByID(id,token).enqueue(object : Callback<ResponseLocation>{
             override fun onFailure(call: Call<ResponseLocation>, t: Throwable) {
                 t.printStackTrace()
             }

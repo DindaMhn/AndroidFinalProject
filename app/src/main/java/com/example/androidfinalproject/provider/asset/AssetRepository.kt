@@ -27,32 +27,38 @@ class AssetRepository @Inject constructor(val assetAPI: AssetAPI) {
     var ratingAsset: MutableLiveData<List<AssetRating>> = MutableLiveData<List<AssetRating>>()
 
 
-    fun getAssetListByProviderID(provider_id: String) {
-        assetAPI.getListAssetByProviderID(provider_id).enqueue(object : Callback<ResponseData> {
-            override fun onFailure(call: Call<ResponseData>, t: Throwable) {
-                t.printStackTrace()
-            }
-
-            override fun onResponse(call: Call<ResponseData>, response: Response<ResponseData>) {
-                val response = response.body()
-                val gson = Gson()
-                val res = gson.toJson(response)
-                val resData = gson.toJson(response?.result)
-                assetListResponse.value = gson.fromJson<ResponseData>(res, ResponseData::class.java)
-                if (resData != "null") {
-                    assetList.value =
-                        gson.fromJson<Array<AssetView>>(resData, Array<AssetView>::class.java)
-                            .toList()
-                } else {
-                    assetList.value = listOf(AssetView("", "", "", "", "", "", "", "", "", "", ""))
+    fun getAssetListByProviderID(provider_id: String, token: String) {
+        assetAPI.getListAssetByProviderID(provider_id, token)
+            .enqueue(object : Callback<ResponseData> {
+                override fun onFailure(call: Call<ResponseData>, t: Throwable) {
+                    t.printStackTrace()
                 }
-            }
 
-        })
+                override fun onResponse(
+                    call: Call<ResponseData>,
+                    response: Response<ResponseData>
+                ) {
+                    val response = response.body()
+                    val gson = Gson()
+                    val res = gson.toJson(response)
+                    val resData = gson.toJson(response?.result)
+                    assetListResponse.value =
+                        gson.fromJson<ResponseData>(res, ResponseData::class.java)
+                    if (resData != "null") {
+                        assetList.value =
+                            gson.fromJson<Array<AssetView>>(resData, Array<AssetView>::class.java)
+                                .toList()
+                    } else {
+                        assetList.value =
+                            listOf(AssetView("", "", "", "", "", "", "", "", "", "", ""))
+                    }
+                }
+
+            })
     }
 
-    fun getReportAssetDaily(id: String) {
-        assetAPI.getReportAssetDaily(id).enqueue(object : Callback<ResponseData> {
+    fun getReportAssetDaily(id: String, token: String) {
+        assetAPI.getReportAssetDaily(id, token).enqueue(object : Callback<ResponseData> {
             override fun onFailure(call: Call<ResponseData>, t: Throwable) {
                 t.printStackTrace()
             }
@@ -79,8 +85,8 @@ class AssetRepository @Inject constructor(val assetAPI: AssetAPI) {
         })
     }
 
-    fun getReportAssetMonthly(id: String) {
-        assetAPI.getReportAssetMonthly(id).enqueue(object : Callback<ResponseData> {
+    fun getReportAssetMonthly(id: String, token: String) {
+        assetAPI.getReportAssetMonthly(id, token).enqueue(object : Callback<ResponseData> {
             override fun onFailure(call: Call<ResponseData>, t: Throwable) {
                 t.printStackTrace()
             }
@@ -108,8 +114,8 @@ class AssetRepository @Inject constructor(val assetAPI: AssetAPI) {
 
     }
 
-    fun getRatingAsset(provider_id: String) {
-        assetAPI.getRatingAsset(provider_id).enqueue(object : Callback<ResponseData> {
+    fun getRatingAsset(provider_id: String, token: String) {
+        assetAPI.getRatingAsset(provider_id, token).enqueue(object : Callback<ResponseData> {
             override fun onFailure(call: Call<ResponseData>, t: Throwable) {
                 t.printStackTrace()
             }
@@ -121,7 +127,7 @@ class AssetRepository @Inject constructor(val assetAPI: AssetAPI) {
                 val resData = gson.toJson(response?.result)
                 ratingAssetResponse.value =
                     gson.fromJson<ResponseData>(res, ResponseData::class.java)
-                if (response?.status!=400.toString()) {
+                if (response?.status != 400.toString()) {
                     ratingAsset.value = gson.fromJson<Array<AssetRating>>(
                         resData,
                         Array<AssetRating>::class.java

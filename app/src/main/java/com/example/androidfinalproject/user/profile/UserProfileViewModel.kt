@@ -14,27 +14,32 @@ class UserProfileViewModel @Inject constructor(var userProfileRepository: UserPr
     val userData: MutableLiveData<UserProfile> = userProfileRepository.userData
     val userResponse: MutableLiveData<ResponseData> = userProfileRepository.userResponse
 
-    fun updateUserProfile(id: String, userUpdate: UserUpdate) {
-        userProfileRepository.updateUserProfile(id, userUpdate)
+    fun updateUserProfile(id: String, token: String, userUpdate: UserUpdate) {
+        userProfileRepository.updateUserProfile(id, token, userUpdate)
     }
 
-    fun deleteUserPhoto(id: String) {
-        userProfileRepository.deleteUserPhoto(id)
+    fun deleteUserPhoto(id: String, token: String) {
+        userProfileRepository.deleteUserPhoto(id, token)
     }
 
-    fun getById(id: String) {
-        userProfileRepository.getUser(id)
+    fun getById(id: String, token: String) {
+        userProfileRepository.getUser(id, token)
     }
 
-    fun getUserPhoto(id: String, imageContainer: ImageView, activity: Activity) {
-        userProfileRepository.getUserPhoto(id, imageContainer, activity)
+    fun getUserPhoto(id: String, token: String, imageContainer: ImageView, activity: Activity) {
+        userProfileRepository.getUserPhoto(id, token, imageContainer, activity)
     }
 
-    fun updateUserPhoto(userId: String, photo: MultipartBody.Part, id: MultipartBody.Part) {
-        userProfileRepository.updateUserPhoto(userId, photo, id)
+    fun updateUserPhoto(
+        userId: String,
+        token: String,
+        photo: MultipartBody.Part,
+        id: MultipartBody.Part
+    ) {
+        userProfileRepository.updateUserPhoto(userId, token, photo, id)
     }
 
-    fun getTicketById(id: String) {
-        userProfileRepository.getTicketById(id)
+    fun getTicketById(id: String, token: String) {
+        userProfileRepository.getTicketById(id, token)
     }
 }

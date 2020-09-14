@@ -22,8 +22,12 @@ import javax.inject.Inject
 
 class HomeProviderFragment : Fragment(), View.OnClickListener {
     private lateinit var listAssetProviderRecycleAdapter: ListAssetProviderRecycleAdapter
-    @Inject lateinit var providerHomeViewModel: ProviderHomeViewModel
-    @Inject lateinit var listAssetViewModel: AssetViewModel
+
+    @Inject
+    lateinit var providerHomeViewModel: ProviderHomeViewModel
+
+    @Inject
+    lateinit var listAssetViewModel: AssetViewModel
     var sharedPreferences: SharedPreferences? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,21 +50,20 @@ class HomeProviderFragment : Fragment(), View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         addAssetButton.setOnClickListener(this)
-        val id = sharedPreferences?.getString(
-            "ID_PROVIDER",
-            ""
-        )
-        providerHomeViewModel.getSaldoProvider(id.toString())
+        val id = sharedPreferences?.getString("ID_PROVIDER", "").toString()
+        var token = sharedPreferences?.getString("TOKEN_PROVIDER", "").toString()
+        providerHomeViewModel.getSaldoProvider(id, token)
         providerHomeViewModel.providerResponse.observe(viewLifecycleOwner, Observer {
             saldoProviderText.text = "Rp. ${it.result}"
         })
-        recycle_view_list_asset.layoutManager= LinearLayoutManager(activity)
+        recycle_view_list_asset.layoutManager = LinearLayoutManager(activity)
 
-        id?.let { listAssetViewModel.getAssetListByProviderID(it) }
+        listAssetViewModel.getAssetListByProviderID(id, token)
         listAssetViewModel.assetList.observe(viewLifecycleOwner, Observer {
             listAssetProviderRecycleAdapter = ListAssetProviderRecycleAdapter(it, activity)
 
-            recycle_view_list_asset.adapter=listAssetProviderRecycleAdapter})
+            recycle_view_list_asset.adapter = listAssetProviderRecycleAdapter
+        })
     }
 
     override fun onClick(v: View?) {

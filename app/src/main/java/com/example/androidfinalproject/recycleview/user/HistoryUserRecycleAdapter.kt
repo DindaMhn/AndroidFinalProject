@@ -17,9 +17,11 @@ import javax.inject.Inject
 
 class HistoryUserRecycleAdapter(
     val paymentList: List<TicketView>,
-    val getActivity: FragmentActivity?
+    val getActivity: FragmentActivity?,
+    val token: String
 ) : RecyclerView.Adapter<PaymentViewHolder>() {
-    @Inject lateinit var ticketViewModel: TicketViewModel
+    @Inject
+    lateinit var ticketViewModel: TicketViewModel
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PaymentViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -34,6 +36,7 @@ class HistoryUserRecycleAdapter(
 
     override fun onBindViewHolder(holder: PaymentViewHolder, position: Int) {
 
+
         holder.location.text = paymentList[position].asset_name
         holder.startParking.text = paymentList[position].start_at
         holder.endParking.text = paymentList[position].finished_at
@@ -41,7 +44,7 @@ class HistoryUserRecycleAdapter(
         holder.basedFee.text = paymentList[position].based_fee
         holder.feePay.text = paymentList[position].pay_fee
         holder.delete.setOnClickListener {
-            ticketViewModel.deleteTicket(paymentList[position].id)
+            ticketViewModel.deleteTicket(paymentList[position].id,token)
             it?.findNavController()
                 ?.navigate(R.id.historyUserFragment)
 //            ticketViewModel.historyPayment(sharedPreferences?.getString(
@@ -61,7 +64,7 @@ class PaymentViewHolder(v: View) : RecyclerView.ViewHolder(v) {
     val licensePlate = v.findViewById<TextView>(R.id.item_license_plate_view)
     val basedFee = v.findViewById<TextView>(R.id.item_based_fee_view)
     val feePay = v.findViewById<TextView>(R.id.item_fee_pay)
-    val delete= v.findViewById<ImageView>(R.id.item_delete_ticket)
+    val delete = v.findViewById<ImageView>(R.id.item_delete_ticket)
 }
 
 

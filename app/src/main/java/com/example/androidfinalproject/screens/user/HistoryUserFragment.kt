@@ -19,6 +19,7 @@ import javax.inject.Inject
 
 class HistoryUserFragment : Fragment() {
     private lateinit var historyUserRecycleAdapter: HistoryUserRecycleAdapter
+
     @Inject
     lateinit var ticketViewModel: TicketViewModel
     var sharedPreferences: SharedPreferences? = null
@@ -52,13 +53,11 @@ class HistoryUserFragment : Fragment() {
 
     private fun viewHistoryTicket() {
         recycle_view_history_list.layoutManager = LinearLayoutManager(activity)
-        var user_id = sharedPreferences?.getString(
-            "ID_USER",
-            "default"
-        )
-        user_id?.let { ticketViewModel.historyPayment(it) }
+        var user_id = sharedPreferences?.getString("ID_USER", "").toString()
+        var token = sharedPreferences?.getString("TOKEN", "").toString()
+        ticketViewModel.historyPayment(user_id, token)
         ticketViewModel.historyPaymentList.observe(viewLifecycleOwner, Observer {
-            historyUserRecycleAdapter = HistoryUserRecycleAdapter(it, activity)
+            historyUserRecycleAdapter = HistoryUserRecycleAdapter(it, activity,token)
 
             recycle_view_history_list.adapter = historyUserRecycleAdapter
         })

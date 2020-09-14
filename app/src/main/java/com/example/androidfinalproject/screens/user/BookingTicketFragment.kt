@@ -59,7 +59,8 @@ class BookingTicketFragment : Fragment(), View.OnClickListener {
         when (v) {
             bookButton -> {
                 userHomeViewModel.getUserTicket(
-                    sharedPreferences?.getString("ID_USER", "default").toString()
+                    sharedPreferences?.getString("ID_USER", "default").toString(),
+                    sharedPreferences?.getString("TOKEN", "").toString()
                 )
                 userHomeViewModel.userResponse.observe(viewLifecycleOwner, Observer {
                     if (it.status != 400.toString()) {
@@ -72,6 +73,7 @@ class BookingTicketFragment : Fragment(), View.OnClickListener {
                         } else {
                             if (vehicle_type.selectedItem.toString() == "CAR") {
                                 ticketViewModel.createTicket(
+                                    sharedPreferences?.getString("TOKEN", "").toString(),
                                     Ticket(
                                         user_id = sharedPreferences?.getString(
                                             "ID_USER",
@@ -85,6 +87,7 @@ class BookingTicketFragment : Fragment(), View.OnClickListener {
                                 )
                             } else if (vehicle_type.selectedItem.toString() == "MOTORCYCLE") {
                                 ticketViewModel.createTicket(
+                                    sharedPreferences?.getString("TOKEN", "").toString(),
                                     Ticket(
                                         user_id = sharedPreferences?.getString(
                                             "ID_USER",
@@ -98,6 +101,7 @@ class BookingTicketFragment : Fragment(), View.OnClickListener {
                                 )
                             } else {
                                 ticketViewModel.createTicket(
+                                    sharedPreferences?.getString("TOKEN", "").toString(),
                                     Ticket(
                                         user_id = sharedPreferences?.getString(
                                             "ID_USER",

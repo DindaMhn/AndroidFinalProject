@@ -10,24 +10,29 @@ import javax.inject.Inject
 class ProviderProfileViewModel @Inject constructor(var providerProfileRepository: ProviderProfileRepository) :
     ViewModel() {
     val providerData: MutableLiveData<ProviderProfile> = providerProfileRepository.providerData
-    fun updateProviderProfile(id: String, providerUpdate: ProviderUpdate) {
-        providerProfileRepository.updateProviderProfile(id, providerUpdate)
+    fun updateProviderProfile(id: String, token: String, providerUpdate: ProviderUpdate) {
+        providerProfileRepository.updateProviderProfile(id, token, providerUpdate)
     }
 
-    fun deleteProviderPhoto(id: String) {
-        providerProfileRepository.deleteProviderPhoto(id)
+    fun deleteProviderPhoto(id: String, token: String) {
+        providerProfileRepository.deleteProviderPhoto(id, token)
     }
 
-    fun getById(id: String) {
-        providerProfileRepository.getProvider(id)
+    fun getById(id: String, token: String) {
+        providerProfileRepository.getProvider(id, token)
     }
 
-    fun getProviderPhoto(id: String, imageContainer: ImageView, activity: Activity) {
-        providerProfileRepository.getProviderPhoto(id, imageContainer, activity)
+    fun getProviderPhoto(id: String, token: String, imageContainer: ImageView, activity: Activity) {
+        providerProfileRepository.getProviderPhoto(id, token, imageContainer, activity)
     }
 
-    fun updateProviderPhoto(providerId: String, photo: MultipartBody.Part, id: MultipartBody.Part) {
-        providerProfileRepository.updateProviderPhoto(providerId, photo, id)
+    fun updateProviderPhoto(
+        providerId: String,
+        token: String,
+        photo: MultipartBody.Part,
+        id: MultipartBody.Part
+    ) {
+        providerProfileRepository.updateProviderPhoto(providerId, token, photo, id)
     }
 
 }

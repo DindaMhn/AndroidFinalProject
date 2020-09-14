@@ -6,18 +6,18 @@ import com.example.androidfinalproject.utils.ResponseData
 import javax.inject.Inject
 
 
-class RatingViewModel @Inject constructor(var ratingRepository: RatingRepository):ViewModel(){
+class RatingViewModel @Inject constructor(var ratingRepository: RatingRepository) : ViewModel() {
 
     val statusRatingData: LiveData<String> = ratingRepository.statusRatingData
     val statusRatingResponse: LiveData<ResponseData> = ratingRepository.statusRatingResponse
 
     val createRatingResponse: LiveData<ResponseData> = ratingRepository.createRatingResponse
 
-    fun getStatusRating(user_id: String, asset_id:String){
-        ratingRepository.getStatusRating(user_id,asset_id)
+    fun getStatusRating(user_id: String, asset_id: String, token: String) {
+        ratingRepository.getStatusRating(user_id, asset_id, token)
     }
 
-    fun createRating(rating: Rating){
-        ratingRepository.createRating(rating)
+    fun createRating(token: String, rating: Rating) {
+        ratingRepository.createRating(token, rating)
     }
 }

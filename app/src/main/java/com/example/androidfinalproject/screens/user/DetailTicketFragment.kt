@@ -25,6 +25,7 @@ class DetailTicketFragment : Fragment(), View.OnClickListener {
 
     @Inject
     lateinit var ticketViewModel: TicketViewModel
+
     @Inject
     lateinit var ratingViewModel: RatingViewModel
     var sharedPreferences: SharedPreferences? = null
@@ -49,9 +50,10 @@ class DetailTicketFragment : Fragment(), View.OnClickListener {
         super.onViewCreated(view, savedInstanceState)
         detail_button_pay_ticket.setOnClickListener(this)
         var id = sharedPreferences?.getString("ID_TICKET", "default").toString()
+        var token = sharedPreferences?.getString("TOKEN", "").toString()
 
         println("ini_id ticket ${id}")
-        ticketViewModel.getTicketViewByID(id)
+        ticketViewModel.getTicketViewByID(id,token)
         ticketViewModel.ticketView.observe(viewLifecycleOwner, Observer {
             detail_location_view.text = it.asset_name
             detail_time_start_parking_view.text = it.start_at
@@ -93,7 +95,8 @@ class DetailTicketFragment : Fragment(), View.OnClickListener {
                 println(ticketNew.vehicle_id)
                 println("fee")
                 println(ticketNew.fee_id)
-                ticketViewModel.paymentTicket(ticketNew)
+                var token = sharedPreferences?.getString("TOKEN", "").toString()
+                ticketViewModel.paymentTicket(token,ticketNew)
                 ticketViewModel.ticketResponse.observe(
                     viewLifecycleOwner, Observer {
                         if (it.status == 400.toString() && it.message == "Error") {
@@ -107,9 +110,13 @@ class DetailTicketFragment : Fragment(), View.OnClickListener {
                         } else if (it.status == 202.toString()) {
                             Toast.makeText(this.context, "Payment Success", Toast.LENGTH_SHORT)
                                 .show()
-                            var user_id = sharedPreferences?.getString("ID_USER", "default").toString()
-                            var asset_id = sharedPreferences?.getString("ID_ASSET_TICKET", "default").toString()
-                            ratingViewModel.getStatusRating(user_id, asset_id)
+                            var user_id =
+                                sharedPreferences?.getString("ID_USER", "default").toString()
+                            var asset_id =
+                                sharedPreferences?.getString("ID_ASSET_TICKET", "default")
+                                    .toString()
+                            var token = sharedPreferences?.getString("TOKEN", "default").toString()
+                            ratingViewModel.getStatusRating(user_id, asset_id, token)
                             ratingViewModel.statusRatingResponse.observe(
                                 viewLifecycleOwner,
                                 Observer { ratingResponse ->

@@ -14,8 +14,8 @@ class UserHomeRepository @Inject constructor(val userHomeAPI: UserHomeAPI) {
     var userResponse: MutableLiveData<ResponseData> = MutableLiveData<ResponseData>()
     var userTicketData:MutableLiveData<UserTicket> = MutableLiveData<UserTicket>()
 
-    fun getSaldoUser(id: String) {
-        userHomeAPI.getSaldoUser(id).enqueue(object : Callback<ResponseData> {
+    fun getSaldoUser(id: String,token: String) {
+        userHomeAPI.getSaldoUser(id,token).enqueue(object : Callback<ResponseData> {
             override fun onFailure(call: Call<ResponseData>, t: Throwable) {
                 t.printStackTrace()
             }
@@ -32,8 +32,8 @@ class UserHomeRepository @Inject constructor(val userHomeAPI: UserHomeAPI) {
             }
         })
     }
-    fun updateSaldoUser(id:String, userWallet:UserWallet){
-        userHomeAPI.updateSaldoUser(id,userWallet).enqueue(object:Callback<ResponseData>{
+    fun updateSaldoUser(id:String,token: String, userWallet:UserWallet){
+        userHomeAPI.updateSaldoUser(id,token,userWallet).enqueue(object:Callback<ResponseData>{
             override fun onFailure(call: Call<ResponseData>, t: Throwable) {
                 t.printStackTrace()
             }
@@ -47,8 +47,8 @@ class UserHomeRepository @Inject constructor(val userHomeAPI: UserHomeAPI) {
             }
         })
     }
-    fun getUserTicket(id:String){
-        userHomeAPI.getUserTicket(id).enqueue(object:Callback<ResponseData>{
+    fun getUserTicket(id:String,token: String){
+        userHomeAPI.getUserTicket(id,token).enqueue(object:Callback<ResponseData>{
             override fun onFailure(call: Call<ResponseData>, t: Throwable) {
                 t.printStackTrace()
             }

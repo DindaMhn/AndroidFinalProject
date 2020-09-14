@@ -59,6 +59,10 @@ class LoginProviderFragment : Fragment(), View.OnClickListener {
                     } else if (it.status == 200.toString()) {
                         Toast.makeText(this.context, "Login Success", Toast.LENGTH_SHORT)
                             .show()
+                        with(sharedPreferences?.edit()) {
+                            this?.putString("TOKEN_PROVIDER", "Bearer ${it.token}")
+                            this?.commit()
+                        }
                         providerViewModel.providerData.observe(
                             viewLifecycleOwner, Observer {
                                 if (it != null) {

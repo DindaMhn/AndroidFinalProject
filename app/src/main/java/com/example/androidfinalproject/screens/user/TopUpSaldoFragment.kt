@@ -59,10 +59,14 @@ class TopUpSaldoFragment : Fragment(), View.OnClickListener {
                 val id_wallet = sharedPreferences?.getString(
                     getString(R.string.wallet_id_key),
                     getString(R.string.default_value)
-                )
+                ).toString()
+                val token = sharedPreferences?.getString(
+                    "TOKEN",
+                    ""
+                ).toString()
                 println("ID WALLET"+id_wallet)
                 userHomeViewModel.updateSaldoUser(
-                    id_wallet.toString(),
+                    id_wallet,token,
                     UserWallet(debit = debitInput.text.toString())
                 )
                 alertDialog.setTitle("TopUp Saldo")

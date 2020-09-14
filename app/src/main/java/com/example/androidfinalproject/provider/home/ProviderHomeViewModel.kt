@@ -10,10 +10,11 @@ class ProviderHomeViewModel @Inject constructor(var providerHomeRepository: Prov
     val providerData = providerHomeRepository.providerData
     val providerResponse = providerHomeRepository.providerResponse
     val providerAssetData = providerHomeRepository.providerAssetData
-    fun getSaldoProvider(id: String) {
-        providerHomeRepository.getSaldoProvider(id)
+    fun getSaldoProvider(id: String, token: String) {
+        providerHomeRepository.getSaldoProvider(id, token)
     }
-    fun createAsset(photo: MultipartBody.Part, result: MultipartBody.Part) {
-        providerHomeRepository.createAsset(photo, result)
+
+    fun createAsset(token: String, photo: MultipartBody.Part, result: MultipartBody.Part) {
+        providerHomeRepository.createAsset(token, photo, result)
     }
 }

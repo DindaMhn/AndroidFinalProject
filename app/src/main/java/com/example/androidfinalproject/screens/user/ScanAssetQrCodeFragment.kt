@@ -112,9 +112,10 @@ class ScanAssetQrCodeFragment : Fragment(), ZXingScannerView.ResultHandler, View
 
         var id = sharedPreferences?.getString("ID_TICKET", "").toString()
         var status = sharedPreferences?.getString("STATUS_TICKET","").toString()
+        var token = sharedPreferences?.getString("TOKEN", "").toString()
 
         if (status=="B"){
-            ticketViewModel.updateTicketStatusActive(id)
+            ticketViewModel.updateTicketStatusActive(id,token)
             Toast.makeText(
                 this.context,
                 "Ticket Active",
@@ -127,7 +128,7 @@ class ScanAssetQrCodeFragment : Fragment(), ZXingScannerView.ResultHandler, View
             view?.findNavController()
                 ?.navigate(R.id.homeUserFragment)
         } else if (status=="A"){
-            ticketViewModel.updateTicketStatus(id)
+            ticketViewModel.updateTicketStatus(id,token)
             Toast.makeText(
                 this.context,
                 "Ticket Valid",

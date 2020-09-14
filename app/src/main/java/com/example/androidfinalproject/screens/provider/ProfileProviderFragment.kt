@@ -90,9 +90,13 @@ class ProfileProviderFragment : Fragment(), View.OnClickListener {
             dpd.show()
         }
 
-        providerProfileViewModel.getById(sharedPreferences?.getString("ID_PROVIDER", "").toString())
+        providerProfileViewModel.getById(
+            sharedPreferences?.getString("ID_PROVIDER", "").toString(),
+            sharedPreferences?.getString("TOKEN_PROVIDER", "").toString()
+        )
         providerProfileViewModel.getProviderPhoto(
             sharedPreferences?.getString("ID_PROVIDER", "").toString(),
+            sharedPreferences?.getString("TOKEN_PROVIDER", "").toString(),
             photoProfileProvider,
             this.requireActivity()
         )
@@ -161,6 +165,7 @@ class ProfileProviderFragment : Fragment(), View.OnClickListener {
             )
             providerProfileViewModel.updateProviderPhoto(
                 sharedPreferences?.getString("ID_PROVIDER", "").toString(),
+                sharedPreferences?.getString("TOKEN_PROVIDER", "").toString(),
                 imageFileChoosed, providerId
             )
             photoProfileProvider.setImageBitmap(imageBitmap)
@@ -179,6 +184,7 @@ class ProfileProviderFragment : Fragment(), View.OnClickListener {
             )
             providerProfileViewModel.updateProviderPhoto(
                 sharedPreferences?.getString("ID_PROVIDER", "").toString(),
+                sharedPreferences?.getString("TOKEN_PROVIDER", "").toString(),
                 imageFileChoosed, providerId
             )
             photoProfileProvider.setImageBitmap(imageBitmap)
@@ -204,8 +210,9 @@ class ProfileProviderFragment : Fragment(), View.OnClickListener {
         val id = sharedPreferences?.getString(
             getString(R.string.id_provider_key),
             getString(R.string.default_value)
-        )
-        providerProfileViewModel.deleteProviderPhoto(id.toString())
+        ).toString()
+        val token = sharedPreferences?.getString("TOKEN_PROVIDER", "").toString()
+        providerProfileViewModel.deleteProviderPhoto(id, token)
         alertDialog.setTitle("Delete Photo")
         alertDialog.setMessage("Delete Success")
 
@@ -235,10 +242,11 @@ class ProfileProviderFragment : Fragment(), View.OnClickListener {
                     Toast.makeText(this.context, "Must be field", Toast.LENGTH_SHORT)
                         .show()
                 } else {
-                    val id = sharedPreferences?.getString("ID_PROVIDER", "")
+                    val id = sharedPreferences?.getString("ID_PROVIDER", "").toString()
+                    val token = sharedPreferences?.getString("TOKEN_PROVIDER", "").toString()
                     println("ID PROFILE PROVIDER" + id.toString())
                     providerProfileViewModel.updateProviderProfile(
-                        id.toString(),
+                        id, token,
                         ProviderUpdate(
                             borndate = bornDateEditTextProvider.text.toString(),
                             address = addressEditTextProvider.text.toString()

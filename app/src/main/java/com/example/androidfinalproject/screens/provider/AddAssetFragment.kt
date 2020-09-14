@@ -122,8 +122,9 @@ class AddAssetFragment : Fragment(), View.OnClickListener {
                         "motorcycle_capacity":${motorCapInput.text.toString()},
                         "bicycle_capacity":${bicycleCapInput.text.toString()}}"""
             )
+            var token = sharedPreferences?.getString("TOKEN", "").toString()
             providerHomeViewModel.createAsset(
-                imageFileChoosed, result
+                token, imageFileChoosed, result
             )
             imageUrlAsset.text = Editable.Factory.getInstance().newEditable(photoFile.absolutePath)
             imageAsset.setImageBitmap(imageBitmap)
@@ -148,8 +149,9 @@ class AddAssetFragment : Fragment(), View.OnClickListener {
                         "motorcycle_capacity":${motorCapInput.text.toString()},
                         "bicycle_capacity":${bicycleCapInput.text.toString()}}"""
             )
+            var token = sharedPreferences?.getString("TOKEN_PROVIDER", "").toString()
             providerHomeViewModel.createAsset(
-                imageFileChoosed, result
+                token, imageFileChoosed, result
             )
             imageUrlAsset.text = Editable.Factory.getInstance().newEditable(imageFile.absolutePath)
 

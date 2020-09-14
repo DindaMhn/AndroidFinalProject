@@ -33,6 +33,7 @@ import kotlinx.android.synthetic.main.fragment_user_register.*
 import javax.inject.Inject
 
 const val RC_SIGN_IN = 123
+
 class LoginUserFragment : Fragment(), View.OnClickListener {
     @Inject
     lateinit var userViewModel: UserViewModel
@@ -61,7 +62,7 @@ class LoginUserFragment : Fragment(), View.OnClickListener {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if(requestCode== RC_SIGN_IN){
+        if (requestCode == RC_SIGN_IN) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             handleSignInResult(task)
         }
@@ -80,9 +81,9 @@ class LoginUserFragment : Fragment(), View.OnClickListener {
                 phone_number = "",
                 fullname = account.familyName + " " + account.givenName
             )
-            println("this"+account.displayName+account.familyName+account.givenName+account.account+account.photoUrl)
+            println("this" + account.displayName + account.familyName + account.givenName + account.account + account.photoUrl)
             userViewModel.registerUser(userData)
-            check(account?.email!!, account?.email!!,"12345")
+            check(account?.email!!, account?.email!!, "12345")
 
         } catch (e: ApiException) {
             // The ApiException status code indicates the detailed failure reason.
@@ -117,11 +118,16 @@ class LoginUserFragment : Fragment(), View.OnClickListener {
                     if (it.status == 200.toString()) {
                         Toast.makeText(this.context, "Login Success", Toast.LENGTH_SHORT)
                             .show()
+                        with(sharedPreferences?.edit()) {
+                            this?.putString("TOKEN", "Bearer ${it.token}")
+                            this?.commit()
+                        }
+
                         userViewModel.userData.observe(
                             viewLifecycleOwner, Observer {
                                 if (it != null) {
                                     with(sharedPreferences?.edit()) {
-                                        this?.putString("ID_USER",it.id)
+                                        this?.putString("ID_USER", it.id)
 
                                         this?.putString(
                                             getString(R.string.wallet_id_key),
@@ -153,8 +159,7 @@ class LoginUserFragment : Fragment(), View.OnClickListener {
                                 view?.findNavController()
                                     ?.navigate(R.id.action_loginUserFragment_to_menuUserActivity)
                             })
-                    }
-                    else{
+                    } else {
                         Toast.makeText(
                             this.context,
                             "Invalid Login",
@@ -195,15 +200,15 @@ class LoginUserFragment : Fragment(), View.OnClickListener {
         }
     }
 
-    private fun signIn(){
+    private fun signIn() {
         val signInIntent = mGoogleSignInClient.signInIntent
         startActivityForResult(signInIntent, RC_SIGN_IN)
     }
 
-    private fun check(email:String,username:String,password:String){
+    private fun check(email: String, username: String, password: String) {
         userViewModel.userResponse.observe(viewLifecycleOwner,
             Observer {
-                if(it.status==400.toString()){
+                if (it.status == 400.toString()) {
                     val userLogin =
                         User(
                             email = email,
@@ -211,7 +216,7 @@ class LoginUserFragment : Fragment(), View.OnClickListener {
                             password = password
                         )
                     userViewModel.loginUser(userLogin)
-                }else if (it.status == 200.toString()) {
+                } else if (it.status == 200.toString()) {
                     val userLogin =
                         User(
                             email = email,

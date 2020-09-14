@@ -19,8 +19,29 @@ class UserProfileRepository @Inject constructor(val userProfileAPI: UserProfileA
     var userResponse: MutableLiveData<ResponseData> = MutableLiveData<ResponseData>()
     var userData: MutableLiveData<UserProfile> = MutableLiveData<UserProfile>()
 
-    fun updateUserProfile(id: String, userUpdate: UserUpdate) {
-        userProfileAPI.updateUserProfile(id, userUpdate).enqueue(object : Callback<ResponseData> {
+    fun updateUserProfile(id: String, token: String, userUpdate: UserUpdate) {
+        userProfileAPI.updateUserProfile(id, token, userUpdate)
+            .enqueue(object : Callback<ResponseData> {
+                override fun onFailure(call: Call<ResponseData>, t: Throwable) {
+                    t.printStackTrace()
+                }
+
+                override fun onResponse(
+                    call: Call<ResponseData>,
+                    response: Response<ResponseData>
+                ) {
+                    val response = response.body()
+                    val gson = Gson()
+                    val res = gson.toJson(response)
+                    val resData = gson.toJson(response?.result)
+                    userData.value = gson.fromJson<UserProfile>(resData, UserProfile::class.java)
+                    userResponse.value = gson.fromJson<ResponseData>(res, ResponseData::class.java)
+                }
+            })
+    }
+
+    fun deleteUserPhoto(id: String, token: String) {
+        userProfileAPI.deleteUserPhoto(id, token).enqueue(object : Callback<ResponseData> {
             override fun onFailure(call: Call<ResponseData>, t: Throwable) {
                 t.printStackTrace()
             }
@@ -29,30 +50,13 @@ class UserProfileRepository @Inject constructor(val userProfileAPI: UserProfileA
                 val response = response.body()
                 val gson = Gson()
                 val res = gson.toJson(response)
-                val resData = gson.toJson(response?.result)
-                userData.value = gson.fromJson<UserProfile>(resData, UserProfile::class.java)
                 userResponse.value = gson.fromJson<ResponseData>(res, ResponseData::class.java)
             }
         })
     }
 
-    fun deleteUserPhoto(id: String) {
-        userProfileAPI.deleteUserPhoto(id).enqueue(object : Callback<ResponseData> {
-            override fun onFailure(call: Call<ResponseData>, t: Throwable) {
-                t.printStackTrace()
-            }
-
-            override fun onResponse(call: Call<ResponseData>, response: Response<ResponseData>) {
-                val response = response.body()
-                val gson = Gson()
-                val res = gson.toJson(response)
-                userResponse.value = gson.fromJson<ResponseData>(res, ResponseData::class.java)
-            }
-        })
-    }
-
-    fun getUser(id: String) {
-        userProfileAPI.getUser(id).enqueue(object : Callback<ResponseData> {
+    fun getUser(id: String, token: String) {
+        userProfileAPI.getUser(id, token).enqueue(object : Callback<ResponseData> {
             override fun onFailure(call: Call<ResponseData>, t: Throwable) {
                 t.printStackTrace()
             }
@@ -67,8 +71,8 @@ class UserProfileRepository @Inject constructor(val userProfileAPI: UserProfileA
         })
     }
 
-    fun getUserPhoto(id: String, imageContainer: ImageView, activity: Activity) {
-        userProfileAPI.getUserPhoto(id).enqueue(object : Callback<ResponseBody> {
+    fun getUserPhoto(id: String, token: String, imageContainer: ImageView, activity: Activity) {
+        userProfileAPI.getUserPhoto(id, token).enqueue(object : Callback<ResponseBody> {
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 t.printStackTrace()
             }
@@ -77,15 +81,21 @@ class UserProfileRepository @Inject constructor(val userProfileAPI: UserProfileA
                 if (response.code() != 404 && response.code() != 403) {
                     val responseImage =
                         BitmapFactory.decodeStream(response.body()!!.byteStream())
-                    Glide.with(activity).asBitmap().load(responseImage).centerCrop().into(imageContainer)
+                    Glide.with(activity).asBitmap().load(responseImage).centerCrop()
+                        .into(imageContainer)
                 }
             }
 
         })
     }
 
-    fun updateUserPhoto(userId: String, photo: MultipartBody.Part, id: MultipartBody.Part) {
-        userProfileAPI.updateUserPhoto(userId, photo, id)
+    fun updateUserPhoto(
+        userId: String,
+        token: String,
+        photo: MultipartBody.Part,
+        id: MultipartBody.Part
+    ) {
+        userProfileAPI.updateUserPhoto(userId, token, photo, id)
             .enqueue(object : Callback<ResponseData> {
                 override fun onFailure(call: Call<ResponseData>, t: Throwable) {
                     t.printStackTrace()
@@ -102,8 +112,9 @@ class UserProfileRepository @Inject constructor(val userProfileAPI: UserProfileA
                 }
             })
     }
-    fun getTicketById(id: String) {
-        userProfileAPI.getUserTicketById(id).enqueue(object : Callback<ResponseData> {
+
+    fun getTicketById(id: String, token: String) {
+        userProfileAPI.getUserTicketById(id, token).enqueue(object : Callback<ResponseData> {
             override fun onFailure(call: Call<ResponseData>, t: Throwable) {
                 t.printStackTrace()
             }

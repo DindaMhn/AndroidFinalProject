@@ -1,6 +1,8 @@
 package com.example.androidfinalproject.screens.provider
 
+import android.content.Context
 import android.content.DialogInterface
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -23,14 +25,19 @@ import kotlinx.android.synthetic.main.fragment_monthly_report_providerfragment.*
 import javax.inject.Inject
 
 
-class DailyReportProviderFragment : Fragment(),View.OnClickListener {
+class DailyReportProviderFragment : Fragment(), View.OnClickListener {
     private lateinit var dailyReportRecycleAdapter: DailyReportRecycleAdapter
 
     @Inject
     lateinit var assetViewModel: AssetViewModel
+    var sharedPreferences: SharedPreferences? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         (activity?.applicationContext as MyApplication).applicationComponent.inject(this)
+        sharedPreferences = activity?.getSharedPreferences(
+            getString(R.string.shared_preference_name),
+            Context.MODE_PRIVATE
+        )
     }
 
     override fun onCreateView(
@@ -43,14 +50,15 @@ class DailyReportProviderFragment : Fragment(),View.OnClickListener {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        val id = arguments?.getString("id_asset","")
-        val assetName = arguments?.getString("asset_name","")
+        val id = arguments?.getString("id_asset", "")
+        val assetName = arguments?.getString("asset_name", "")
+        val token = sharedPreferences?.getString("TOKEN_PROVIDER", "").toString()
         daily_header_asset_name.text = assetName
-        id?.let { assetViewModel.getReportAssetDaily(it) }
+        id?.let { assetViewModel.getReportAssetDaily(it, token) }
 
-        recycle_view_daily_report_asset.layoutManager= LinearLayoutManager(activity)
+        recycle_view_daily_report_asset.layoutManager = LinearLayoutManager(activity)
         assetViewModel.reportDaily.observe(viewLifecycleOwner, Observer {
-            dailyReportRecycleAdapter = DailyReportRecycleAdapter(it,activity)
+            dailyReportRecycleAdapter = DailyReportRecycleAdapter(it, activity)
             recycle_view_daily_report_asset.adapter = dailyReportRecycleAdapter
         })
 
@@ -65,11 +73,11 @@ class DailyReportProviderFragment : Fragment(),View.OnClickListener {
             }
             button_to_monthly_report_daily -> {
                 val id_asset = bundleOf(
-                    Pair("id_asset", arguments?.getString("id_asset",""))
-                    ,Pair("asset_name", arguments?.getString("asset_name",""))
+                    Pair("id_asset", arguments?.getString("id_asset", ""))
+                    , Pair("asset_name", arguments?.getString("asset_name", ""))
                 )
                 v?.findNavController()
-                    ?.navigate(R.id.action_global_monthlyReportProviderfragment,id_asset)
+                    ?.navigate(R.id.action_global_monthlyReportProviderfragment, id_asset)
             }
         }
     }

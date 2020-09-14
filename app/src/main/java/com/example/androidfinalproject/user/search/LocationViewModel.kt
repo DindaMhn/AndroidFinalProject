@@ -6,12 +6,13 @@ import javax.inject.Inject
 
 class LocationViewModel @Inject constructor(var locationRepository: LocationRepository) :
     ViewModel() {
-    val listLocationData : LiveData<List<Location>> = locationRepository.listLocation
-    val detailLocationData : LiveData<Location> = locationRepository.detailLocation
-    fun getAssetLocation() {
-        locationRepository.getLocation()
+    val listLocationData: LiveData<List<Location>> = locationRepository.listLocation
+    val detailLocationData: LiveData<Location> = locationRepository.detailLocation
+    fun getAssetLocation(token: String) {
+        locationRepository.getLocation(token)
     }
-    fun getDetail(id:String){
-        locationRepository.getDateilLocation(id)
+
+    fun getDetail(id: String, token: String) {
+        locationRepository.getDateilLocation(id, token)
     }
 }

@@ -17,8 +17,10 @@ class TicketRepository @Inject constructor(val ticketAPI: TicketAPI) {
     var updateTicketResponse: MutableLiveData<ResponseData> = MutableLiveData<ResponseData>()
     var ticketViewResponse: MutableLiveData<ResponseData> = MutableLiveData<ResponseData>()
     var ticketView: MutableLiveData<TicketView> = MutableLiveData<TicketView>()
-    fun paymentTicket(ticket: Ticket) {
-        ticketAPI.paymentTicket(ticket).enqueue(object : Callback<ResponseData> {
+
+
+    fun paymentTicket(token: String, ticket: Ticket) {
+        ticketAPI.paymentTicket(token, ticket).enqueue(object : Callback<ResponseData> {
             override fun onFailure(call: Call<ResponseData>, t: Throwable) {
                 t.printStackTrace()
             }
@@ -35,29 +37,33 @@ class TicketRepository @Inject constructor(val ticketAPI: TicketAPI) {
         })
     }
 
-    fun historyPayment(user_id: String) {
-        ticketAPI.historyPayment("0", "10", user_id).enqueue(object : Callback<ResponseData> {
-            override fun onFailure(call: Call<ResponseData>, t: Throwable) {
-                t.printStackTrace()
-            }
+    fun historyPayment(user_id: String, token: String) {
+        ticketAPI.historyPayment("0", "10", user_id, token)
+            .enqueue(object : Callback<ResponseData> {
+                override fun onFailure(call: Call<ResponseData>, t: Throwable) {
+                    t.printStackTrace()
+                }
 
-            override fun onResponse(call: Call<ResponseData>, response: Response<ResponseData>) {
-                val response = response.body()
-                val gson = Gson()
-                val res = gson.toJson(response)
-                val resData = gson.toJson(response?.result)
-                historyPaymentResponse.value =
-                    gson.fromJson<ResponseData>(res, ResponseData::class.java)
-                historyPaymentList.value =
-                    gson.fromJson<Array<TicketView>>(resData, Array<TicketView>::class.java)
-                        .toList()
-            }
+                override fun onResponse(
+                    call: Call<ResponseData>,
+                    response: Response<ResponseData>
+                ) {
+                    val response = response.body()
+                    val gson = Gson()
+                    val res = gson.toJson(response)
+                    val resData = gson.toJson(response?.result)
+                    historyPaymentResponse.value =
+                        gson.fromJson<ResponseData>(res, ResponseData::class.java)
+                    historyPaymentList.value =
+                        gson.fromJson<Array<TicketView>>(resData, Array<TicketView>::class.java)
+                            .toList()
+                }
 
-        })
+            })
     }
 
-    fun deleteTicket(id: String) {
-        ticketAPI.deleteTicket(id).enqueue(object : Callback<ResponseData> {
+    fun deleteTicket(id: String, token: String) {
+        ticketAPI.deleteTicket(id, token).enqueue(object : Callback<ResponseData> {
             override fun onFailure(call: Call<ResponseData>, t: Throwable) {
                 t.printStackTrace()
             }
@@ -74,8 +80,8 @@ class TicketRepository @Inject constructor(val ticketAPI: TicketAPI) {
         })
     }
 
-    fun updateTicketStatus(id: String) {
-        ticketAPI.updateTicketStatus(id).enqueue(object : Callback<ResponseData> {
+    fun updateTicketStatus(id: String, token: String) {
+        ticketAPI.updateTicketStatus(id, token).enqueue(object : Callback<ResponseData> {
             override fun onFailure(call: Call<ResponseData>, t: Throwable) {
                 t.printStackTrace()
             }
@@ -92,8 +98,8 @@ class TicketRepository @Inject constructor(val ticketAPI: TicketAPI) {
         })
     }
 
-    fun getTicketViewByID(id: String) {
-        ticketAPI.getTicketViewByID(id).enqueue(object : Callback<ResponseData> {
+    fun getTicketViewByID(id: String, token: String) {
+        ticketAPI.getTicketViewByID(id, token).enqueue(object : Callback<ResponseData> {
             override fun onFailure(call: Call<ResponseData>, t: Throwable) {
                 t.printStackTrace()
             }
@@ -110,8 +116,8 @@ class TicketRepository @Inject constructor(val ticketAPI: TicketAPI) {
         })
     }
 
-    fun createTicket(ticket: Ticket) {
-        ticketAPI.createTicket(ticket).enqueue(object : Callback<ResponseData> {
+    fun createTicket(token: String, ticket: Ticket) {
+        ticketAPI.createTicket(token, ticket).enqueue(object : Callback<ResponseData> {
             override fun onFailure(call: Call<ResponseData>, t: Throwable) {
                 t.printStackTrace()
             }
@@ -127,8 +133,9 @@ class TicketRepository @Inject constructor(val ticketAPI: TicketAPI) {
             }
         })
     }
-    fun updateTicketStatusActive(id:String){
-        ticketAPI.updateTicketStatusActive(id).enqueue(object : Callback<ResponseData>{
+
+    fun updateTicketStatusActive(id: String, token: String) {
+        ticketAPI.updateTicketStatusActive(id, token).enqueue(object : Callback<ResponseData> {
             override fun onFailure(call: Call<ResponseData>, t: Throwable) {
                 t.printStackTrace()
             }

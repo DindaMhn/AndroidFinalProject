@@ -76,7 +76,8 @@ class SearchFragment : Fragment(),OnMapReadyCallback {
             adapter = LocationRecycleAdapter(it,activity)
             locationRecycleView.adapter = adapter
         })
-        locationViewModel.getAssetLocation()
+        val token = sharedPreferences?.getString("TOKEN", "default").toString()
+        locationViewModel.getAssetLocation(token)
     }
 
     override fun onMapReady(map: GoogleMap?) {

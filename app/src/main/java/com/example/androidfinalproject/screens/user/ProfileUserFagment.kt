@@ -93,9 +93,13 @@ class ProfileUserFagment : Fragment(), View.OnClickListener {
             )
             dpd.show()
         }
-        userProfileViewModel.getById(sharedPreferences?.getString("ID_USER", "").toString())
+        userProfileViewModel.getById(
+            sharedPreferences?.getString("ID_USER", "").toString(),
+            sharedPreferences?.getString("TOKEN", "").toString()
+        )
         userProfileViewModel.getUserPhoto(
             sharedPreferences?.getString("ID_USER", "").toString(),
+            sharedPreferences?.getString("TOKEN", "").toString(),
             photoProfileUser,
             this.requireActivity()
         )
@@ -164,6 +168,7 @@ class ProfileUserFagment : Fragment(), View.OnClickListener {
             )
             userProfileViewModel.updateUserPhoto(
                 sharedPreferences?.getString("ID_USER", "").toString(),
+                sharedPreferences?.getString("TOKEN", "").toString(),
                 imageFileChoosed, userId
             )
             photoProfileUser.setImageBitmap(imageBitmap)
@@ -182,6 +187,7 @@ class ProfileUserFagment : Fragment(), View.OnClickListener {
             )
             userProfileViewModel.updateUserPhoto(
                 sharedPreferences?.getString("ID_USER", "").toString(),
+                sharedPreferences?.getString("TOKEN", "").toString(),
                 imageFileChoosed, userId
             )
             photoProfileUser.setImageBitmap(imageBitmap)
@@ -204,7 +210,10 @@ class ProfileUserFagment : Fragment(), View.OnClickListener {
     fun deleteUserPhoto() {
         val alertDialog = AlertDialog.Builder(requireContext()).create()
 
-        userProfileViewModel.deleteUserPhoto(sharedPreferences?.getString("ID_USER", "").toString())
+        userProfileViewModel.deleteUserPhoto(
+            sharedPreferences?.getString("ID_USER", "").toString(),
+            sharedPreferences?.getString("TOKEN", "").toString()
+        )
         alertDialog.setTitle("Delete Photo")
         alertDialog.setMessage("Delete Success")
 
@@ -231,9 +240,9 @@ class ProfileUserFagment : Fragment(), View.OnClickListener {
             logoutUserButton -> {
                 with(sharedPreferences?.edit()) {
                     this?.putBoolean(
-                    "ISLOGGEDIN_USER",
-                    false
-                )
+                        "ISLOGGEDIN_USER",
+                        false
+                    )
                     this?.clear()
                     this?.commit()
                 }
@@ -248,6 +257,7 @@ class ProfileUserFagment : Fragment(), View.OnClickListener {
                     val id = sharedPreferences?.getString("ID_USER", "")
                     userProfileViewModel.updateUserProfile(
                         id.toString(),
+                        sharedPreferences?.getString("TOKEN", "").toString(),
                         UserUpdate(
                             borndate = bornDateEditTextUser.text.toString(),
                             address = addressEditTextUser.text.toString()
