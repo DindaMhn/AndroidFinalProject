@@ -7,63 +7,76 @@
     android:layout_height="match_parent"
     tools:context=".screens.provider.AddAssetFragment">
 
-    <ScrollView
+<!--    <ScrollView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent">-->
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="left"
+            android:layout_marginStart="-30dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/logo"
+                android:layout_width="300dp"
+                android:layout_height="70dp"
+                android:layout_gravity="left"
+                android:src="@drawable/logo_parkiryuk" />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:orientation="vertical">
 
-            <LinearLayout
+            <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_gravity="left"
-                android:layout_marginStart="-30dp"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
+                android:layout_marginStart="20dp"
+                android:drawableStart="@drawable/ic_baseline_domain_24"
+                android:text=" Asset"
+                android:textColor="@color/colorBlack"
+                android:textSize="25dp"
+                android:textStyle="bold" />
 
-                <ImageView
-                    android:id="@+id/logo"
-                    android:layout_width="300dp"
-                    android:layout_height="70dp"
-                    android:layout_gravity="left"
-                    android:src="@drawable/logo_parkiryuk" />
-            </LinearLayout>
+            <com.google.android.gms.maps.MapView
+                android:id="@+id/add_asset_map_view"
+                android:layout_width="match_parent"
+                android:layout_height="300dp" />
 
-            <LinearLayout
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="vertical">
+                app:cardBackgroundColor="@color/colorWhite"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="5dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="left"
-                    android:layout_marginStart="20dp"
-                    android:drawableStart="@drawable/ic_baseline_domain_24"
-                    android:text=" Asset"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="25dp"
-                    android:textStyle="bold" />
 
-                <com.google.android.material.card.MaterialCardView
+                <ScrollView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    app:cardBackgroundColor="@color/colorWhite"
-                    app:cardCornerRadius="20dp"
-                    app:cardElevation="5dp">
+                    android:layout_height="match_parent">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="vertical">
+
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
@@ -190,6 +203,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
+
                             <com.google.android.material.textfield.TextInputLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
@@ -197,13 +211,14 @@
                                 android:layout_weight="1"
                                 app:boxCornerRadiusTopStart="10dp">
 
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/imageUrlAsset"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:hint="Image"
-                                android:backgroundTint="@android:color/transparent"/>
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/imageUrlAsset"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:backgroundTint="@android:color/transparent"
+                                    android:hint="Image" />
                             </com.google.android.material.textfield.TextInputLayout>
+
                             <com.google.android.material.button.MaterialButton
                                 android:id="@+id/uploadAssetPhoto"
                                 android:layout_width="match_parent"
@@ -222,7 +237,7 @@
                             android:layout_height="200dp"
                             android:layout_gravity="center"
                             android:scaleType="fitXY"
-                            android:src="@drawable/ic_baseline_domain_24"/>
+                            android:src="@drawable/ic_baseline_domain_24" />
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/addAssetProsesButton"
@@ -233,10 +248,10 @@
                             android:text="Proses"
                             app:cornerRadius="38dp"
                             app:iconGravity="textEnd"></com.google.android.material.button.MaterialButton>
-                    </LinearLayout>
-                </com.google.android.material.card.MaterialCardView>
-            </LinearLayout>
-        </LinearLayout>
-    </ScrollView>
 
+                    </LinearLayout>
+                </ScrollView>
+            </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
