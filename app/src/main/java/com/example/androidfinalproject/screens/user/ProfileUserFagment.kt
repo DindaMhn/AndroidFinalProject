@@ -28,6 +28,7 @@ import com.example.androidfinalproject.R
 import com.example.androidfinalproject.activity.MainActivity
 import com.example.androidfinalproject.user.profile.UserProfileViewModel
 import com.example.androidfinalproject.user.profile.UserUpdate
+import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -152,30 +153,47 @@ class ProfileUserFagment : Fragment(), View.OnClickListener {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == OPEN_CAMERA_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-            val imageBitmap = BitmapFactory.decodeFile(photoFile.absolutePath)
+//        if (requestCode == OPEN_CAMERA_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+//            val imageBitmap = BitmapFactory.decodeFile(photoFile.absolutePath)
+//
+//            val requestBody = photoFile.asRequestBody("multipart".toMediaTypeOrNull())
+//            val imageFileChoosed =
+//                MultipartBody.Part.createFormData("photo", photoFile.name, requestBody)
+//            val userId = MultipartBody.Part.createFormData(
+//                "id",
+//                sharedPreferences?.getString("ID_USER", "").toString()
+//            )
+//            userProfileViewModel.updateUserPhoto(
+//                sharedPreferences?.getString("ID_USER", "").toString(),
+//                imageFileChoosed, userId
+//            )
+//            photoProfileUser.setImageBitmap(imageBitmap)
+//        }
+//        if (requestCode == SELECT_FILE_FORM_STORAGE && resultCode == Activity.RESULT_OK) {
+//            val originalPath = getOriginalPathFromUri(data?.data!!)
+//            val imageFile: File = File(originalPath)
+//            val imageBitmap = BitmapFactory.decodeFile(imageFile.absolutePath)
+//
+//            val requestBody = imageFile.asRequestBody("multipart".toMediaTypeOrNull())
+//            val imageFileChoosed =
+//                MultipartBody.Part.createFormData("photo", imageFile.name, requestBody)
+//            val userId = MultipartBody.Part.createFormData(
+//                "id",
+//                sharedPreferences?.getString("ID_USER", "").toString()
+//            )
+//            userProfileViewModel.updateUserPhoto(
+//                sharedPreferences?.getString("ID_USER", "").toString(),
+//                imageFileChoosed, userId
+//            )
+//            photoProfileUser.setImageBitmap(imageBitmap)
+//        }
+        if (requestCode == 66 && resultCode == Activity.RESULT_OK) {
+            val getFile = ImagePicker.getFile(data)
+            val imageBitmap = BitmapFactory.decodeFile(getFile?.absolutePath)
 
-            val requestBody = photoFile.asRequestBody("multipart".toMediaTypeOrNull())
+            val requestBody = getFile?.asRequestBody("multipart".toMediaTypeOrNull())
             val imageFileChoosed =
-                MultipartBody.Part.createFormData("photo", photoFile.name, requestBody)
-            val userId = MultipartBody.Part.createFormData(
-                "id",
-                sharedPreferences?.getString("ID_USER", "").toString()
-            )
-            userProfileViewModel.updateUserPhoto(
-                sharedPreferences?.getString("ID_USER", "").toString(),
-                imageFileChoosed, userId
-            )
-            photoProfileUser.setImageBitmap(imageBitmap)
-        }
-        if (requestCode == SELECT_FILE_FORM_STORAGE && resultCode == Activity.RESULT_OK) {
-            val originalPath = getOriginalPathFromUri(data?.data!!)
-            val imageFile: File = File(originalPath)
-            val imageBitmap = BitmapFactory.decodeFile(imageFile.absolutePath)
-
-            val requestBody = imageFile.asRequestBody("multipart".toMediaTypeOrNull())
-            val imageFileChoosed =
-                MultipartBody.Part.createFormData("photo", imageFile.name, requestBody)
+                MultipartBody.Part.createFormData("photo", getFile?.name, requestBody!!)
             val userId = MultipartBody.Part.createFormData(
                 "id",
                 sharedPreferences?.getString("ID_USER", "").toString()
@@ -188,23 +206,35 @@ class ProfileUserFagment : Fragment(), View.OnClickListener {
         }
     }
 
-    fun getOriginalPathFromUri(contentUri: Uri): String? {
-        var originalPath: String? = null
-        val projection =
-            arrayOf(MediaStore.Images.Media.DATA)
-        val cursor: Cursor? =
-            activity?.contentResolver?.query(contentUri, projection, null, null, null)
-        if (cursor?.moveToFirst()!!) {
-            val columnIndex: Int = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
-            originalPath = cursor.getString(columnIndex)
-        }
-        return originalPath
+    private fun imagePicker() {
+        ImagePicker.with(this)
+            .compress(1024)
+            .maxResultSize(
+                1080,
+                1080
+            )
+            .start(66)
     }
+
+//    fun getOriginalPathFromUri(contentUri: Uri): String? {
+//        var originalPath: String? = null
+//        val projection =
+//            arrayOf(MediaStore.Images.Media.DATA)
+//        val cursor: Cursor? =
+//            activity?.contentResolver?.query(contentUri, projection, null, null, null)
+//        if (cursor?.moveToFirst()!!) {
+//            val columnIndex: Int = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+//            originalPath = cursor.getString(columnIndex)
+//        }
+//        return originalPath
+//    }
 
     fun deleteUserPhoto() {
         val alertDialog = AlertDialog.Builder(requireContext()).create()
 
-        userProfileViewModel.deleteUserPhoto(sharedPreferences?.getString("ID_USER", "").toString())
+        userProfileViewModel.deleteUserPhoto(
+            sharedPreferences?.getString("ID_USER", "").toString()
+        )
         alertDialog.setTitle("Delete Photo")
         alertDialog.setMessage("Delete Success")
 
@@ -231,9 +261,9 @@ class ProfileUserFagment : Fragment(), View.OnClickListener {
             logoutUserButton -> {
                 with(sharedPreferences?.edit()) {
                     this?.putBoolean(
-                    "ISLOGGEDIN_USER",
-                    false
-                )
+                        "ISLOGGEDIN_USER",
+                        false
+                    )
                     this?.clear()
                     this?.commit()
                 }
@@ -274,32 +304,12 @@ class ProfileUserFagment : Fragment(), View.OnClickListener {
                     R.array.change_photo_arrays,
                     DialogInterface.OnClickListener { dialog, selectedOption ->
                         if (selectedOption == 0) {
-                            openCamera()
+                            imagePicker()
                         } else if (selectedOption == 1) {
-                            browseFile()
-                        } else if (selectedOption == 2) {
                             deleteUserPhoto()
                         }
                     }).show()
             }
-//            deleteUserPhoto -> {
-//                userProfileViewModel.deleteUserPhoto(arguments?.getString("id").toString())
-//                alertDialog.setTitle("Delete Photo")
-//                alertDialog.setMessage("Delete Success")
-//
-//                alertDialog.setButton(
-//                    AlertDialog.BUTTON_POSITIVE, "OK"
-//                ) { dialog, which -> Glide.with(this.requireActivity())
-//                    .load(ContextCompat.getDrawable(requireContext(), R.drawable.defaultphoto))
-//                    .into(photoProfileUser) }
-//                alertDialog.show()
-//
-//                val btnPositive = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
-//
-//                val layoutParams = btnPositive.layoutParams as LinearLayout.LayoutParams
-//                layoutParams.weight = 10f
-//                btnPositive.layoutParams = layoutParams
-//            }
         }
     }
 }
