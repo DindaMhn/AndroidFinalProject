@@ -46,10 +46,8 @@ class ProfileUserFagment : Fragment(), View.OnClickListener {
     @Inject
     lateinit var userProfileViewModel: UserProfileViewModel
     var sharedPreferences: SharedPreferences? = null
-    val OPEN_CAMERA_REQUEST_CODE = 13
     val SELECT_FILE_FORM_STORAGE = 66
     lateinit var currentPhotoPath: String
-    lateinit var photoFile: File
     lateinit var mGoogleSignInClient: GoogleSignInClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -115,24 +113,9 @@ class ProfileUserFagment : Fragment(), View.OnClickListener {
             bornDateEditTextUser.text =
                 Editable.Factory.getInstance().newEditable(it.borndate.toString())
         })
-//        deleteUserPhoto.setOnClickListener(this)
         ChangePhotoUser.setOnClickListener(this)
         simpanEditUserButton.setOnClickListener(this)
         logoutUserButton.setOnClickListener(this)
-    }
-
-    fun openCamera() {
-        val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        cameraIntent.resolveActivity(this?.requireActivity().packageManager)
-        photoFile = createImageFile()
-        val photoURI =
-            FileProvider.getUriForFile(
-                requireContext(),
-                "com.example.androidfinalproject.fileProvider",
-                photoFile
-            )
-        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
-        startActivityForResult(cameraIntent, OPEN_CAMERA_REQUEST_CODE)
     }
 
     @Throws(IOException::class)
@@ -157,40 +140,7 @@ class ProfileUserFagment : Fragment(), View.OnClickListener {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-//        if (requestCode == OPEN_CAMERA_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-//            val imageBitmap = BitmapFactory.decodeFile(photoFile.absolutePath)
-//
-//            val requestBody = photoFile.asRequestBody("multipart".toMediaTypeOrNull())
-//            val imageFileChoosed =
-//                MultipartBody.Part.createFormData("photo", photoFile.name, requestBody)
-//            val userId = MultipartBody.Part.createFormData(
-//                "id",
-//                sharedPreferences?.getString("ID_USER", "").toString()
-//            )
-//            userProfileViewModel.updateUserPhoto(
-//                sharedPreferences?.getString("ID_USER", "").toString(),
-//                imageFileChoosed, userId
-//            )
-//            photoProfileUser.setImageBitmap(imageBitmap)
-//        }
-//        if (requestCode == SELECT_FILE_FORM_STORAGE && resultCode == Activity.RESULT_OK) {
-//            val originalPath = getOriginalPathFromUri(data?.data!!)
-//            val imageFile: File = File(originalPath)
-//            val imageBitmap = BitmapFactory.decodeFile(imageFile.absolutePath)
-//
-//            val requestBody = imageFile.asRequestBody("multipart".toMediaTypeOrNull())
-//            val imageFileChoosed =
-//                MultipartBody.Part.createFormData("photo", imageFile.name, requestBody)
-//            val userId = MultipartBody.Part.createFormData(
-//                "id",
-//                sharedPreferences?.getString("ID_USER", "").toString()
-//            )
-//            userProfileViewModel.updateUserPhoto(
-//                sharedPreferences?.getString("ID_USER", "").toString(),
-//                imageFileChoosed, userId
-//            )
-//            photoProfileUser.setImageBitmap(imageBitmap)
-//        }
+
         if (requestCode == 66 && resultCode == Activity.RESULT_OK) {
             val getFile = ImagePicker.getFile(data)
             val imageBitmap = BitmapFactory.decodeFile(getFile?.absolutePath)
@@ -221,18 +171,6 @@ class ProfileUserFagment : Fragment(), View.OnClickListener {
             .start(66)
     }
 
-//    fun getOriginalPathFromUri(contentUri: Uri): String? {
-//        var originalPath: String? = null
-//        val projection =
-//            arrayOf(MediaStore.Images.Media.DATA)
-//        val cursor: Cursor? =
-//            activity?.contentResolver?.query(contentUri, projection, null, null, null)
-//        if (cursor?.moveToFirst()!!) {
-//            val columnIndex: Int = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
-//            originalPath = cursor.getString(columnIndex)
-//        }
-//        return originalPath
-//    }
 
     fun deleteUserPhoto() {
         val alertDialog = AlertDialog.Builder(requireContext()).create()
