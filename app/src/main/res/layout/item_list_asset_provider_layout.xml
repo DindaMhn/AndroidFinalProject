@@ -8,7 +8,7 @@
         android:id="@+id/linearLayout"
         android:tag="1"
         android:layout_width="match_parent"
-        android:layout_height="180dp"
+        android:layout_height="wrap_content"
         app:cardElevation="10dp"
         android:background="@color/colorWhite"
         android:layout_margin="5dp"
