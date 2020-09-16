@@ -21,6 +21,7 @@
         android:layout_height="wrap_content"
         android:text="QR Code Value"
         android:textSize="18sp"
+        android:textColor="@color/colorBlack"
         android:gravity="center_horizontal"
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"

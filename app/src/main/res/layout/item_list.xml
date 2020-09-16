@@ -60,14 +60,44 @@
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/motorCap"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/materialTextView5"/>
 
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/materialTextView5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="100dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="29dp"
+                android:text="Capacity "
+                android:textColor="@color/colorBlack"
+                android:textSize="15dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/materialTextView4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/constraintLayout"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/materialTextView4"
+                android:layout_width="0dp"
+                android:layout_height="20dp"
+                android:layout_marginEnd="36dp"
+                android:text="Car "
+                android:textColor="@color/colorBlack"
+                android:textSize="15dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/labelMotor"
+                app:layout_constraintEnd_toStartOf="@+id/carCap"
+                app:layout_constraintTop_toBottomOf="@+id/materialTextView5" />
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/labelMotor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="24dp"
-                android:text="Motor Capacity "
+                android:layout_marginEnd="20dp"
+                android:text="Motor "
                 android:textColor="@color/colorBlack"
                 android:textSize="15dp"
                 android:textStyle="bold"
@@ -76,24 +106,11 @@
                 app:layout_constraintTop_toBottomOf="@+id/materialTextView4" />
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/materialTextView4"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="40dp"
-                android:text="Car Capacity "
-                android:textColor="@color/colorBlack"
-                android:textSize="15dp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/labelMotor"
-                app:layout_constraintEnd_toStartOf="@+id/carCap"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/materialTextView9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:text="Bicycle Capacity "
+                android:layout_marginEnd="8dp"
+                android:text="Bicycle "
                 android:textColor="@color/colorBlack"
                 android:textSize="15dp"
                 android:textStyle="bold"
@@ -135,8 +152,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginTop="32dp"
                     android:layout_marginStart="5dp"
+                    android:layout_marginTop="32dp"
                     android:layout_marginEnd="5dp"
                     android:isIndicator="true"
                     android:numStars="5"

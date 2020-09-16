@@ -89,6 +89,7 @@
                                 android:id="@+id/assetNameInput"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:textColor="@color/colorBlack"
                                 android:backgroundTint="@android:color/transparent"
                                 android:hint=" Asset Name" />
 
@@ -104,6 +105,7 @@
                                 android:id="@+id/assetAreaInput"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:textColor="@color/colorBlack"
                                 android:backgroundTint="@android:color/transparent"
                                 android:hint="Asset Area" />
 
@@ -125,6 +127,7 @@
                                     android:id="@+id/longitudeInput"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:textColor="@color/colorBlack"
                                     android:backgroundTint="@android:color/transparent"
                                     android:hint="Longitude" />
 
@@ -141,6 +144,7 @@
                                     android:id="@+id/latitudeInput"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:textColor="@color/colorBlack"
                                     android:backgroundTint="@android:color/transparent"
                                     android:hint="Latitude" />
 
@@ -163,6 +167,7 @@
                                     android:id="@+id/carCapInput"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:textColor="@color/colorBlack"
                                     android:backgroundTint="@android:color/transparent"
                                     android:hint="Car Capacity" />
 
@@ -179,6 +184,7 @@
                                     android:id="@+id/motorCapInput"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:textColor="@color/colorBlack"
                                     android:backgroundTint="@android:color/transparent"
                                     android:hint="Motorcycle Capacity" />
 
@@ -195,6 +201,7 @@
                                     android:id="@+id/bicycleCapInput"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:textColor="@color/colorBlack"
                                     android:backgroundTint="@android:color/transparent"
                                     android:hint="Bicycle Capacity" />
 
@@ -217,6 +224,7 @@
                                     android:id="@+id/imageUrlAsset"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:textColor="@color/colorBlack"
                                     android:backgroundTint="@android:color/transparent"
                                     android:hint="Image" />
                             </com.google.android.material.textfield.TextInputLayout>

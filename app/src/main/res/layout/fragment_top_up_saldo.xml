@@ -71,12 +71,14 @@
                             android:layout_height="match_parent"
                             android:layout_margin="5dp"
                             app:boxCornerRadiusTopStart="10dp"
+                            android:textColor="@color/colorBlack"
                             app:startIconDrawable="@drawable/ic_baseline_monetization_on_24">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/debitInput"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:textColor="@color/colorBlack"
                                 android:backgroundTint="@android:color/transparent"
                                 android:hint="Total" />
 

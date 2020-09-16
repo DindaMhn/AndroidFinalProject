@@ -75,6 +75,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 app:boxCornerRadiusTopStart="10dp"
+                app:hintTextColor="@color/colorBlack"
                 app:startIconDrawable="@drawable/ic_baseline_how_to_reg_24">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -85,6 +86,7 @@
                     android:clickable="false"
                     android:editable="false"
                     android:ems="10"
+                    android:textColor="@color/colorBlack"
                     android:focusable="false"
                     android:hint="Fullname"
                     android:inputType="textPersonName" />
@@ -99,6 +101,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
+                    android:textColor="@color/colorBlack"
+                    app:hintTextColor="@color/colorBlack"
                     android:layout_weight="1"
                     app:startIconDrawable="@drawable/ic_baseline_date_range_24"
                     app:boxCornerRadiusTopStart="10dp">
@@ -108,6 +112,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
+                        android:textColor="@color/colorBlack"
                         android:backgroundTint="@android:color/transparent"
                         android:ems="10"
                         android:hint="Born Date"
@@ -118,6 +123,7 @@
                     android:id="@+id/calenderPickerUser"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/colorBlack"
                     android:layout_weight="5"
                     android:clickable="true"
                     android:drawableStart="@drawable/ic_baseline_calendar_today_24" />
@@ -126,7 +132,9 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:hintTextColor="@color/colorBlack"
                 android:layout_margin="5dp"
+                android:textColor="@color/colorBlack"
                 app:startIconDrawable="@drawable/ic_baseline_local_phone_24"
                 app:boxCornerRadiusTopStart="10dp">
 
@@ -135,6 +143,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
+                    android:textColor="@color/colorBlack"
                     android:backgroundTint="@android:color/transparent"
                     android:clickable="false"
                     android:editable="false"
@@ -148,6 +157,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
+                app:hintTextColor="@color/colorBlack"
+                android:textColor="@color/colorBlack"
                 app:startIconDrawable="@drawable/ic_baseline_house_24"
                 app:boxCornerRadiusTopStart="10dp">
 
@@ -155,6 +166,7 @@
                     android:id="@+id/addressEditTextUser"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
+                    android:textColor="@color/colorBlack"
                     android:layout_marginTop="10dp"
                     android:ems="10"
                     android:hint="Address"

@@ -62,9 +62,11 @@
                     android:layout_marginStart="60dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="60dp"
+                    app:hintTextColor="@color/colorBlack"
                     android:drawableStart="@drawable/ic_baseline_email_24"
                     android:ems="10"
                     android:hint=" Email"
+                    android:textColor="@color/colorBlack"
                     android:inputType="textEmailAddress" />
 
                 <EditText
@@ -74,6 +76,8 @@
                     android:layout_marginStart="60dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="60dp"
+                    app:hintTextColor="@color/colorBlack"
+                    android:textColor="@color/colorBlack"
                     android:drawableStart="@drawable/ic_baseline_person_24"
                     android:ems="10"
                     android:hint=" Full Name"
@@ -86,6 +90,8 @@
                     android:layout_marginStart="60dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="60dp"
+                    android:textColor="@color/colorBlack"
+                    app:hintTextColor="@color/colorBlack"
                     android:drawableStart="@drawable/ic_baseline_how_to_reg_24"
                     android:ems="10"
                     android:hint="Username"
@@ -100,6 +106,7 @@
                     android:layout_marginEnd="60dp"
                     android:drawableStart="@drawable/ic_baseline_vpn_key_24"
                     android:ems="10"
+                    app:hintTextColor="@color/colorBlack"
                     android:hint=" Password"
                     android:inputType="textPassword" />
 
@@ -110,6 +117,8 @@
                     android:layout_marginStart="60dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="60dp"
+                    android:textColor="@color/colorBlack"
+                    app:hintTextColor="@color/colorBlack"
                     android:drawableStart="@drawable/ic_baseline_local_phone_24"
                     android:ems="10"
                     android:hint=" Phone"
@@ -139,6 +148,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:textColor="@color/colorBlack"
                     android:text="Have an Account ?" />
 
                 <TextView
