@@ -23,7 +23,8 @@ import javax.inject.Inject
 
 
 class ScanAssetQrCodeFragment : Fragment(), ZXingScannerView.ResultHandler, View.OnClickListener {
-    @Inject lateinit var ticketViewModel: TicketViewModel
+    @Inject
+    lateinit var ticketViewModel: TicketViewModel
 
     private lateinit var mScannerView: ZXingScannerView
     private var isCaptured = false
@@ -108,41 +109,54 @@ class ScanAssetQrCodeFragment : Fragment(), ZXingScannerView.ResultHandler, View
     }
 
     override fun handleResult(rawResult: Result?) {
-        text_view_qr_code_value.text = rawResult?.text
-
-        var id = sharedPreferences?.getString("ID_TICKET", "").toString()
-        var status = sharedPreferences?.getString("STATUS_TICKET","").toString()
-        var token = sharedPreferences?.getString("TOKEN", "").toString()
-
-        if (status=="B"){
-            ticketViewModel.updateTicketStatusActive(id,token)
+//        text_view_qr_code_value.text = rawResult?.text
+        println("ini_raw_result: ${rawResult.toString()}")
+        var idticket = sharedPreferences?.getString("ID_ASSET_TICKET", "").toString()
+        if (rawResult.toString() != idticket) {
             Toast.makeText(
                 this.context,
-                "Ticket Active",
+                "Youre In wrong Location",
                 Toast.LENGTH_SHORT
             ).show()
-            with(sharedPreferences?.edit()) {
-                this?.putString("STATUS_TICKET", "A")
-                this?.commit()
-            }
-            view?.findNavController()
-                ?.navigate(R.id.homeUserFragment)
-        } else if (status=="A"){
-            ticketViewModel.updateTicketStatus(id,token)
-            Toast.makeText(
-                this.context,
-                "Ticket Valid",
-                Toast.LENGTH_SHORT
-            ).show()
-            view?.findNavController()
-                ?.navigate(R.id.detailTicketFragment)
+            mScannerView.resumeCameraPreview(this)
+            initDefaultView()
         } else {
-            Toast.makeText(
-                this.context,
-                "Ticket Invalid",
-                Toast.LENGTH_SHORT
-            ).show()
+
+            var id = sharedPreferences?.getString("ID_TICKET", "").toString()
+            var status = sharedPreferences?.getString("STATUS_TICKET", "").toString()
+            var token = sharedPreferences?.getString("TOKEN", "").toString()
+
+            if (status == "B") {
+                ticketViewModel.updateTicketStatusActive(id, token)
+                Toast.makeText(
+                    this.context,
+                    "Ticket Active",
+                    Toast.LENGTH_SHORT
+                ).show()
+                with(sharedPreferences?.edit()) {
+                    this?.putString("STATUS_TICKET", "A")
+                    this?.commit()
+                }
+                view?.findNavController()
+                    ?.navigate(R.id.homeUserFragment)
+            } else if (status == "A") {
+                ticketViewModel.updateTicketStatus(id, token)
+                Toast.makeText(
+                    this.context,
+                    "Ticket Valid",
+                    Toast.LENGTH_SHORT
+                ).show()
+                view?.findNavController()
+                    ?.navigate(R.id.detailTicketFragment)
+            } else {
+                Toast.makeText(
+                    this.context,
+                    "Ticket Invalid",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         }
+
 
     }
 
