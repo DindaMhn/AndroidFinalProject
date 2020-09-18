@@ -49,7 +49,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 
-class AddAssetFragment : Fragment(), View.OnClickListener,OnMapReadyCallback,GoogleMap.OnMapClickListener {
+class AddAssetFragment : Fragment(), View.OnClickListener,OnMapReadyCallback, GoogleMap.OnMapLongClickListener {
     @Inject
     lateinit var providerHomeViewModel: ProviderHomeViewModel
     var sharedPreferences: SharedPreferences? = null
@@ -376,12 +376,16 @@ class AddAssetFragment : Fragment(), View.OnClickListener,OnMapReadyCallback,Goo
             LocationManager.NETWORK_PROVIDER)
     }
 
-    override fun onMapClick(p0: LatLng?) {
-//        longitudeInput.text.toString() = p0.longitude.toString()
+//    override fun onMapClick(p0: LatLng?) {
+////        longitudeInput.text.toString() = p0.longitude.toString()
+//
+////        gmap.clear()
+//        gmap.addMarker(MarkerOptions().position(p0!!))
+//        println("latitude"+ p0.latitude.toString())
+//        println("longitude"+ p0.longitude.toString())
+//    }
 
-//        gmap.clear()
-        gmap.addMarker(MarkerOptions().position(p0!!))
-        println("latitude"+ p0.latitude.toString())
-        println("longitude"+ p0.longitude.toString())
+    override fun onMapLongClick(p0: LatLng?) {
+
     }
 }

@@ -18,6 +18,7 @@
     <string name="device_latitude">device_latitude</string>
     <string name="device_longitude">device_longitude</string>
     <string name="change_photo_prompt">Choose</string>
+    <string name="facebook_app_id">1444595449065900</string> <string name="fb_login_protocol_scheme">fb1444595449065900</string>
     <string-array name="change_photo_arrays">
         <item>Edit Photo</item>
         <item>Delete Photo</item>

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1090273939056",
+    "firebase_url": "https://finalproject-tesla.firebaseio.com",
+    "project_id": "finalproject-tesla",
+    "storage_bucket": "finalproject-tesla.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1090273939056:android:6fc9defd67d85e1adbeeb5",
+        "android_client_info": {
+          "package_name": "com.example.androidfinalproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1090273939056-8m8coclfu8cmmk8smrkndkg465icgnof.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.androidfinalproject",
+            "certificate_hash": "b37c3399588c96104f7328a52fed3a5712a4298c"
+          }
+        },
+        {
+          "client_id": "1090273939056-lqgt2jlrf0eeb08n0407b2jdi6dd001v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAwwtTbBDrxLj1pdIlml94meaiFCfx0xPg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1090273939056-lqgt2jlrf0eeb08n0407b2jdi6dd001v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
