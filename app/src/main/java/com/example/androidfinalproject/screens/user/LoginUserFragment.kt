@@ -57,30 +57,13 @@ class LoginUserFragment : Fragment(), View.OnClickListener {
 
         val gso =
             GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build()
         mGoogleSignInClient = GoogleSignIn.getClient(activity as Activity, gso)
-
     }
 
-    fun firebaseAuthWithFacebook(result: LoginResult?){
-        var credential = FacebookAuthProvider.getCredential(result?.accessToken?.token!!)
-        FirebaseAuth.getInstance().signInWithCredential(credential).addOnCompleteListener{task ->
-            if (task.isSuccessful){
-                var facebookUser = FirebaseAuth.getInstance().currentUser
-                println(facebookUser?.displayName)
-                val userData = User(
-                    email = facebookUser?.email!!,
-                    username = facebookUser.displayName!!,
-                    password = "123456789",
-                    phone_number = "",
-                    fullname = facebookUser.displayName!!
-                )
-                userViewModel.registerUser(userData)
-                check(facebookUser?.email!!,facebookUser?.displayName!!,"123456789")
-            }
-        }
-    }
+
 
     override fun onStart() {
         super.onStart()
@@ -91,36 +74,14 @@ class LoginUserFragment : Fragment(), View.OnClickListener {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == RC_SIGN_IN) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
-            handleSignInResult(task)
+//            handleSignInResult(task)
+            var account = task.getResult(ApiException::class.java)
+            firebaseAuthWithGoogle(account)
         }
         callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
-    private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
-            val account =
-                completedTask.getResult(ApiException::class.java)
 
-            var credential = GoogleAuthProvider.getCredential(account?.idToken,null)
-            FirebaseAuth.getInstance().signInWithCredential(credential).addOnCompleteListener{task->
-                if(task.isSuccessful){
-                    var googleUser = FirebaseAuth.getInstance().currentUser
-                    // Signed in successfully, show authenticated UI.
-                    val userData = User(
-                        email = googleUser?.email!!,
-                        username = googleUser.displayName!!,
-                        password = "12345",
-                        phone_number = "",
-                        fullname = googleUser.displayName!!
-                    )
-                    userViewModel.registerUser(userData)
-                    check(googleUser.email!!, googleUser.displayName!!, "12345")
-                }
-            }
-
-
-
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -138,12 +99,7 @@ class LoginUserFragment : Fragment(), View.OnClickListener {
         } else {
             userViewModel.userResponse.observe(
                 viewLifecycleOwner, Observer {
-//                    if (it.status == 400.toString() && it.message == "Login User Failed") {
-//                        Toast.makeText(
-//                            this.context,
-//                            "Invalid Login",
-//                            Toast.LENGTH_SHORT
-//                        ).show()
+
                     if (it.status == 200.toString()) {
                         Toast.makeText(this.context, "Login Success", Toast.LENGTH_SHORT)
                             .show()
@@ -254,10 +210,80 @@ class LoginUserFragment : Fragment(), View.OnClickListener {
         }
     }
 
+    fun firebaseAuthWithGoogle(account: GoogleSignInAccount?){
+        var credential = GoogleAuthProvider.getCredential(account?.idToken,null)
+        FirebaseAuth.getInstance().signInWithCredential(credential).addOnCompleteListener { task ->
+            if (task.isSuccessful){
+                println("login with google success")
+                println("${account?.email}//${account?.givenName}//${account?.displayName}//${account?.familyName}")
+                val userData = User(
+                            email = account?.email!!,
+                            username = account.displayName!!,
+                            password = "12345",
+                            phone_number = "",
+                            fullname = account.displayName!!
+                        )
+                userViewModel.registerUser(userData)
+                check(account?.email!!,account?.email!!,"12345")
+            }else{
+                println("login gagal")
+            }
+        }
+    }
+
+    fun firebaseAuthWithFacebook(result: LoginResult?){
+        var credential = FacebookAuthProvider.getCredential(result?.accessToken?.token!!)
+        FirebaseAuth.getInstance().signInWithCredential(credential).addOnCompleteListener{task ->
+            if (task.isSuccessful){
+                var facebookUser = FirebaseAuth.getInstance().currentUser
+                println(facebookUser?.displayName)
+                val userData = User(
+                    email = facebookUser?.email!!,
+                    username = facebookUser.displayName!!,
+                    password = "123456789",
+                    phone_number = "",
+                    fullname = facebookUser.displayName!!
+                )
+                userViewModel.registerUser(userData)
+                check(facebookUser?.email!!,facebookUser?.displayName!!,"123456789")
+            }
+        }
+    }
+
     private fun signIn() {
         val signInIntent = mGoogleSignInClient.signInIntent
         startActivityForResult(signInIntent, RC_SIGN_IN)
     }
+
+//    private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
+//        try {
+//            val account =
+//                completedTask.getResult(ApiException::class.java)
+//
+//            var credential = GoogleAuthProvider.getCredential(account?.idToken, null)
+//            FirebaseAuth.getInstance().signInWithCredential(credential)
+//                .addOnCompleteListener { task ->
+//                    println(task)
+//                    if (task.isSuccessful) {
+//                        var googleUser = FirebaseAuth.getInstance().currentUser
+//                        // Signed in successfully, show authenticated UI.
+//                        println("displayname"+googleUser?.displayName)
+//                        val userData = User(
+//                            email = googleUser?.email!!,
+//                            username = googleUser.displayName!!,
+//                            password = "12345",
+//                            phone_number = "",
+//                            fullname = googleUser.displayName!!
+//                        )
+//                        userViewModel.registerUser(userData)
+//                        check(googleUser.email!!, googleUser.displayName!!, "12345")
+//                    }
+//                }
+//        }catch (e:Error){
+//            throw e
+//        }
+//    }
+
 
     private fun check(email: String, username: String, password: String) {
         userViewModel.userResponse.observe(viewLifecycleOwner,
