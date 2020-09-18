@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AndroidFinalProject</string>
+    <string name="app_name">ParkirYuk!</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="shared_preference_name">com.androidfinalproject.shared.preference</string>
