@@ -127,7 +127,7 @@ class AssetRepository @Inject constructor(val assetAPI: AssetAPI) {
                 val resData = gson.toJson(response?.result)
                 ratingAssetResponse.value =
                     gson.fromJson<ResponseData>(res, ResponseData::class.java)
-                if (response?.status != 400.toString()) {
+                if (response?.result != null) {
                     ratingAsset.value = gson.fromJson<Array<AssetRating>>(
                         resData,
                         Array<AssetRating>::class.java

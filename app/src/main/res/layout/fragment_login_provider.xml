@@ -5,6 +5,7 @@
     android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorWhite"
     tools:context=".screens.provider.LoginProviderFragment">
 
     <ScrollView
@@ -59,6 +60,7 @@
                     android:layout_marginStart="60dp"
                     android:layout_marginTop="25dp"
                     android:layout_marginEnd="60dp"
+                    android:textColor="@color/colorBlack"
                     android:drawableStart="@drawable/ic_baseline_email_24"
                     android:ems="10"
                     android:hint=" Username/Email" />
@@ -70,6 +72,7 @@
                     android:layout_marginStart="60dp"
                     android:layout_marginTop="25dp"
                     android:layout_marginEnd="60dp"
+                    android:textColor="@color/colorBlack"
                     android:drawableStart="@drawable/ic_baseline_vpn_key_24"
                     android:ems="10"
                     android:hint=" Password"

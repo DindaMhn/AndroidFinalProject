@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorWhite"
     tools:context=".screens.user.RatingAssetFragment">
 
 
@@ -47,6 +48,7 @@
             android:layout_marginTop="70dp"
             android:layout_marginEnd="20dp"
             android:ems="10"
+            android:textColor="@color/colorBlack"
             android:gravity="start|top"
             android:hint="Comment.."
             android:inputType="textMultiLine" />

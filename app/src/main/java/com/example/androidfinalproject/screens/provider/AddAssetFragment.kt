@@ -9,6 +9,7 @@ import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.database.Cursor
 import android.graphics.BitmapFactory
+import android.location.Location
 import android.location.LocationManager
 import android.net.Uri
 import android.os.Bundle
@@ -49,7 +50,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 
-class AddAssetFragment : Fragment(), View.OnClickListener,OnMapReadyCallback, GoogleMap.OnMapLongClickListener {
+class AddAssetFragment : Fragment(), View.OnClickListener, OnMapReadyCallback {
     @Inject
     lateinit var providerHomeViewModel: ProviderHomeViewModel
     var sharedPreferences: SharedPreferences? = null
@@ -58,7 +59,8 @@ class AddAssetFragment : Fragment(), View.OnClickListener,OnMapReadyCallback, Go
     val FINE_LOCATION_RQ = 101
     lateinit var currentPhotoPath: String
     lateinit var photoFile: File
-    lateinit var gmap : GoogleMap
+    lateinit var gmap: GoogleMap
+    var deviceLocation: Location? = null
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     lateinit var locationRequest: LocationRequest
 
@@ -68,6 +70,7 @@ class AddAssetFragment : Fragment(), View.OnClickListener,OnMapReadyCallback, Go
         add_asset_map_view.onResume()
         add_asset_map_view.getMapAsync(this)
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         (activity?.applicationContext as MyApplication).applicationComponent.inject(this)
@@ -88,22 +91,9 @@ class AddAssetFragment : Fragment(), View.OnClickListener,OnMapReadyCallback, Go
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         addAssetProsesButton.setOnClickListener(this)
         uploadAssetPhoto.setOnClickListener(this)
-    }
-
-    fun openCamera() {
-        val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        cameraIntent.resolveActivity(this?.requireActivity().packageManager)
-        photoFile = createImageFile()
-        val photoURI =
-            FileProvider.getUriForFile(
-                requireContext(),
-                "com.example.androidfinalproject.fileProvider",
-                photoFile
-            )
-        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
-        startActivityForResult(cameraIntent, OPEN_CAMERA_REQUEST_CODE)
     }
 
     @Throws(IOException::class)
@@ -118,12 +108,6 @@ class AddAssetFragment : Fragment(), View.OnClickListener,OnMapReadyCallback, Go
         ).apply {
             currentPhotoPath = absolutePath
         }
-    }
-
-    fun browseFile() {
-        val selectFileIntent =
-            Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
-        startActivityForResult(selectFileIntent, SELECT_FILE_FORM_STORAGE)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -141,12 +125,13 @@ class AddAssetFragment : Fragment(), View.OnClickListener,OnMapReadyCallback, Go
                 """{"provider_id": "${sharedPreferences?.getString("ID_PROVIDER", "").toString()}",
                         "asset_name":"${assetNameInput.text.toString()}",
                         "asset_area":${assetAreaInput.text.toString()},
-                        "longitude":${longitudeInput.text.toString()},
-                        "latitude":${latitudeInput.text.toString()},
+                        "longitude":${longitudeInput.text},
+                        "latitude":${latitudeInput.text},
                         "car_capacity":${carCapInput.text.toString()},
                         "motorcycle_capacity":${motorCapInput.text.toString()},
                         "bicycle_capacity":${bicycleCapInput.text.toString()}}"""
             )
+
             var token = sharedPreferences?.getString("TOKEN_PROVIDER", "").toString()
             providerHomeViewModel.createAsset(
                 token, imageFileChoosed, result
@@ -154,72 +139,9 @@ class AddAssetFragment : Fragment(), View.OnClickListener,OnMapReadyCallback, Go
             imageUrlAsset.text = Editable.Factory.getInstance().newEditable(getFile?.absolutePath)
             imageAsset.setImageBitmap(imageBitmap)
         }
-//        if (requestCode == OPEN_CAMERA_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-//            val imageBitmap = BitmapFactory.decodeFile(photoFile.absolutePath)
-//
-//            val requestBody = photoFile.asRequestBody("multipart".toMediaTypeOrNull())
-//            val imageFileChoosed =
-//                MultipartBody.Part.createFormData("photo", photoFile.name, requestBody)
-//
-//            val result = MultipartBody.Part.createFormData(
-//                "result",
-//                """{"provider_id": "${sharedPreferences?.getString("ID_PROVIDER", "").toString()}",
-//                        "asset_name":"${assetNameInput.text.toString()}",
-//                        "asset_area":${assetAreaInput.text.toString()},
-//                        "longitude":${longitudeInput.text.toString()},
-//                        "latitude":${latitudeInput.text.toString()},
-//                        "car_capacity":${carCapInput.text.toString()},
-//                        "motorcycle_capacity":${motorCapInput.text.toString()},
-//                        "bicycle_capacity":${bicycleCapInput.text.toString()}}"""
-//            )
-//            providerHomeViewModel.createAsset(
-//                imageFileChoosed, result
-//            )
-//            imageUrlAsset.text = Editable.Factory.getInstance().newEditable(photoFile.absolutePath)
-//            imageAsset.setImageBitmap(imageBitmap)
-//        }
-//        if (requestCode == SELECT_FILE_FORM_STORAGE && resultCode == Activity.RESULT_OK) {
-//            val originalPath = getOriginalPathFromUri(data?.data!!)
-//            val imageFile: File = File(originalPath)
-//            val imageBitmap = BitmapFactory.decodeFile(imageFile.absolutePath)
-//
-//            val requestBody = imageFile.asRequestBody("multipart".toMediaTypeOrNull())
-//            val imageFileChoosed =
-//                MultipartBody.Part.createFormData("photo", imageFile.name, requestBody)
-//
-//            val result = MultipartBody.Part.createFormData(
-//                "result",
-//                """{"provider_id": "${sharedPreferences?.getString("ID_PROVIDER", "").toString()}",
-//                        "asset_name":"${assetNameInput.text.toString()}",
-//                        "asset_area":${assetAreaInput.text.toString()},
-//                        "longitude":${longitudeInput.text.toString()},
-//                        "latitude":${latitudeInput.text.toString()},
-//                        "car_capacity":${carCapInput.text.toString()},
-//                        "motorcycle_capacity":${motorCapInput.text.toString()},
-//                        "bicycle_capacity":${bicycleCapInput.text.toString()}}"""
-//            )
-//            providerHomeViewModel.createAsset(
-//                imageFileChoosed, result
-//            )
-//            imageUrlAsset.text = Editable.Factory.getInstance().newEditable(imageFile.absolutePath)
-//
-//            imageAsset.setImageBitmap(imageBitmap)
-//
-//        }
+
     }
 
-//    fun getOriginalPathFromUri(contentUri: Uri): String? {
-//        var originalPath: String? = null
-//        val projection =
-//            arrayOf(MediaStore.Images.Media.DATA)
-//        val cursor: Cursor? =
-//            activity?.contentResolver?.query(contentUri, projection, null, null, null)
-//        if (cursor?.moveToFirst()!!) {
-//            val columnIndex: Int = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
-//            originalPath = cursor.getString(columnIndex)
-//        }
-//        return originalPath
-//    }
     private fun imagePicker() {
         ImagePicker.with(this)
             .compress(1024)
@@ -229,6 +151,7 @@ class AddAssetFragment : Fragment(), View.OnClickListener,OnMapReadyCallback, Go
             )
             .start(66)
     }
+
     override fun onClick(v: View?) {
         val alertDialog = AlertDialog.Builder(requireContext()).create()
 
@@ -259,16 +182,6 @@ class AddAssetFragment : Fragment(), View.OnClickListener,OnMapReadyCallback, Go
             }
             uploadAssetPhoto -> {
                 imagePicker()
-//                val changeImageDialog = AlertDialog.Builder(requireContext())
-//                changeImageDialog.setTitle(R.string.change_photo_prompt).setItems(
-//                    R.array.change_photo_arrays,
-//                    DialogInterface.OnClickListener { dialog, selectedOption ->
-//                        if (selectedOption == 0) {
-//                            openCamera()
-//                        } else if (selectedOption == 1) {
-//                            browseFile()
-//                        }
-//                    }).show()
             }
         }
     }
@@ -277,16 +190,22 @@ class AddAssetFragment : Fragment(), View.OnClickListener,OnMapReadyCallback, Go
         map?.let {
             gmap = it
             getLastLocation()
+            setMapLongClick(gmap)
         }
     }
 
 
-
-    private fun checkPermission():Boolean{
-        if(
-            ActivityCompat.checkSelfPermission(context as Activity,android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
-            || ActivityCompat.checkSelfPermission(context as Activity, android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
-        ){
+    private fun checkPermission(): Boolean {
+        if (
+            ActivityCompat.checkSelfPermission(
+                context as Activity,
+                android.Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+            || ActivityCompat.checkSelfPermission(
+                context as Activity,
+                android.Manifest.permission.ACCESS_COARSE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
             return true
         }
         return false
@@ -298,21 +217,21 @@ class AddAssetFragment : Fragment(), View.OnClickListener,OnMapReadyCallback, Go
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if(requestCode == FINE_LOCATION_RQ){
-            if(grantResults.isEmpty() && grantResults[0]== PackageManager.PERMISSION_GRANTED){
-                Log.d("Debug","You Have The Permission")
+        if (requestCode == FINE_LOCATION_RQ) {
+            if (grantResults.isEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Log.d("Debug", "You Have The Permission")
             }
         }
     }
 
-    private fun getLastLocation(){
-        if(checkPermission()){
-            if(isLocationEnabled()){
-                fusedLocationClient.lastLocation.addOnCompleteListener{task->
+    private fun getLastLocation() {
+        if (checkPermission()) {
+            if (isLocationEnabled()) {
+                fusedLocationClient.lastLocation.addOnCompleteListener { task ->
                     var deviceLocation = task.result
-                    if(deviceLocation == null){
+                    if (deviceLocation == null) {
                         getNewLocation()
-                    } else{
+                    } else {
                         gmap.isMyLocationEnabled = true
                         fusedLocationClient.lastLocation.addOnSuccessListener { location ->
                             // Got last known location. In some rare situations this can be null.
@@ -320,7 +239,12 @@ class AddAssetFragment : Fragment(), View.OnClickListener,OnMapReadyCallback, Go
                             if (location != null) {
                                 deviceLocation = location
                                 val currentLatLng = LatLng(location.latitude, location.longitude)
-                                gmap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 12f))
+                                gmap.animateCamera(
+                                    CameraUpdateFactory.newLatLngZoom(
+                                        currentLatLng,
+                                        12f
+                                    )
+                                )
 
                                 with(sharedPreferences?.edit()) {
                                     this?.putString(
@@ -337,21 +261,25 @@ class AddAssetFragment : Fragment(), View.OnClickListener,OnMapReadyCallback, Go
                         }
                     }
                 }
-            }else{
-                Toast.makeText(context,"Please Enable Your Location Service", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(context, "Please Enable Your Location Service", Toast.LENGTH_SHORT)
+                    .show()
             }
-        }else{
+        } else {
             requestPermission()
         }
     }
 
-    private fun requestPermission(){
-        ActivityCompat.requestPermissions(activity as Activity, arrayOf(
-            Manifest.permission.ACCESS_FINE_LOCATION,
-            Manifest.permission.ACCESS_COARSE_LOCATION),FINE_LOCATION_RQ)
+    private fun requestPermission() {
+        ActivityCompat.requestPermissions(
+            activity as Activity, arrayOf(
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ), FINE_LOCATION_RQ
+        )
     }
 
-    private fun getNewLocation(){
+    private fun getNewLocation() {
         locationRequest = LocationRequest()
         locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
         locationRequest.interval = 0
@@ -362,30 +290,37 @@ class AddAssetFragment : Fragment(), View.OnClickListener,OnMapReadyCallback, Go
             locationRequest, locationCallback, Looper.myLooper()
         )
     }
-    private val locationCallback = object : LocationCallback(){
+
+    private val locationCallback = object : LocationCallback() {
         override fun onLocationResult(p0: LocationResult) {
             super.onLocationResult(p0)
             var lastLocation = p0.lastLocation
-//            deviceLocation=lastLocation
+            deviceLocation = lastLocation
         }
     }
 
-    private fun isLocationEnabled():Boolean{
-        var locationManager = activity?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+    private fun isLocationEnabled(): Boolean {
+        var locationManager =
+            activity?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
-            LocationManager.NETWORK_PROVIDER)
+            LocationManager.NETWORK_PROVIDER
+        )
     }
 
-//    override fun onMapClick(p0: LatLng?) {
-////        longitudeInput.text.toString() = p0.longitude.toString()
-//
-////        gmap.clear()
-//        gmap.addMarker(MarkerOptions().position(p0!!))
-//        println("latitude"+ p0.latitude.toString())
-//        println("longitude"+ p0.longitude.toString())
-//    }
-
-    override fun onMapLongClick(p0: LatLng?) {
-
+    private fun setMapLongClick(map: GoogleMap) {
+        map.setOnMapLongClickListener { latLng ->
+            map.clear()
+            map.addMarker(
+                MarkerOptions()
+                    .position(latLng)
+            )
+            var longitude = latLng.longitude.toString()
+            var latitude = latLng.latitude.toString()
+            longitudeInput.text = Editable.Factory.getInstance()
+                .newEditable(longitude)
+            latitudeInput.text = Editable.Factory.getInstance()
+                .newEditable(latitude)
+        }
     }
+
 }

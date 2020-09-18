@@ -5,6 +5,7 @@
     android:id="@+id/frameLayout6"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorWhite"
     tools:context=".screens.provider.ProfileProviderFragment">
 
     <ScrollView
@@ -60,21 +61,14 @@
                     android:textStyle="bold"
                     android:drawableStart="@drawable/ic_baseline_photo_camera_24"
                     android:text=" Edit Profile Photo" />
-
-<!--                <com.google.android.material.button.MaterialButton-->
-<!--                    android:id="@+id/deleteProviderPhoto"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_weight="1"-->
-<!--                    android:text="Delete Photo"-->
-<!--                    app:cornerRadius="38dp"-->
-<!--                    android:backgroundTint="@color/colorRed"/>-->
             </LinearLayout>
             </FrameLayout>
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
+                app:hintTextColor="@color/colorBlack"
+                app:boxStrokeColor="@color/colorBlack"
                 app:startIconDrawable="@drawable/ic_baseline_how_to_reg_24"
                 app:boxCornerRadiusTopStart="10dp">
 
@@ -83,6 +77,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
+                android:textColor="@color/colorBlack"
                 android:inputType="textPersonName"
                 android:hint="Full Name"
                 android:backgroundTint="@android:color/transparent"/>
@@ -96,8 +91,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
+                    app:hintTextColor="@color/colorBlack"
+                    app:boxStrokeColor="@color/colorBlack"
                     app:startIconDrawable="@drawable/ic_baseline_date_range_24"
                     android:layout_weight="1"
+                    android:textColor="@color/colorBlack"
                     app:boxCornerRadiusTopStart="10dp">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -106,6 +104,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:ems="10"
+                    android:textColor="@color/colorBlack"
                     android:inputType="textPersonName"
                     android:hint="Born Date"
                     android:backgroundTint="@android:color/transparent"/>
@@ -115,6 +114,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="5"
+                    android:textColor="@color/colorBlack"
                     android:clickable="true"
                     android:drawableStart="@drawable/ic_baseline_calendar_today_24" />
             </LinearLayout>
@@ -123,6 +123,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
+                app:hintTextColor="@color/colorBlack"
+                app:boxStrokeColor="@color/colorBlack"
+                android:textColor="@color/colorBlack"
                 app:startIconDrawable="@drawable/ic_baseline_local_phone_24"
                 app:boxCornerRadiusTopStart="10dp">
 
@@ -132,6 +135,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:ems="10"
+                android:textColor="@color/colorBlack"
                 android:inputType="textPersonName"
                 android:hint="Phone Number"
                 android:backgroundTint="@android:color/transparent"/>
@@ -140,6 +144,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
+                app:hintTextColor="@color/colorBlack"
+                app:boxStrokeColor="@color/colorBlack"
+                android:textColor="@color/colorBlack"
                 app:startIconDrawable="@drawable/ic_baseline_house_24"
                 app:boxCornerRadiusTopStart="10dp">
 
@@ -149,6 +156,7 @@
                 android:layout_height="100dp"
                 android:layout_marginTop="10dp"
                 android:ems="10"
+                android:textColor="@color/colorBlack"
                 android:inputType="textPersonName"
                 android:hint="Address"
                 android:backgroundTint="@android:color/transparent"/>
