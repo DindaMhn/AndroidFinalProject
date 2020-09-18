@@ -21,6 +21,7 @@ import com.example.androidfinalproject.user.account.UserViewModel
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
 import com.facebook.FacebookException
+import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
 import com.facebook.login.widget.LoginButton
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -34,6 +35,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import kotlinx.android.synthetic.main.fragment_login_user.*
+import java.util.*
 import javax.inject.Inject
 
 
@@ -162,28 +164,7 @@ class LoginUserFragment : Fragment(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v) {
             login_button ->{
-                login_button.setReadPermissions("email")
-                // If using in a fragment
-                // If using in a fragment
-                login_button.setFragment(this)
-
-                // Callback registration
-
-                // Callback registration
-                login_button.registerCallback(callbackManager, object :
-                    FacebookCallback<LoginResult?> {
-                    override fun onSuccess(loginResult: LoginResult?) {
-                        firebaseAuthWithFacebook(loginResult)
-                    }
-
-                    override fun onCancel() {
-                        // App code
-                    }
-
-                    override fun onError(exception: FacebookException?) {
-                        // App code
-                    }
-                })
+                loginFacebook()
             }
             backtoMainUserText -> {
                 startActivity(Intent(this.context, MainActivity::class.java))
@@ -231,21 +212,39 @@ class LoginUserFragment : Fragment(), View.OnClickListener {
         }
     }
 
+    fun loginFacebook(){
+        LoginManager.getInstance().logInWithReadPermissions(activity as Activity, Arrays.asList("public_profile","email"))
+        LoginManager.getInstance().registerCallback(callbackManager,object : FacebookCallback<LoginResult>{
+            override fun onSuccess(result: LoginResult?) {
+                firebaseAuthWithFacebook(result)
+            }
+
+            override fun onCancel() {
+                TODO("Not yet implemented")
+            }
+
+            override fun onError(error: FacebookException?) {
+                TODO("Not yet implemented")
+            }
+
+        })
+    }
+
     fun firebaseAuthWithFacebook(result: LoginResult?){
         var credential = FacebookAuthProvider.getCredential(result?.accessToken?.token!!)
         FirebaseAuth.getInstance().signInWithCredential(credential).addOnCompleteListener{task ->
             if (task.isSuccessful){
                 var facebookUser = FirebaseAuth.getInstance().currentUser
-                println(facebookUser?.displayName)
-                val userData = User(
-                    email = facebookUser?.email!!,
-                    username = facebookUser.displayName!!,
-                    password = "123456789",
-                    phone_number = "",
-                    fullname = facebookUser.displayName!!
-                )
-                userViewModel.registerUser(userData)
-                check(facebookUser?.email!!,facebookUser?.displayName!!,"123456789")
+                println("${facebookUser?.displayName}//${facebookUser?.email!!}//${facebookUser?.phoneNumber}")
+//                val userData = User(
+//                    email = facebookUser?.email!!,
+//                    username = facebookUser.displayName!!,
+//                    password = "123456789",
+//                    phone_number = "",
+//                    fullname = facebookUser.displayName!!
+//                )
+//                userViewModel.registerUser(userData)
+//                check(facebookUser?.email!!,facebookUser?.displayName!!,"123456789")
             }
         }
     }
