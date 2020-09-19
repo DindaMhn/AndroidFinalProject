@@ -76,7 +76,6 @@ class LoginUserFragment : Fragment(), View.OnClickListener {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == RC_SIGN_IN) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
-//            handleSignInResult(task)
             var account = task.getResult(ApiException::class.java)
             firebaseAuthWithGoogle(account)
         }
@@ -158,14 +157,14 @@ class LoginUserFragment : Fragment(), View.OnClickListener {
         backtoMainUserText.setOnClickListener(this)
         loginUserButton.setOnClickListener(this)
         sign_in_button.setOnClickListener(this)
-        login_button.setOnClickListener(this)
+//        login_button.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
         when (v) {
-            login_button ->{
-                loginFacebook()
-            }
+//            login_button ->{
+//                loginFacebook()
+//            }
             backtoMainUserText -> {
                 startActivity(Intent(this.context, MainActivity::class.java))
             }
@@ -199,7 +198,7 @@ class LoginUserFragment : Fragment(), View.OnClickListener {
                 println("${account?.email}//${account?.givenName}//${account?.displayName}//${account?.familyName}")
                 val userData = User(
                             email = account?.email!!,
-                            username = account.displayName!!,
+                            username = account.email!!,
                             password = "12345",
                             phone_number = "",
                             fullname = account.displayName!!
@@ -233,18 +232,9 @@ class LoginUserFragment : Fragment(), View.OnClickListener {
     fun firebaseAuthWithFacebook(result: LoginResult?){
         var credential = FacebookAuthProvider.getCredential(result?.accessToken?.token!!)
         FirebaseAuth.getInstance().signInWithCredential(credential).addOnCompleteListener{task ->
-            if (task.isSuccessful){
+            if (task.isSuccessful) {
                 var facebookUser = FirebaseAuth.getInstance().currentUser
                 println("${facebookUser?.displayName}//${facebookUser?.email!!}//${facebookUser?.phoneNumber}")
-//                val userData = User(
-//                    email = facebookUser?.email!!,
-//                    username = facebookUser.displayName!!,
-//                    password = "123456789",
-//                    phone_number = "",
-//                    fullname = facebookUser.displayName!!
-//                )
-//                userViewModel.registerUser(userData)
-//                check(facebookUser?.email!!,facebookUser?.displayName!!,"123456789")
             }
         }
     }
@@ -253,37 +243,6 @@ class LoginUserFragment : Fragment(), View.OnClickListener {
         val signInIntent = mGoogleSignInClient.signInIntent
         startActivityForResult(signInIntent, RC_SIGN_IN)
     }
-
-//    private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
-//        try {
-//            val account =
-//                completedTask.getResult(ApiException::class.java)
-//
-//            var credential = GoogleAuthProvider.getCredential(account?.idToken, null)
-//            FirebaseAuth.getInstance().signInWithCredential(credential)
-//                .addOnCompleteListener { task ->
-//                    println(task)
-//                    if (task.isSuccessful) {
-//                        var googleUser = FirebaseAuth.getInstance().currentUser
-//                        // Signed in successfully, show authenticated UI.
-//                        println("displayname"+googleUser?.displayName)
-//                        val userData = User(
-//                            email = googleUser?.email!!,
-//                            username = googleUser.displayName!!,
-//                            password = "12345",
-//                            phone_number = "",
-//                            fullname = googleUser.displayName!!
-//                        )
-//                        userViewModel.registerUser(userData)
-//                        check(googleUser.email!!, googleUser.displayName!!, "12345")
-//                    }
-//                }
-//        }catch (e:Error){
-//            throw e
-//        }
-//    }
-
-
     private fun check(email: String, username: String, password: String) {
         userViewModel.userResponse.observe(viewLifecycleOwner,
             Observer {
